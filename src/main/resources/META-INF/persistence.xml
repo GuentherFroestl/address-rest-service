@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="address-pu">
+    <class>de.gammadata.microservices.addressrs.addresses.entity.City</class>
+    <class>de.gammadata.microservices.addressrs.addresses.entity.ZipCode</class>
+    <class>de.gammadata.microservices.addressrs.addresses.entity.Country</class>
+    <class>de.gammadata.microservices.addressrs.addresses.entity.Address</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.9.165:5432/testdb"/>
+      <property name="javax.persistence.jdbc.user" value="psqluser"/>
+      <property name="javax.persistence.jdbc.password" value="psqluser"/>
+      <!-- EclipseLink should create the database schema automatically -->
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+      <property name="javax.persistence.schema-generation.scripts.create-target" value="create_ddl.sql"/>
+    </properties>
+  </persistence-unit>
+</persistence>
