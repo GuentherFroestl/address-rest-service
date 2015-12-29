@@ -1,6 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -52,6 +53,42 @@ public class Country extends BaseEntity {
 
   public void setIso3CountryCode(String iso3CountryCode) {
     this.iso3CountryCode = iso3CountryCode;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = super.hashCode();
+    hash = 61 * hash + Objects.hashCode(this.isoNumber);
+    hash = 61 * hash + Objects.hashCode(this.iso2CountryCode);
+    hash = 61 * hash + Objects.hashCode(this.iso3CountryCode);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    if (!super.equals(obj)) {
+      return false;
+    }
+    final Country other = (Country) obj;
+    if (!Objects.equals(this.iso2CountryCode, other.iso2CountryCode)) {
+      return false;
+    }
+    if (!Objects.equals(this.iso3CountryCode, other.iso3CountryCode)) {
+      return false;
+    }
+    if (!Objects.equals(this.isoNumber, other.isoNumber)) {
+      return false;
+    }
+    return true;
   }
 
   @Override

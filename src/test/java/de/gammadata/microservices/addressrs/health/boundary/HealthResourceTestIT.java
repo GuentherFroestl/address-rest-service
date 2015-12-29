@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.health.boundary;
 
-import de.gammadata.microservices.addressrs.AbstractResourceTestIT;
+import de.gammadata.microservices.addressrs.addresses.boundary.AbstractResourceTestIT;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
@@ -21,6 +22,8 @@ public class BaseEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   protected Long id;
+  @Version
+  protected Integer version;
   @Column
   protected String name;
   @Column
@@ -38,8 +41,6 @@ public class BaseEntity implements Serializable {
 
   public BaseEntity() {
   }
-  
-  
 
   public Long getId() {
     return id;
@@ -47,6 +48,14 @@ public class BaseEntity implements Serializable {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Integer getVersion() {
+    return version;
+  }
+
+  public void setVersion(Integer version) {
+    this.version = version;
   }
 
   public String getName() {
@@ -75,11 +84,12 @@ public class BaseEntity implements Serializable {
 
   @Override
   public int hashCode() {
-    int hash = 7;
-    hash = 89 * hash + Objects.hashCode(this.id);
-    hash = 89 * hash + Objects.hashCode(this.name);
-    hash = 89 * hash + Objects.hashCode(this.validFrom);
-    hash = 89 * hash + Objects.hashCode(this.validUntil);
+    int hash = 3;
+    hash = 41 * hash + Objects.hashCode(this.id);
+    hash = 41 * hash + Objects.hashCode(this.version);
+    hash = 41 * hash + Objects.hashCode(this.name);
+    hash = 41 * hash + Objects.hashCode(this.validFrom);
+    hash = 41 * hash + Objects.hashCode(this.validUntil);
     return hash;
   }
 
@@ -101,19 +111,40 @@ public class BaseEntity implements Serializable {
     if (!Objects.equals(this.id, other.id)) {
       return false;
     }
-    if (!Objects.equals(this.validFrom, other.validFrom)) {
+    if (!Objects.equals(this.version, other.version)) {
       return false;
     }
-    if (!Objects.equals(this.validUntil, other.validUntil)) {
+    if (!compareDates(this.validFrom, other.validFrom)) {
+      return false;
+    }
+    if (!compareDates(this.validUntil, other.validUntil)) {
       return false;
     }
     return true;
   }
 
-  
-  
+  /**
+   * due to a bug in jpa date are just precise as of second level. ms are random. So compare it with the date strings.
+   *
+   * @param obj Date
+   * @param other Date
+   * @return true if equal
+   */
+  private boolean compareDates(Date obj, Date other) {
+    if (obj == null && other == null) {
+      return true;
+    }
+    if (obj == null || other == null) {
+      return false;
+    }
+    if (obj.toString().compareTo(other.toString()) != 0) {
+      return false;
+    }
+    return true;
+  }
+
   @Override
   public String toString() {
-    return "BaseEntity{" + "id=" + id + ", name=" + name + ", validFrom=" + validFrom + ", validUntil=" + validUntil + '}';
+    return "BaseEntity{" + "id=" + id + ", version=" + version + ", name=" + name + ", validFrom=" + validFrom + ", validUntil=" + validUntil + '}';
   }
 }
