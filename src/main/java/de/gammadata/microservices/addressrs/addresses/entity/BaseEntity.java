@@ -117,10 +117,7 @@ public class BaseEntity implements Serializable {
     if (!compareDates(this.validFrom, other.validFrom)) {
       return false;
     }
-    if (!compareDates(this.validUntil, other.validUntil)) {
-      return false;
-    }
-    return true;
+    return compareDates(this.validUntil, other.validUntil);
   }
 
   /**
@@ -137,10 +134,8 @@ public class BaseEntity implements Serializable {
     if (obj == null || other == null) {
       return false;
     }
-    if (obj.toString().compareTo(other.toString()) != 0) {
-      return false;
-    }
-    return true;
+
+    return obj.toString().compareTo(other.toString()) == 0;
   }
 
   @Override

@@ -23,23 +23,23 @@ public abstract class AbstractCrudController<T extends BaseEntity> {
 
   }
 
-  public List<T> findAll() {
+  public List<T> getAllEntities() {
     List<T> res = em.createQuery("Select t from " + this.getEntityClass().getSimpleName() + " t").getResultList();
     return res;
   }
 
-  public T get(Long id) {
+  public T getEntity(Long id) {
     T res = em.find(this.getEntityClass(), id);
     return res;
   }
 
-  public T saveOrUpdate(T pAdr) {
+  public T saveOrUpdateEntity(T pAdr) {
     T res = em.merge(pAdr);
     return res;
   }
 
-  public void delete(Long id) {
-    T entity = get(id);
+  public void deleteEntity(Long id) {
+    T entity = getEntity(id);
     if (entity == null) {
       throw new AddressServiceException(AddressServiceException.Error.DATABASE, "No Entity found for deletion with id=" + id);
     }

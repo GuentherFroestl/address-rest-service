@@ -25,7 +25,7 @@ public abstract class AbstractCrudResource<T extends BaseEntity> {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public List<T> getAllEntities() {
-    List<T> result = getCrudController().findAll();
+    List<T> result = getCrudController().getAllEntities();
     return result;
   }
 
@@ -34,7 +34,7 @@ public abstract class AbstractCrudResource<T extends BaseEntity> {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public T getEntity(@PathParam("id") Long id) {
-    T result = getCrudController().get(id);
+    T result = getCrudController().getEntity(id);
     return result;
   }
 
@@ -42,7 +42,7 @@ public abstract class AbstractCrudResource<T extends BaseEntity> {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public T saveOrUpdateEntity(T pIn) {
-    T updated = getCrudController().saveOrUpdate(pIn);
+    T updated = getCrudController().saveOrUpdateEntity(pIn);
     T result = getEntity(updated.getId());
     return result;
   }
@@ -51,6 +51,6 @@ public abstract class AbstractCrudResource<T extends BaseEntity> {
   @Path("/{id}")
   @Consumes(MediaType.APPLICATION_JSON)
   public void deleteEntity(@PathParam("id") Long id) {
-    getCrudController().delete(id);
+    getCrudController().deleteEntity(id);
   }
 }

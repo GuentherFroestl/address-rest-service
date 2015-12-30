@@ -1,10 +1,10 @@
-package de.gammadata.microservices.addressrs.addresses.control;
+package de.gammadata.microservices.addressrs.addresses.boundary;
 
-import de.gammadata.microservices.addressrs.addresses.boundary.CountriesResource;
+import de.gammadata.microservices.addressrs.addresses.control.*;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.equalTo;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,18 +27,18 @@ import static org.hamcrest.CoreMatchers.is;
  */
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CountryCrudControllerArquillianIT {
+public class CountryCrudResourceArquillianIT {
 
   private Long testDate;
   private Long entityId;
   private Country entityCreated;
   private Country entitySaved;
 
-  public CountryCrudControllerArquillianIT() {
+  public CountryCrudResourceArquillianIT() {
   }
 
-  @EJB
-  CountryCrudController instance;
+  @Inject
+  CountriesResource instance;
 
   @Deployment
   public static JavaArchive createDeployment() {
