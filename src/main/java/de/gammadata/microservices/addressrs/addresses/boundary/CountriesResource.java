@@ -18,7 +18,7 @@ public class CountriesResource extends AbstractCrudResource<Country> {
   CountryCrudController countryController;
 
   @Override
-  AbstractCrudController<Country> getCrudController() {
+  public AbstractCrudController<Country> getCrudController() {
     return countryController;
   }
 

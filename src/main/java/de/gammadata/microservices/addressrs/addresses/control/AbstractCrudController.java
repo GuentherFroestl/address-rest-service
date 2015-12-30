@@ -15,6 +15,10 @@ public abstract class AbstractCrudController<T extends BaseEntity> {
 
   @PersistenceContext(name = "address-pu")
   EntityManager em;
+  
+  protected EntityManager getEm(){
+    return em;
+  }
 
   public abstract Class<T> getEntityClass();
 
@@ -24,17 +28,17 @@ public abstract class AbstractCrudController<T extends BaseEntity> {
   }
 
   public List<T> getAllEntities() {
-    List<T> res = em.createQuery("Select t from " + this.getEntityClass().getSimpleName() + " t").getResultList();
+    List<T> res = getEm().createQuery("Select t from " + this.getEntityClass().getSimpleName() + " t").getResultList();
     return res;
   }
 
   public T getEntity(Long id) {
-    T res = em.find(this.getEntityClass(), id);
+    T res = getEm().find(this.getEntityClass(), id);
     return res;
   }
 
   public T saveOrUpdateEntity(T pAdr) {
-    T res = em.merge(pAdr);
+    T res = getEm().merge(pAdr);
     return res;
   }
 
@@ -43,7 +47,7 @@ public abstract class AbstractCrudController<T extends BaseEntity> {
     if (entity == null) {
       throw new AddressServiceException(AddressServiceException.Error.DATABASE, "No Entity found for deletion with id=" + id);
     }
-    em.remove(entity);
+    getEm().remove(entity);
   }
 
 }

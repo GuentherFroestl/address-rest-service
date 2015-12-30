@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
  *
  * @author gfr
  */
-public class AbstractEntityManagerBasedTest {
+public class AbstractEntityJpaTest {
 
   protected static EntityManagerFactory emFactory;
   protected static EntityManager em;
@@ -26,13 +26,9 @@ public class AbstractEntityManagerBasedTest {
 
   @AfterClass
   public static void tearDownClass() {
-//    if (em != null) {
-//      em.close();
-//      emFactory.close();
-//    }
   }
 
-  public AbstractEntityManagerBasedTest() {
+  public AbstractEntityJpaTest() {
   }
 
 }

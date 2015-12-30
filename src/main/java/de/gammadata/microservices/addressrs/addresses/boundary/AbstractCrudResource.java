@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
  */
 public abstract class AbstractCrudResource<T extends BaseEntity> {
 
-  abstract AbstractCrudController<T> getCrudController();
+  abstract public AbstractCrudController<T> getCrudController();
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

@@ -18,7 +18,7 @@ public class AddressResource extends AbstractCrudResource<Address>{
   AddressCrudController adrController;
 
   @Override
-  AbstractCrudController<Address> getCrudController() {
+  public AbstractCrudController<Address> getCrudController() {
     return adrController;
   }
 }

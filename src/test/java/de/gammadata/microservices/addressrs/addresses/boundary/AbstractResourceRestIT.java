@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
  *
  * @author gfr
  */
-public class AbstractResourceTestIT {
+public class AbstractResourceRestIT {
 
   protected static Client client;
   public static String BASE_URL = "http://localhost:8080/address-rs/api/";

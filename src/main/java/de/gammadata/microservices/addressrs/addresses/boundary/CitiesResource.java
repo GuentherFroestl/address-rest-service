@@ -18,7 +18,7 @@ public class CitiesResource  extends AbstractCrudResource<City>{
   CityCrudController cityController;
 
   @Override
-  AbstractCrudController<City> getCrudController() {
+  public AbstractCrudController<City> getCrudController() {
     return cityController;
   }
 

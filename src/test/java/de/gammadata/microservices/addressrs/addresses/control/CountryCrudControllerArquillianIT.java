@@ -134,15 +134,6 @@ public class CountryCrudControllerArquillianIT {
     assertTrue("result list empty", delResult.isEmpty());
   }
 
-  /**
-   * Test of getEntityClass method, of class CountryCrudController.
-   */
-//  @Test
-//  public void test5_GetEntityClass() {
-//    System.out.println("getEntityClass");
-//    assertThat(Country.class, is(equalTo(instance.getEntityClass())));
-//
-//  }
   protected Country createCountry(long testDate) {
     Country pCountry = new Country();
     pCountry.setIso2CountryCode("DE");

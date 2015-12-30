@@ -15,9 +15,9 @@ import org.junit.Test;
  *
  * @author gfr
  */
-public class PersistenceUntitTest extends AbstractEntityManagerBasedTest {
+public class EntityJpaTest extends AbstractEntityJpaTest {
 
-  public PersistenceUntitTest() {
+  public EntityJpaTest() {
   }
 
   @Before

@@ -18,7 +18,7 @@ public class ZipCodeResource extends AbstractCrudResource<ZipCode> {
   ZipCodeCrudController zipCodeController;
 
   @Override
-  AbstractCrudController<ZipCode> getCrudController() {
+  public AbstractCrudController<ZipCode> getCrudController() {
     return zipCodeController;
   }
 

@@ -2,6 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.*;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import de.gammadata.microservices.addressrs.health.boundary.HealthResource;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
@@ -45,6 +46,7 @@ public class CountryCrudResourceArquillianIT {
     JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
             .addPackage(CountryCrudController.class.getPackage())
             .addPackage(CountriesResource.class.getPackage())
+            .addPackage(HealthResource.class.getPackage())
             .addAsResource("persistence-arquillian.xml", "META-INF/persistence.xml")
             .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     System.out.println(jar.toString(true));
@@ -63,6 +65,7 @@ public class CountryCrudResourceArquillianIT {
   @Before
   public void setUp() {
     assertNotNull("CountryCrudController not injected", instance);
+
     testDate = new Date().getTime();
     entityCreated = createCountry(testDate);
     entitySaved = instance.saveOrUpdateEntity(entityCreated);
@@ -92,9 +95,10 @@ public class CountryCrudResourceArquillianIT {
    */
   @Test
   public void test2_Get() {
+    CountriesResource testee = instance;
     System.out.println("get");
     assertNotNull("no id generated", entityId);
-    Country result = instance.getEntity(entityId);
+    Country result = testee.getEntity(entityId);
     assertThat(result, is(equalTo(entitySaved)));
   }
 
