@@ -2,7 +2,6 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.addresses.boundary.CountriesResource;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import java.util.Date;
 import javax.persistence.EntityTransaction;
 import org.junit.After;
 import org.junit.Assert;
@@ -22,10 +21,12 @@ public class CountryCrudControllerJpaTest extends AbstractEntityJpaTest {
 
   private CountryCrudController testee = spy(new CountryCrudController());
   private CountriesResource  resourceTestee = spy (new CountriesResource());
+  private BaseEntityListener entityListener = spy (new BaseEntityListener());
 
   @Before
   public void setUp() {
     when(testee.getEm()).thenReturn(em);
+    when(entityListener.getEm()).thenReturn(em);
     when(resourceTestee.getCrudController()).thenReturn(testee);
 
   }
@@ -40,13 +41,7 @@ public class CountryCrudControllerJpaTest extends AbstractEntityJpaTest {
   @Test
   public void testSaveOrUpdateEntity() {
     System.out.println("saveOrUpdateEntity");
-    Country country = new Country();
-    country.setName("country");
-    country.setIso2CountryCode("DE");
-    country.setIso3CountryCode("DEU");
-    country.setIsoNumber(123);
-    country.setValidFrom(new Date());
-    country.setValidUntil(new Date());
+    Country country = TestEntityProvider.createCountry();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     Country result = testee.saveOrUpdateEntity(country);
@@ -72,7 +67,7 @@ public class CountryCrudControllerJpaTest extends AbstractEntityJpaTest {
   /**
    * Test of getAllEntities method, of class CountryCrudController.
    */
-  public void testGetAllEntities() throws Exception {
+  public void testGetAllEntities(){
     System.out.println("getAllEntities");
 
   }
@@ -80,7 +75,7 @@ public class CountryCrudControllerJpaTest extends AbstractEntityJpaTest {
   /**
    * Test of getEntity method, of class CountryCrudController.
    */
-  public void testGetEntity() throws Exception {
+  public void testGetEntity(){
     System.out.println("getEntity");
 
   }
@@ -88,7 +83,7 @@ public class CountryCrudControllerJpaTest extends AbstractEntityJpaTest {
   /**
    * Test of deleteEntity method, of class CountryCrudController.
    */
-  public void testDeleteEntity() throws Exception {
+  public void testDeleteEntity(){
     System.out.println("deleteEntity");
 
   }
@@ -96,7 +91,7 @@ public class CountryCrudControllerJpaTest extends AbstractEntityJpaTest {
   /**
    * Test of getEntityClass method, of class CountryCrudController.
    */
-  public void testGetEntityClass() throws Exception {
+  public void testGetEntityClass(){
     System.out.println("getEntityClass");
 
   }

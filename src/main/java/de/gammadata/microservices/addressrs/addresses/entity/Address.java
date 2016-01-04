@@ -1,24 +1,52 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
+import de.gammadata.microservices.addressrs.addresses.control.BaseEntityListener;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author gfr
  */
 @Entity
+@Table(indexes = {
+  @Index(name = "ADR_NAME_IDX", columnList = "NAME"),
+  @Index(name = "ADR_ADD_NAME_IDX", columnList = "ADDITIONAL_NAME")})
+@EntityListeners({BaseEntityListener.class})
+@NamedQueries({
+  @NamedQuery(name = Address.SIMPLE_SEARCH_QUERY_NAME,
+          query = "select e from Address e"
+          + Address.WHERE_CLAUSE
+  ),
+  @NamedQuery(name = Address.SIMPLE_COUNT_QUERY_NAME,
+          query = "select count(e) from Address e"
+          + Address.WHERE_CLAUSE
+  )})
 public class Address extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
-  @Column
+  @Column(name = "ADDITIONAL_NAME")
   private String additionalName;
   @Column
   private String number;
 
+  public static final String SIMPLE_SEARCH_QUERY_NAME = "Address_simpleSearchQuery";
+  public static final String SIMPLE_COUNT_QUERY_NAME = "Address_simpleSearchCount";
+
+  public static final String WHERE_CLAUSE = " where "
+          + "LOWER(e.name) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.additionalName) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.city.name) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER;
+  ;
+  
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private ZipCode zipCode;
 

@@ -19,24 +19,21 @@ import javax.persistence.Version;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
+  public static final String SIMPLE_SEARCH_QUERY_PARAMETER = "parameter";
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   protected Long id;
   @Version
   protected Integer version;
-  @Column
+  @Column(name="NAME")
   protected String name;
   @Column
-  @Temporal(TemporalType.DATE)
-  protected Date validFrom;
-  @Column
-  @Temporal(TemporalType.DATE)
-  protected Date validUntil;
+  @Temporal(TemporalType.TIMESTAMP)
+  protected Date modified;
 
-  public BaseEntity(String name, Date validFrom, Date validUntil) {
+  public BaseEntity(String name) {
     this.name = name;
-    this.validFrom = validFrom;
-    this.validUntil = validUntil;
   }
 
   public BaseEntity() {
@@ -66,20 +63,12 @@ public class BaseEntity implements Serializable {
     this.name = name;
   }
 
-  public Date getValidFrom() {
-    return validFrom;
+  public Date getModified() {
+    return modified;
   }
 
-  public void setValidFrom(Date validFrom) {
-    this.validFrom = validFrom;
-  }
-
-  public Date getValidUntil() {
-    return validUntil;
-  }
-
-  public void setValidUntil(Date validUntil) {
-    this.validUntil = validUntil;
+  public void setModified(Date modified) {
+    this.modified = modified;
   }
 
   @Override
@@ -88,8 +77,7 @@ public class BaseEntity implements Serializable {
     hash = 41 * hash + Objects.hashCode(this.id);
     hash = 41 * hash + Objects.hashCode(this.version);
     hash = 41 * hash + Objects.hashCode(this.name);
-    hash = 41 * hash + Objects.hashCode(this.validFrom);
-    hash = 41 * hash + Objects.hashCode(this.validUntil);
+    hash = 41 * hash + Objects.hashCode(this.modified);
     return hash;
   }
 
@@ -114,10 +102,7 @@ public class BaseEntity implements Serializable {
     if (!Objects.equals(this.version, other.version)) {
       return false;
     }
-    if (!compareDates(this.validFrom, other.validFrom)) {
-      return false;
-    }
-    return compareDates(this.validUntil, other.validUntil);
+    return compareDates(this.modified, other.modified);
   }
 
   /**
@@ -140,6 +125,6 @@ public class BaseEntity implements Serializable {
 
   @Override
   public String toString() {
-    return "BaseEntity{" + "id=" + id + ", version=" + version + ", name=" + name + ", validFrom=" + validFrom + ", validUntil=" + validUntil + '}';
+    return "BaseEntity{" + "id=" + id + ", version=" + version + ", name=" + name + ", modified=" + modified + '}';
   }
 }

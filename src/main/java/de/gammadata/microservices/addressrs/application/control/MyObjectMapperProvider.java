@@ -1,14 +1,13 @@
 package de.gammadata.microservices.addressrs.application.control;
 
 import com.fasterxml.jackson.core.JsonGenerator.Feature;
-import javax.ws.rs.ext.ContextResolver;
-import javax.ws.rs.ext.Provider;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.util.Date;
+import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.Provider;
 
 /**
  * Create custom ObjectMapper wit Jackson Featurs and some custom serializers.

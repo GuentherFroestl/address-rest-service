@@ -4,8 +4,8 @@ import de.gammadata.microservices.addressrs.addresses.boundary.AbstractResourceR
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *

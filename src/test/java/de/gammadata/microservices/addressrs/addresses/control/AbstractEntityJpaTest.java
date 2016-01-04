@@ -31,4 +31,5 @@ public class AbstractEntityJpaTest {
   public AbstractEntityJpaTest() {
   }
 
+
 }

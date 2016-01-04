@@ -1,18 +1,54 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
+import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
+import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import javax.ejb.Stateless;
 
 /**
  * CRUD Controller for Cities.
+ *
  * @author gfr
  */
 @Stateless
-public class CityCrudController extends AbstractCrudController<City>{
+public class CityCrudController extends AbstractCrudController<City, BaseQuerySpecification> {
 
   @Override
   public Class<City> getEntityClass() {
     return City.class;
   }
-  
+
+  @Override
+  public City saveOrUpdateEntity(City pCity) {
+    relateEntities(pCity);
+    return super.saveOrUpdateEntity(pCity); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  private void relateEntities(City pCity) {
+    if (pCity != null && pCity.getCountry() != null
+            && pCity.getCountry().getId() != null && pCity.getCountry().getId() > 0
+            && getEm() != null) {
+
+      Country c = getEm().find(Country.class, pCity.getCountry().getId());
+      if (c != null) {
+        pCity.setCountry(c);
+      } else {
+        throw new AddressServiceException(AddressServiceException.Error.VALIDATION,
+                "referenced Country with id=" + pCity.getCountry().getId() + " not found");
+      }
+
+    }
+  }
+
+  @Override
+  public String getSimpleSearchQueryName() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public String getSimpleSearchCountName() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
 }

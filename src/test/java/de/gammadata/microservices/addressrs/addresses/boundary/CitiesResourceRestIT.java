@@ -1,21 +1,17 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.entity.City;
-import java.util.Date;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -159,8 +155,6 @@ public class CitiesResourceRestIT extends AbstractResourceRestIT {
   private City createCity() {
     City result = new City();
     result.setName("city name");
-    result.setValidFrom(new Date());
-    result.setValidUntil(new Date());
     return result;
   }
 }

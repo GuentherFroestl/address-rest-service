@@ -1,21 +1,17 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import java.util.Date;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -162,8 +158,6 @@ public class CountriesResourceRestIT extends AbstractResourceRestIT {
     result.setIso2CountryCode("DE");
     result.setIso3CountryCode("DEU");
     result.setIsoNumber(123);
-    result.setValidFrom(new Date());
-    result.setValidUntil(new Date());
     return result;
   }
 }
