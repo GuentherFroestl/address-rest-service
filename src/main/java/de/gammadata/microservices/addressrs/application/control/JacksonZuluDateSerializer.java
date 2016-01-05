@@ -23,6 +23,10 @@ public class JacksonZuluDateSerializer extends JsonSerializer<Date> {
     zuluDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     return zuluDateFormat;
   }
+  
+  public static String serialize(Date date){
+    return getDateFormat().format(date);
+  }
 
   @Override
   public void serialize(Date date, JsonGenerator jg, SerializerProvider sp)

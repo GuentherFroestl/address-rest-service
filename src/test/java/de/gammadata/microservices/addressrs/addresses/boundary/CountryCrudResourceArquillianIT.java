@@ -2,16 +2,13 @@ package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.*;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import de.gammadata.microservices.addressrs.health.boundary.HealthResource;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -21,6 +18,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -35,24 +33,26 @@ public class CountryCrudResourceArquillianIT {
   private Country entityCreated;
   private Country entitySaved;
 
-  public CountryCrudResourceArquillianIT() {
-  }
+  @EJB
+  AddressCrudController adrController;
+  @EJB
+  CountryCrudController countryController;
+  @EJB
+  ZipCodeCrudController zipCodeController;
+  @EJB
+  CityCrudController cityController;
 
   @Inject
   CountriesResource instance;
 
-  @Deployment
-  public static JavaArchive createDeployment() {
-    JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
-            .addPackage(CountryCrudController.class.getPackage())
-            .addPackage(CountriesResource.class.getPackage())
-            .addPackage(HealthResource.class.getPackage())
-            .addAsResource("persistence-arquillian.xml", "META-INF/persistence.xml")
-            .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-    System.out.println(jar.toString(true));
-    return jar;
+  public CountryCrudResourceArquillianIT() {
   }
 
+// Deployment will be doene with the suite deployment plugin
+//  @Deployment
+//  public static WebArchive createDeployment() {
+//    return DeploymentLoaderArquillianIT.createDeployment();
+//  }
   @BeforeClass
   public static void setUpClass() {
 
@@ -65,7 +65,8 @@ public class CountryCrudResourceArquillianIT {
   @Before
   public void setUp() {
     assertNotNull("CountryCrudController not injected", instance);
-
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    
     testDate = new Date().getTime();
     entityCreated = TestEntityProvider.createCountry(testDate);
     entitySaved = instance.saveOrUpdateEntity(entityCreated);
@@ -79,6 +80,7 @@ public class CountryCrudResourceArquillianIT {
 
   @After
   public void tearDown() {
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
   }
 
   /**

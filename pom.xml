@@ -225,6 +225,10 @@
       <artifactId>junit</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
     </dependency>   
@@ -269,18 +273,14 @@
       <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--
+    <!--  Suite Deployment for Arquillian Tests -->
     <dependency>
       <groupId>org.eu.ingwar.tools</groupId>
       <artifactId>arquillian-suite-extension</artifactId>
     </dependency>
-    -->
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-    </dependency>
   </dependencies>
 
+  <!-- run arquillian tests within the normal build -->
   <profiles>
     <profile>
       <id>arquillian-tests</id>

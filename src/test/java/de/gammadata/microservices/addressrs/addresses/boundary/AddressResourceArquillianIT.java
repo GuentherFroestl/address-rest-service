@@ -1,17 +1,16 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.AddressCrudController;
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
-import de.gammadata.microservices.addressrs.application.control.JaxRsApplication;
-import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
-import de.gammadata.microservices.addressrs.health.boundary.HealthResource;
+import de.gammadata.microservices.addressrs.addresses.control.CityCrudController;
+import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
+import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
+import de.gammadata.microservices.addressrs.addresses.control.ZipCodeCrudController;
 import java.net.URI;
 import java.net.URL;
-import org.jboss.arquillian.container.test.api.Deployment;
+import javax.ejb.EJB;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
@@ -22,32 +21,38 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class AddressResourceArquillianIT extends AddressResourceRestIT {
 
+  @EJB
+  AddressCrudController adrController;
+  @EJB
+  CountryCrudController countryController;
+  @EJB
+  ZipCodeCrudController zipCodeController;
+  @EJB
+  CityCrudController cityController;
+
   @ArquillianResource
   private URL base;
 
-  @Deployment
-  public static WebArchive createDeployment() {
-    WebArchive jar = ShrinkWrap.create(WebArchive.class)
-            .addPackage(AddressCrudController.class.getPackage())
-            .addPackage(AddressResource.class.getPackage())
-            .addPackage(Address.class.getPackage())
-            .addPackage(HealthResource.class.getPackage())
-            .addPackage(JaxRsApplication.class.getPackage())//JaxRsApplication
-            .addPackage(AddressServiceException.class.getPackage())
-            .addAsResource("persistence-arquillian.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource("META-INF/beans.xml", "beans.xml");
-    System.out.println(jar.toString(true));
-    return jar;
-  }
-
+// Deployment will be doene with the suite deployment plugin
+//  @Deployment
+//  public static WebArchive createDeployment() {
+//    return DeploymentLoaderArquillianIT.createDeployment();
+//  }
   @Before
   @Override
   public void setUp() throws Exception {
     if (base == null) {
-      throw new RuntimeException("no base URL inhejted");
+      throw new RuntimeException("no base URL injeted");
     }
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+
     System.out.println("Arquillian Tests using URL = " + base.toExternalForm());
     webTarget = client.target(URI.create(new URL(base, "api/addresses").toExternalForm()));
+  }
+
+  @After
+  public void tearDown() {
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
   }
 
 }

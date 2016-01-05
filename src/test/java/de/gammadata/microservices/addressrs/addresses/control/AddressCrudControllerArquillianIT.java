@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.DeploymentLoaderArquillianIT;
+import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
@@ -8,12 +8,10 @@ import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.persistence.EntityTransaction;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -21,6 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.is;
+import org.junit.Assert;
 
 /**
  *
@@ -41,15 +41,11 @@ public class AddressCrudControllerArquillianIT {
   @EJB
   CityCrudController cityController;
 
-  @Deployment
-  public static JavaArchive createDeployment() {
-    JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
-            .addPackage(AddressCrudController.class.getPackage())
-            .addAsResource("persistence-arquillian.xml", "META-INF/persistence.xml")
-            .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-    System.out.println(jar.toString(true));
-    return jar;
-  }
+// Deployment will be doene with the suite deployment plugin
+//  @Deployment
+//  public static WebArchive createDeployment() {
+//    return DeploymentLoaderArquillianIT.createDeployment();
+//  }
 
   @BeforeClass
   public static void setUpClass() {
@@ -61,13 +57,13 @@ public class AddressCrudControllerArquillianIT {
 
   @Before
   public void setUp() {
-    DeploymentLoaderArquillianIT.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
   }
 
   @After
   public void tearDown() {
-    DeploymentLoaderArquillianIT.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
   }
 
   @Test
@@ -164,5 +160,7 @@ public class AddressCrudControllerArquillianIT {
     
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "City 2"));
     assertThat("simple search count for city does not match", 1l, is(equalTo(count)));
+    
   }
+  
 }

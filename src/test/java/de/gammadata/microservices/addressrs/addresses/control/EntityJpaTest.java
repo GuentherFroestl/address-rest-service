@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  */
 public class EntityJpaTest extends AbstractEntityJpaTest {
 
-  private BaseEntityListener entityListener = spy (new BaseEntityListener());
+  private BaseEntityListener entityListener = spy(new BaseEntityListener());
 
   public EntityJpaTest() {
   }
@@ -124,31 +124,9 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
 
   @Test
   public void testRelations() {
-    System.out.println("de.gammadata.microservices.addressrs.addresses.control.PersistenceUntitTest.testRelations()");
+    System.out.println("testRelations()");
 
-    City city = new City();
-    city.setName("city");
-
-    ZipCode zip = new ZipCode();
-    zip.setName("zip");
-    zip.setCode("zipcode");
-
-    Country country = new Country();
-    country.setName("Austria");
-    country.setIso2CountryCode("AT");
-    country.setIso3CountryCode("AUT");
-    country.setIsoNumber(124);
-
-    Address adr = new Address();
-    adr.setName("name");
-    adr.setAdditionalName("additional name");
-    adr.setNumber("number");
-
-    //Relations with persist cascade
-    zip.setCountry(country);
-    city.setCountry(country);
-    adr.setCity(city);
-    adr.setZipCode(zip);
+    Address adr = TestEntityProvider.createAdressWithAllEntities();
 
     EntityTransaction tx = em.getTransaction();
     tx.begin();
@@ -156,10 +134,11 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     tx.commit();
 
     Address res = em.find(Address.class, adr.getId());
-    Assert.assertNotNull("unexpected null result", res);
-    Assert.assertNotNull("unexpected null result", res.getCity());
-    Assert.assertNotNull("unexpected null result", res.getZipCode());
-    Assert.assertNotNull("unexpected null result", res.getZipCode().getCountry());
+    Assert.assertNotNull("unexpected null result for address", res);
+    Assert.assertNotNull("unexpected null result for address.city", res.getCity());
+    Assert.assertNotNull("unexpected null resul fore address.zipCode", res.getZipCode());
+    Assert.assertNotNull("unexpected null result for address.zipCode.country", res.getZipCode().getCountry());
+    Assert.assertNotNull("unexpected null result for address.country", res.getCountry());
 
     Assert.assertNotNull("unexpected null for getCity().getId()", res.getCity().getId());
     Assert.assertNotNull("unexpected null getZipCode().getId()", res.getZipCode().getId());

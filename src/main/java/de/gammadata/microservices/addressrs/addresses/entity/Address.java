@@ -53,6 +53,9 @@ public class Address extends BaseEntity {
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private City city;
 
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  private Country country;
+
   public String getAdditionalName() {
     return additionalName;
   }
@@ -85,6 +88,14 @@ public class Address extends BaseEntity {
     this.city = city;
   }
 
+  public Country getCountry() {
+    return country;
+  }
+
+  public void setCountry(Country country) {
+    this.country = country;
+  }
+
   @Override
   public int hashCode() {
     int hash = 7;
@@ -92,6 +103,7 @@ public class Address extends BaseEntity {
     hash = 67 * hash + Objects.hashCode(this.number);
     hash = 67 * hash + Objects.hashCode(this.zipCode);
     hash = 67 * hash + Objects.hashCode(this.city);
+    hash = 67 * hash + Objects.hashCode(this.country);
     return hash;
   }
 
@@ -122,12 +134,13 @@ public class Address extends BaseEntity {
     if (!Objects.equals(this.city, other.city)) {
       return false;
     }
-    return true;
+    return Objects.equals(this.country, other.country);
   }
 
   @Override
   public String toString() {
-    return "Address{" + super.toString() + ", additionalName=" + additionalName + ", number=" + number + ", zipCode=" + zipCode + ", city=" + city + '}';
+    return "Address{" + super.toString() + ", additionalName=" + additionalName + ", number=" + number + ", zipCode="
+            + zipCode + ", city=" + city + ", country=" + country + '}';
   }
 
 }

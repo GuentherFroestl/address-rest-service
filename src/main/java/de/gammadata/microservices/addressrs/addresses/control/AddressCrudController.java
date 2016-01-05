@@ -3,6 +3,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
+import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import javax.ejb.Stateless;
@@ -27,7 +28,10 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
   }
 
   private void relateEntities(final Address pAdr) {
-    if (pAdr != null && pAdr.getCity() != null
+    if (pAdr == null) {
+      return;
+    }
+    if (pAdr.getCity() != null
             && pAdr.getCity().getId() != null && pAdr.getCity().getId() > 0
             && getEm() != null) {
       City c = getEm().find(City.class, pAdr.getCity().getId());
@@ -38,7 +42,7 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
                 "referenced City with id=" + pAdr.getCity().getId() + " not found");
       }
     }
-    if (pAdr != null && pAdr.getZipCode() != null
+    if (pAdr.getZipCode() != null
             && pAdr.getZipCode().getId() != null && pAdr.getZipCode().getId() > 0
             && getEm() != null) {
       ZipCode z = getEm().find(ZipCode.class, pAdr.getZipCode().getId());
@@ -47,6 +51,24 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
       } else {
         throw new AddressServiceException(AddressServiceException.Error.VALIDATION,
                 "referenced Zipcode with id=" + pAdr.getZipCode().getId() + " not found");
+      }
+    }
+
+    if (pAdr.getCountry() == null && pAdr.getCity() != null && pAdr.getCity().getCountry() != null) {
+      pAdr.setCountry(pAdr.getCity().getCountry());
+    } else if (pAdr.getCountry() == null && pAdr.getZipCode() != null && pAdr.getZipCode().getCountry() != null) {
+      pAdr.setCountry(pAdr.getZipCode().getCountry());
+    }
+
+    if (pAdr.getCountry() != null
+            && pAdr.getCountry().getId() != null && pAdr.getCountry().getId() > 0
+            && getEm() != null) {
+      Country c = getEm().find(Country.class, pAdr.getCountry().getId());
+      if (c != null) {
+        pAdr.setCountry(c);
+      } else {
+        throw new AddressServiceException(AddressServiceException.Error.VALIDATION,
+                "referenced Country with id=" + pAdr.getCountry().getId() + " not found");
       }
     }
   }
