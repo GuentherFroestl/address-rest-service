@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
-import de.gammadata.microservices.addressrs.addresses.control.BaseEntityListener;
+import de.gammadata.microservices.addressrs.addresses.control.AddressEntityListener;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,8 +19,11 @@ import javax.persistence.Table;
 @Entity
 @Table(indexes = {
   @Index(name = "ADR_NAME_IDX", columnList = "NAME"),
-  @Index(name = "ADR_ADD_NAME_IDX", columnList = "ADDITIONAL_NAME")})
-@EntityListeners({BaseEntityListener.class})
+  @Index(name = "ADR_ADD_NAME_IDX", columnList = "ADDITIONAL_NAME"),
+  @Index(name = "ADR_CITY_NAME_IDX", columnList = "CITY_NAME"),
+  @Index(name = "ADR_COUNTRY_NAME_IDX", columnList = "COUNTRY_NAME"),
+  @Index(name = "ADR_ZIPCODE_NAME_IDX", columnList = "ZIPCODE_NAME")})
+@EntityListeners({AddressEntityListener.class})
 @NamedQueries({
   @NamedQuery(name = Address.SIMPLE_SEARCH_QUERY_NAME,
           query = "select e from Address e"
@@ -32,21 +35,37 @@ import javax.persistence.Table;
   )})
 public class Address extends BaseEntity {
 
-  private static final long serialVersionUID = 1L;
-  @Column(name = "ADDITIONAL_NAME")
-  private String additionalName;
-  @Column
-  private String number;
-
   public static final String SIMPLE_SEARCH_QUERY_NAME = "Address_simpleSearchQuery";
   public static final String SIMPLE_COUNT_QUERY_NAME = "Address_simpleSearchCount";
 
   public static final String WHERE_CLAUSE = " where "
           + "LOWER(e.name) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.additionalName) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER
-          + " OR LOWER(e.city.name) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER;
-  ;
-  
+          + " OR LOWER(e.cityName) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER;
+
+  private static final long serialVersionUID = 1L;
+
+  @Column(name = "ADDITIONAL_NAME")
+  private String additionalName;
+
+  @Column
+  private String number;
+  /**
+   * Mirror field.
+   */
+  @Column(name = "CITY_NAME")
+  private String cityName;
+  /**
+   * Mirror field.
+   */
+  @Column(name = "COUNTRY_NAME")
+  private String countryName;
+  /**
+   * Mirror field.
+   */
+  @Column(name = "ZIPCODE_NAME")
+  private String zipCodeName;
+
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private ZipCode zipCode;
 
@@ -94,6 +113,30 @@ public class Address extends BaseEntity {
 
   public void setCountry(Country country) {
     this.country = country;
+  }
+
+  public String getCityName() {
+    return cityName;
+  }
+
+  public void setCityName(String cityName) {
+    this.cityName = cityName;
+  }
+
+  public String getCountryName() {
+    return countryName;
+  }
+
+  public void setCountryName(String countryName) {
+    this.countryName = countryName;
+  }
+
+  public String getZipCodeName() {
+    return zipCodeName;
+  }
+
+  public void setZipCodeName(String zipCodeName) {
+    this.zipCodeName = zipCodeName;
   }
 
   @Override

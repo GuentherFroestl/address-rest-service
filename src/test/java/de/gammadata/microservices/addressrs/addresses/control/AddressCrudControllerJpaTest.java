@@ -2,6 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import javax.persistence.EntityTransaction;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,22 +14,28 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class AddressCrudControllerJpaTest  extends AbstractEntityJpaTest {
+public class AddressCrudControllerJpaTest  extends AbstractCrudControllerTest<Address, BaseQuerySpecification> {
 
-  private BaseEntityListener entityListener = spy(new BaseEntityListener());
+ 
   private AddressCrudController testee = spy(new AddressCrudController());
 
-  public AddressCrudControllerJpaTest() {
-
-  }
 
   @Before
+  @Override
   public void setUp() {
+    super.setUp();
     when(testee.getEm()).thenReturn(em);
-    when(entityListener.getEm()).thenReturn(em);
+    
   }
-
+  
   @Test
+  public void testPrecondition(){
+    Assert.assertNotNull("unexpected null result for testee", testee);
+  }
+  
+  
+
+//  @Test
   public void testRelations() {
     System.out.println("testRelations()");
 
@@ -50,6 +57,16 @@ public class AddressCrudControllerJpaTest  extends AbstractEntityJpaTest {
     Assert.assertNotNull("unexpected null for getCity().getId()", res.getCity().getId());
     Assert.assertNotNull("unexpected null getZipCode().getId()", res.getZipCode().getId());
 
+  }
+
+  @Override
+  public Address createTestEntity() {
+    return TestEntityProvider.createAdress();
+  }
+
+  @Override
+  public AbstractCrudController getTestee() {
+    return testee;
   }
 
 }

@@ -68,7 +68,7 @@ public class CountryCrudResourceArquillianIT {
     TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
     
     testDate = new Date().getTime();
-    entityCreated = TestEntityProvider.createCountry(testDate);
+    entityCreated = TestEntityProvider.createCountry();
     entitySaved = instance.saveOrUpdateEntity(entityCreated);
     assertNotNull("country not saved, null result", entitySaved);
     System.out.println(entitySaved);

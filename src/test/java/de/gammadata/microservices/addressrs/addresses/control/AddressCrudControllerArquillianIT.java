@@ -46,7 +46,6 @@ public class AddressCrudControllerArquillianIT {
 //  public static WebArchive createDeployment() {
 //    return DeploymentLoaderArquillianIT.createDeployment();
 //  }
-
   @BeforeClass
   public static void setUpClass() {
   }
@@ -73,11 +72,8 @@ public class AddressCrudControllerArquillianIT {
     City city = new City();
     city.setName("city");
 
-
     ZipCode zip = new ZipCode();
-    zip.setName("zip");
-    zip.setCode("zipcode");
-
+    zip.setName("zipcode");
 
     Country country = TestEntityProvider.createCountry();
 
@@ -85,7 +81,6 @@ public class AddressCrudControllerArquillianIT {
     adr.setName("name");
     adr.setAdditionalName("additional name");
     adr.setNumber("number");
-
 
     //Relations with persist cascade
     zip.setCountry(country);
@@ -130,37 +125,37 @@ public class AddressCrudControllerArquillianIT {
     System.out.println(adr2.getCity());
     assertTrue("new City not correctly created, no ID", adr2.getCity().getId() != null);
     assertTrue("new City not correctly created, no ID", adr2.getCity().getId() > 0);
-    assertThat("new City not correctly created name is not city 2", "City 2", is(equalTo(adr2.getCity().getName())));
+    assertThat("new City not correctly created name is not city 2", adr2.getCity().getName(), is(equalTo("City 2")));
 
     //Search w/o argument
     List<Address> adrList = adrController.getEntities(new BaseQuerySpecification());
     assertNotNull("unexpected null result list for simple search query", adrList);
-    assertThat("simple search count does not match", 2, is(equalTo(adrList.size())));
+    assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
     Long count = adrController.countEntities(new BaseQuerySpecification());
-    assertThat("simple search count does not match", 2l, is(equalTo(count)));
+    assertThat("simple search count does not match", count, is(equalTo(2l)));
 
     //Search with argument
     adrList = adrController.getEntities(new BaseQuerySpecification(null, null, "name"));
     assertNotNull("unexpected null result list for simple search query", adrList);
-    assertThat("simple search count does not match", 2, is(equalTo(adrList.size())));
+    assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "name"));
     assertThat("simple search count does not match", 2l, is(equalTo(count)));
 
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "name 2"));
     assertThat("simple search count does not match", 1l, is(equalTo(count)));
-    
+
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "city"));
-    assertThat("simple search count for city does not match", 2l, is(equalTo(count)));
-    
+    assertThat("simple search count for city does not match", count, is(equalTo(2l)));
+
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "City"));
-    assertThat("simple search count for city does not match", 2l, is(equalTo(count)));
-    
+    assertThat("simple search count for city does not match", count, is(equalTo(2l)));
+
     adrList = adrController.getEntities(new BaseQuerySpecification(null, null, "City"));
     System.out.println(adrList);
-    
+
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "City 2"));
-    assertThat("simple search count for city does not match", 1l, is(equalTo(count)));
-    
+    assertThat("simple search count for city does not match", count, is(equalTo(1l)));
+
   }
-  
+
 }

@@ -71,8 +71,7 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
   @Test
   public void testZipCode() {
     ZipCode zip = new ZipCode();
-    zip.setName("zip");
-    zip.setCode("zipcode");
+    zip.setName("zipcode");
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     em.persist(zip);

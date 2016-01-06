@@ -32,8 +32,7 @@ public class TestEntityProvider {
     adrIn.setCity(createCityWithCountry());
     adrIn.setCountry(adrIn.getCity().getCountry());
     ZipCode zip = new ZipCode();
-    zip.setCode("zip code");
-    zip.setName("name");
+    zip.setName("zipCode");
     zip.setCountry(adrIn.getCity().getCountry());
     adrIn.setZipCode(zip);
     return adrIn;
@@ -56,14 +55,6 @@ public class TestEntityProvider {
     return country;
   }
 
-  public static Country createCountry(long testDate) {
-    Country pCountry = new Country();
-    pCountry.setIso2CountryCode("DE");
-    pCountry.setIso3CountryCode("DEU");
-    pCountry.setIsoNumber(1234);
-    pCountry.setName("Deutschland");
-    return pCountry;
-  }
 
   public static void setIdAndVersion(BaseEntity pIn, BaseEntity withId) {
     pIn.setId(withId.getId());
