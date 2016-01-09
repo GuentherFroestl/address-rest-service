@@ -16,12 +16,10 @@ import javax.ws.rs.ext.Provider;
 public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
 
   final ObjectMapper defaultObjectMapper;
-//  final ObjectMapper combinedObjectMapper;
   SimpleModule module;
 
   public MyObjectMapperProvider() {
     defaultObjectMapper = createDefaultMapper();
-//    combinedObjectMapper = createCombinedObjectMapper();
 
   }
 
@@ -49,25 +47,4 @@ public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
     return result;
   }
 
-  /**
-   * Create custom ObjectMapper wit Jackson Featurs and some custom serializers.
-   *
-   * @return ObjectMapper
-   */
-//  private static ObjectMapper createCombinedObjectMapper() {
-//    SimpleModule module = new SimpleModule("MyModule");
-//    module.addSerializer(Date.class, new JacksonZuluDateSerializer());
-//    return new ObjectMapper()
-//            .configure(SerializationFeature.WRAP_ROOT_VALUE, true)
-//            .configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true)
-//            .setAnnotationIntrospector(createJaxbJacksonAnnotationIntrospector())
-//            .registerModule(module);
-//  }
-//  private static AnnotationIntrospector createJaxbJacksonAnnotationIntrospector() {
-//
-//    final AnnotationIntrospector jaxbIntrospector = new JaxbAnnotationIntrospector(TypeFactory.defaultInstance());
-//    final AnnotationIntrospector jacksonIntrospector = new JacksonAnnotationIntrospector();
-//
-//    return AnnotationIntrospector.pair(jacksonIntrospector, jaxbIntrospector);
-//  }
 }
