@@ -1,24 +1,23 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
-import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
-import java.util.Date;
+import de.gammadata.microservices.addressrs.addresses.entity.City;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
  * @author gfr
  */
-public class ZipCodeResourceTestIT extends AbstractResourceTestIT {
+public class CitiesResourceRestIT extends AbstractResourceRestIT {
 
   @AfterClass
   public static void tearDownClass() {
@@ -33,16 +32,16 @@ public class ZipCodeResourceTestIT extends AbstractResourceTestIT {
   }
 
   /**
-   * Test of getAllAdresses method, of class ZipCodeResource.
+   * Test of getAllAdresses method, of class CityResource.
    */
   @Test
   public void testGetAll() {
 
-    WebTarget userTarget = client.target(BASE_URL + "zipcodes");
+    WebTarget userTarget = client.target(BASE_URL + "cities");
     Response response = userTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response);
-    ZipCode[] res = response.readEntity(ZipCode[].class);
+    City[] res = response.readEntity(City[].class);
     assertNotNull("no result", res);
   }
 
@@ -56,48 +55,48 @@ public class ZipCodeResourceTestIT extends AbstractResourceTestIT {
   }
 
   /**
-   * Test of getZipCode method, of class ZipCodeResource.
+   * Test of getCity method, of class CityResource.
    */
   @Test
-  public void testGetZipCode() {
-    System.out.println("getZipCode");
+  public void testGetCity() {
+    System.out.println("getCity");
 
-    //Create ZipCode
-    ZipCode adrReq = createZipCode();
-    Response response = client.target(BASE_URL + "zipcodes")
+    //Create City
+    City adrReq = createCity();
+    Response response = client.target(BASE_URL + "cities")
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    ZipCode adrCreated = response.readEntity(ZipCode.class);
+    City adrCreated = response.readEntity(City.class);
     assertNotNull("no result", adrCreated);
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
     System.out.println(adrCreated);
     assertThat(adrReq, is(equalTo(adrCreated)));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "zipcodes").path(adrCreated.getId().toString());
+    WebTarget adrGetTarget = client.target(BASE_URL + "cities").path(adrCreated.getId().toString());
     response = adrGetTarget
             .request(MediaType.APPLICATION_JSON).get();
-    ZipCode adrFetched = response.readEntity(ZipCode.class);
+    City adrFetched = response.readEntity(City.class);
     assertNotNull("no result", adrFetched);
     assertThat(adrCreated, is(equalTo(adrFetched)));
   }
 
   /**
-   * Test of saveOrUpdateZipCode method, of class ZipCodeResource.
+   * Test of saveOrUpdateCity method, of class CityResource.
    */
   @Test
-  public void testSaveOrUpdateZipCode() {
-    System.out.println("saveOrUpdateZipCode");
-    //Create ZipCode
-    ZipCode adrReq = createZipCode();
-    Response response = client.target(BASE_URL + "zipcodes")
+  public void testSaveOrUpdateCity() {
+    System.out.println("saveOrUpdateCity");
+    //Create City
+    City adrReq = createCity();
+    Response response = client.target(BASE_URL + "cities")
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    ZipCode adrCreated = response.readEntity(ZipCode.class);
+    City adrCreated = response.readEntity(City.class);
     assertNotNull("no result", adrCreated);
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
@@ -107,12 +106,12 @@ public class ZipCodeResourceTestIT extends AbstractResourceTestIT {
     //Change address
     adrCreated.setName("name changed");
 
-    response = client.target(BASE_URL + "zipcodes")
+    response = client.target(BASE_URL + "cities")
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrCreated, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    ZipCode resultChanged = response.readEntity(ZipCode.class);
+    City resultChanged = response.readEntity(City.class);
     assertNotNull("no result", adrCreated);
     System.out.println(resultChanged);
     assertThat(adrCreated.getName(), is(equalTo(resultChanged.getName())));
@@ -120,32 +119,32 @@ public class ZipCodeResourceTestIT extends AbstractResourceTestIT {
   }
 
   /**
-   * Test of deleteZipCode method, of class ZipCodeResource.
+   * Test of deleteCity method, of class CityResource.
    */
   @Test
-  public void testDeleteZipCode() {
-    System.out.println("deleteZipCode");
-    //Create ZipCode
-    ZipCode adrReq = createZipCode();
-    Response response = client.target(BASE_URL + "zipcodes")
+  public void testDeleteCity() {
+    System.out.println("deleteCity");
+    //Create City
+    City adrReq = createCity();
+    Response response = client.target(BASE_URL + "cities")
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    ZipCode adrCreated = response.readEntity(ZipCode.class);
+    City adrCreated = response.readEntity(City.class);
     assertNotNull("no result", adrCreated);
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
     System.out.println(adrCreated);
     assertThat(adrReq, is(equalTo(adrCreated)));
 
-    WebTarget userTarget = client.target(BASE_URL + "zipcodes").path(adrCreated.getId().toString());
+    WebTarget userTarget = client.target(BASE_URL + "cities").path(adrCreated.getId().toString());
     Response resp = userTarget.request(MediaType.APPLICATION_JSON).delete();
     checkResponse(response);
     System.out.println(resp);
     assertThat(resp.getStatus(), is(equalTo(204)));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "zipcodes").path(adrCreated.getId().toString());
+    WebTarget adrGetTarget = client.target(BASE_URL + "cities").path(adrCreated.getId().toString());
     Response response2 = adrGetTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response2);
@@ -153,11 +152,9 @@ public class ZipCodeResourceTestIT extends AbstractResourceTestIT {
     assertThat(response2.getStatus(), is(equalTo(204))); //No content
   }
 
-  private ZipCode createZipCode() {
-    ZipCode result = new ZipCode();
-    result.setName("zipcode");
-    result.setValidFrom(new Date());
-    result.setValidUntil(new Date());
+  private City createCity() {
+    City result = new City();
+    result.setName("city name");
     return result;
   }
 }

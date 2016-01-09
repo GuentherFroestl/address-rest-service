@@ -1,35 +1,31 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
+import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
-import java.util.Date;
+import java.util.List;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import org.junit.After;
-import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
  * @author gfr
  */
-public class AddressResourceTestIT extends AbstractResourceTestIT {
+public class AddressResourceRestIT extends AbstractResourceRestIT {
 
-  @AfterClass
-  public static void tearDownClass() {
-  }
+  protected WebTarget webTarget;
+
 
   @Before
-  public void setUp() {
-  }
-
-  @After
-  public void tearDown() {
+  public void setUp() throws Exception {
+    webTarget = client.target(BASE_URL + "addresses");
   }
 
   /**
@@ -38,8 +34,7 @@ public class AddressResourceTestIT extends AbstractResourceTestIT {
   @Test
   public void testGetAllAdresses() {
 
-    WebTarget userTarget = client.target(BASE_URL + "addresses");
-    Response response = userTarget
+    Response response = webTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response);
     Address[] res = response.readEntity(Address[].class);
@@ -63,25 +58,27 @@ public class AddressResourceTestIT extends AbstractResourceTestIT {
     System.out.println("getAddress");
 
     //Create Address
-    Address adrReq = createAdress();
-    Response response = client.target(BASE_URL + "addresses")
+    Address adrReq = TestEntityProvider.createAdress();
+    Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
     Address adrCreated = response.readEntity(Address.class);
     assertNotNull("no result", adrCreated);
+    assertNotNull("no id", adrCreated.getId());
+    assertNotNull("no id", adrCreated.getModified());
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
+    TestEntityProvider.setIdAndVersion(adrReq, adrCreated);
     System.out.println(adrCreated);
     assertThat(adrCreated, is(equalTo(adrReq)));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "addresses").path(adrCreated.getId().toString());
-    response = adrGetTarget
+    response = webTarget
             .request(MediaType.APPLICATION_JSON).get();
-    Address adrFetched = response.readEntity(Address.class);
-    assertNotNull("no result", adrFetched);
-    assertThat(adrCreated, is(equalTo(adrFetched)));
+    List<Address> adrList = response.readEntity(List.class);
+    assertNotNull("no result", adrList);
+    assertTrue("list empty", !adrList.isEmpty());
   }
 
   /**
@@ -91,23 +88,26 @@ public class AddressResourceTestIT extends AbstractResourceTestIT {
   public void testSaveOrUpdateAddress() {
     System.out.println("saveOrUpdateAddress");
     //Create Address
-    Address adrReq = createAdress();
-    Response response = client.target(BASE_URL + "addresses")
+    Address adrReq = TestEntityProvider.createAdressWithAllEntities();
+    Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
     Address adrCreated = response.readEntity(Address.class);
     assertNotNull("no result", adrCreated);
+    assertNotNull("no id", adrCreated.getId());
+    assertNotNull("no id", adrCreated.getModified());
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
     System.out.println(adrCreated);
-    assertThat(adrCreated, is(equalTo(adrReq)));
+    TestEntityProvider.setIdAndVersion(adrReq, adrCreated);
+    assertThat(adrCreated.getName(), is(equalTo(adrReq.getName())));
 
     //Change address
     adrCreated.setName("name changed");
 
-    response = client.target(BASE_URL + "addresses")
+    response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrCreated, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -126,8 +126,8 @@ public class AddressResourceTestIT extends AbstractResourceTestIT {
   public void testDeleteAddress() {
     System.out.println("deleteAddress");
     //Create Address
-    Address adrReq = createAdress();
-    Response response = client.target(BASE_URL + "addresses")
+    Address adrReq = TestEntityProvider.createAdressWithAllEntities();
+    Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -137,15 +137,16 @@ public class AddressResourceTestIT extends AbstractResourceTestIT {
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
     System.out.println(adrCreated);
-    assertThat(adrCreated, is(equalTo(adrReq)));
+    TestEntityProvider.setIdAndVersion(adrReq, adrCreated);
+    assertThat(adrCreated.getName(), is(equalTo(adrReq.getName())));
 
-    WebTarget userTarget = client.target(BASE_URL + "addresses").path(adrCreated.getId().toString());
+    WebTarget userTarget = webTarget.path(adrCreated.getId().toString());
     Response resp = userTarget.request(MediaType.APPLICATION_JSON).delete();
     checkResponse(response);
     System.out.println(resp);
     assertThat(204, is(equalTo(resp.getStatus())));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "addresses").path(adrCreated.getId().toString());
+    WebTarget adrGetTarget = webTarget.path(adrCreated.getId().toString());
     Response response2 = adrGetTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response2);
@@ -153,13 +154,4 @@ public class AddressResourceTestIT extends AbstractResourceTestIT {
     assertThat(204, is(equalTo(response2.getStatus()))); //No content
   }
 
-  private Address createAdress() {
-    Address adrIn = new Address();
-    adrIn.setAdditionalName("additional Name");
-    adrIn.setName("name");
-    adrIn.setNumber("number");
-    adrIn.setValidFrom(new Date());
-    adrIn.setValidUntil(new Date());
-    return adrIn;
-  }
 }

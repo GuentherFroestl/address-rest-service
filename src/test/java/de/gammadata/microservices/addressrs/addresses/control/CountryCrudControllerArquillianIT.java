@@ -1,22 +1,19 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.boundary.CountriesResource;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import static org.hamcrest.CoreMatchers.equalTo;
-import org.jboss.arquillian.container.test.api.Deployment;
+import static org.hamcrest.CoreMatchers.is;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import static org.hamcrest.CoreMatchers.is;
@@ -34,23 +31,26 @@ public class CountryCrudControllerArquillianIT {
   private Country entityCreated;
   private Country entitySaved;
 
-  public CountryCrudControllerArquillianIT() {
-  }
+  @EJB
+  AddressCrudController adrController;
+  @EJB
+  CountryCrudController countryController;
+  @EJB
+  ZipCodeCrudController zipCodeController;
+  @EJB
+  CityCrudController cityController;
 
   @EJB
   CountryCrudController instance;
 
-  @Deployment
-  public static JavaArchive createDeployment() {
-    JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
-            .addPackage(CountryCrudController.class.getPackage())
-            .addPackage(CountriesResource.class.getPackage())
-            .addAsResource("persistence-arquillian.xml", "META-INF/persistence.xml")
-            .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-    System.out.println(jar.toString(true));
-    return jar;
+  public CountryCrudControllerArquillianIT() {
   }
 
+// Deployment will be doene with the suite deployment plugin
+//  @Deployment
+//  public static WebArchive createDeployment() {
+//    return DeploymentLoaderArquillianIT.createDeployment();
+//  }
   @BeforeClass
   public static void setUpClass() {
 
@@ -63,18 +63,22 @@ public class CountryCrudControllerArquillianIT {
   @Before
   public void setUp() {
     assertNotNull("CountryCrudController not injected", instance);
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+
     testDate = new Date().getTime();
-    entityCreated = createCountry(testDate);
+    entityCreated = TestEntityProvider.createCountry();
     entitySaved = instance.saveOrUpdateEntity(entityCreated);
     assertNotNull("country not saved, null result", entitySaved);
     System.out.println(entitySaved);
     assertNotNull("no id generated", entitySaved.getId());
-    setIdAndVersion(entityCreated, entitySaved);
+    TestEntityProvider.setIdAndVersion(entityCreated, entitySaved);
     entityId = entitySaved.getId();
   }
 
   @After
   public void tearDown() {
+    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+
   }
 
   /**
@@ -105,7 +109,7 @@ public class CountryCrudControllerArquillianIT {
   @Test
   public void test3_FindAll() {
     System.out.println("findAll");
-    List<Country> result = instance.getAllEntities();
+    List<Country> result = instance.getEntities(null);
     assertNotNull("no result", result);
     assertTrue("result list empty", result.size() > 0);
     Country testEntity = null;
@@ -124,39 +128,14 @@ public class CountryCrudControllerArquillianIT {
   @Test
   public void test4_Delete() {
     System.out.println("delete");
-    List<Country> result = instance.getAllEntities();
+    List<Country> result = instance.getEntities(null);
     assertNotNull("no result", result);
     assertTrue("result list empty", result.size() > 0);
     for (Country c : result) {
       instance.deleteEntity(c.getId());
     }
-    List<Country> delResult = instance.getAllEntities();
+    List<Country> delResult = instance.getEntities(null);
     assertTrue("result list empty", delResult.isEmpty());
-  }
-
-  /**
-   * Test of getEntityClass method, of class CountryCrudController.
-   */
-//  @Test
-//  public void test5_GetEntityClass() {
-//    System.out.println("getEntityClass");
-//    assertThat(Country.class, is(equalTo(instance.getEntityClass())));
-//
-//  }
-  protected Country createCountry(long testDate) {
-    Country pCountry = new Country();
-    pCountry.setIso2CountryCode("DE");
-    pCountry.setIso3CountryCode("DEU");
-    pCountry.setIsoNumber(1234);
-    pCountry.setName("Deutschland");
-    pCountry.setValidFrom(new Date(testDate));
-    pCountry.setValidUntil(new Date(testDate));
-    return pCountry;
-  }
-
-  protected void setIdAndVersion(Country pIn, Country withId) {
-    pIn.setId(withId.getId());
-    pIn.setVersion(withId.getVersion());
   }
 
 }

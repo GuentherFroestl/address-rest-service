@@ -2,6 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
+import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
@@ -12,13 +13,13 @@ import javax.ws.rs.Path;
  */
 @ManagedBean
 @Path("/countries")
-public class CountriesResource extends AbstractCrudResource<Country> {
+public class CountriesResource extends AbstractCrudResource<Country, BaseQuerySpecification> {
 
   @EJB
   CountryCrudController countryController;
 
   @Override
-  AbstractCrudController<Country> getCrudController() {
+  public AbstractCrudController<Country, BaseQuerySpecification> getCrudController() {
     return countryController;
   }
 

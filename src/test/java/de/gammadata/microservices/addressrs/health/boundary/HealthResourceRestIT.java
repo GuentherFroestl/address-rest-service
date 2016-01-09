@@ -1,17 +1,17 @@
 package de.gammadata.microservices.addressrs.health.boundary;
 
-import de.gammadata.microservices.addressrs.addresses.boundary.AbstractResourceTestIT;
+import de.gammadata.microservices.addressrs.addresses.boundary.AbstractResourceRestIT;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
  * @author gfr
  */
-public class HealthResourceTestIT  extends AbstractResourceTestIT {
+public class HealthResourceRestIT  extends AbstractResourceRestIT {
   
 
 

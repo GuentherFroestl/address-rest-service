@@ -1,15 +1,21 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
-import java.util.Date;
+import de.gammadata.microservices.addressrs.addresses.control.BaseEntityListener;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  *
  * @author gfr
  */
 @Entity
+@EntityListeners({BaseEntityListener.class})
+@Table(indexes = {
+  @Index(name = "COUNTRY_NAME_IDX", columnList = "NAME")})
 public class Country extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
@@ -20,9 +26,7 @@ public class Country extends BaseEntity {
   @Column(length = 3)
   private String iso3CountryCode;
 
-  public Country(Integer isoNumber, String iso2CountryCode, String iso3CountryCode,
-          String name, Date validFrom, Date validUntil) {
-    super(name, validFrom, validUntil);
+  public Country(Integer isoNumber, String iso2CountryCode, String iso3CountryCode) {
     this.isoNumber = isoNumber;
     this.iso2CountryCode = iso2CountryCode;
     this.iso3CountryCode = iso3CountryCode;
