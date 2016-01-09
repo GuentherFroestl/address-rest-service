@@ -1,6 +1,5 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
@@ -8,9 +7,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.persistence.EntityTransaction;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,7 +17,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
-import org.junit.Assert;
 
 /**
  *
@@ -29,8 +25,6 @@ import org.junit.Assert;
 @RunWith(Arquillian.class)
 public class AddressCrudControllerArquillianIT {
 
-  public AddressCrudControllerArquillianIT() {
-  }
 
   @EJB
   AddressCrudController adrController;
@@ -56,13 +50,13 @@ public class AddressCrudControllerArquillianIT {
 
   @Before
   public void setUp() {
-    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
   }
 
   @After
   public void tearDown() {
-    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
   }
 
   @Test

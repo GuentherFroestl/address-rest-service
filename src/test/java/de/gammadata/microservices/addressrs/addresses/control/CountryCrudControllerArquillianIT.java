@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -63,7 +65,7 @@ public class CountryCrudControllerArquillianIT {
   @Before
   public void setUp() {
     assertNotNull("CountryCrudController not injected", instance);
-    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
     testDate = new Date().getTime();
     entityCreated = TestEntityProvider.createCountry();
@@ -71,13 +73,13 @@ public class CountryCrudControllerArquillianIT {
     assertNotNull("country not saved, null result", entitySaved);
     System.out.println(entitySaved);
     assertNotNull("no id generated", entitySaved.getId());
-    TestEntityProvider.setIdAndVersion(entityCreated, entitySaved);
+    TestEntityProvider.setBasePropertiesForEquals(entityCreated, entitySaved);
     entityId = entitySaved.getId();
   }
 
   @After
   public void tearDown() {
-    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
   }
 

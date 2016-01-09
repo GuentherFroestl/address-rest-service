@@ -31,8 +31,13 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
 
   @After
   public void tearDown() {
-
+    deleteEntities(Address.class,em);
+    deleteEntities(City.class,em);
+    deleteEntities(ZipCode.class,em);
+    deleteEntities(Country.class,em);
   }
+
+
 
   @Test
   public void testAddress() {

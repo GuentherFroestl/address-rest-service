@@ -1,9 +1,9 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
+import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
-import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import de.gammadata.microservices.addressrs.addresses.entity.City;
 import org.junit.Before;
-import org.junit.Ignore;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
@@ -11,28 +11,25 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Country, BaseQuerySpecification> {
+public class CityCrudControllerJpaTest extends AbstractCrudControllerTest<City, BaseQuerySpecification> {
 
-  public CountryCrudControllerJpaTest() {
-  }
-
-  private CountryCrudController testee = spy(new CountryCrudController());
+  private CityCrudController testee = spy(new CityCrudController());
 
   @Before
   @Override
   public void setUp() {
     super.setUp();
     when(testee.getEm()).thenReturn(em);
+
   }
 
   @Override
-  public Country createTestEntity() {
-    return TestEntityProvider.createCountry();
+  public City createTestEntity() {
+    return TestEntityProvider.createCity();
   }
 
   @Override
   public AbstractCrudController getTestee() {
     return testee;
   }
-
 }

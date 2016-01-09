@@ -1,5 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
+import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudControllerArquillianTest;
 import de.gammadata.microservices.addressrs.addresses.control.AddressCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CityCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
@@ -44,7 +45,7 @@ public class AddressResourceArquillianIT extends AddressResourceRestIT {
     if (base == null) {
       throw new RuntimeException("no base URL injeted");
     }
-    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
     System.out.println("Arquillian Tests using URL = " + base.toExternalForm());
     webTarget = client.target(URI.create(new URL(base, "api/addresses").toExternalForm()));
@@ -52,7 +53,6 @@ public class AddressResourceArquillianIT extends AddressResourceRestIT {
 
   @After
   public void tearDown() {
-    TestEntityProvider.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
+    AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
   }
-
 }
