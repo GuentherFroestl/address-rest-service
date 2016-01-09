@@ -17,13 +17,15 @@ import javax.persistence.Table;
  * @author gfr
  */
 @Entity
+@EntityListeners({AddressEntityListener.class})
+
 @Table(indexes = {
   @Index(name = "ADR_NAME_IDX", columnList = "NAME"),
   @Index(name = "ADR_ADD_NAME_IDX", columnList = "ADDITIONAL_NAME"),
   @Index(name = "ADR_CITY_NAME_IDX", columnList = "CITY_NAME"),
   @Index(name = "ADR_COUNTRY_NAME_IDX", columnList = "COUNTRY_NAME"),
   @Index(name = "ADR_ZIPCODE_NAME_IDX", columnList = "ZIPCODE_NAME")})
-@EntityListeners({AddressEntityListener.class})
+
 @NamedQueries({
   @NamedQuery(name = Address.SIMPLE_SEARCH_QUERY_NAME,
           query = "select e from Address e"
@@ -37,11 +39,12 @@ public class Address extends BaseEntity {
 
   public static final String SIMPLE_SEARCH_QUERY_NAME = "Address_simpleSearchQuery";
   public static final String SIMPLE_COUNT_QUERY_NAME = "Address_simpleSearchCount";
-
   public static final String WHERE_CLAUSE = " where "
-          + "LOWER(e.name) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER
-          + " OR LOWER(e.additionalName) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER
-          + " OR LOWER(e.cityName) like :" + Address.SIMPLE_SEARCH_QUERY_PARAMETER;
+          + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.additionalName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.cityName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.countryName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.zipCodeName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
   private static final long serialVersionUID = 1L;
 
@@ -97,6 +100,11 @@ public class Address extends BaseEntity {
 
   public void setZipCode(ZipCode zipCode) {
     this.zipCode = zipCode;
+    if (zipCode != null) {
+      this.zipCodeName = zipCode.getName();
+    } else {
+      this.zipCodeName = null;
+    }
   }
 
   public City getCity() {
@@ -105,6 +113,11 @@ public class Address extends BaseEntity {
 
   public void setCity(City city) {
     this.city = city;
+    if (city != null) {
+      this.cityName = city.getName();
+    } else {
+      this.cityName = null;
+    }
   }
 
   public Country getCountry() {
@@ -113,6 +126,11 @@ public class Address extends BaseEntity {
 
   public void setCountry(Country country) {
     this.country = country;
+    if (country != null) {
+      this.countryName = country.getName();
+    } else {
+      this.countryName = null;
+    }
   }
 
   public String getCityName() {
@@ -141,22 +159,25 @@ public class Address extends BaseEntity {
 
   @Override
   public int hashCode() {
-    int hash = 7;
-    hash = 67 * hash + Objects.hashCode(this.additionalName);
-    hash = 67 * hash + Objects.hashCode(this.number);
-    hash = 67 * hash + Objects.hashCode(this.zipCode);
-    hash = 67 * hash + Objects.hashCode(this.city);
-    hash = 67 * hash + Objects.hashCode(this.country);
+    int hash = super.hashCode();
+    hash = 29 * hash + Objects.hashCode(this.additionalName);
+    hash = 29 * hash + Objects.hashCode(this.number);
+    hash = 29 * hash + Objects.hashCode(this.cityName);
+    hash = 29 * hash + Objects.hashCode(this.countryName);
+    hash = 29 * hash + Objects.hashCode(this.zipCodeName);
+    hash = 29 * hash + Objects.hashCode(this.zipCode);
+    hash = 29 * hash + Objects.hashCode(this.city);
+    hash = 29 * hash + Objects.hashCode(this.country);
     return hash;
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
     if (!super.equals(obj)) {
       return false;
+    }
+    if (this == obj) {
+      return true;
     }
     if (obj == null) {
       return false;
@@ -171,19 +192,30 @@ public class Address extends BaseEntity {
     if (!Objects.equals(this.number, other.number)) {
       return false;
     }
+    if (!Objects.equals(this.cityName, other.cityName)) {
+      return false;
+    }
+    if (!Objects.equals(this.countryName, other.countryName)) {
+      return false;
+    }
+    if (!Objects.equals(this.zipCodeName, other.zipCodeName)) {
+      return false;
+    }
     if (!Objects.equals(this.zipCode, other.zipCode)) {
       return false;
     }
     if (!Objects.equals(this.city, other.city)) {
       return false;
     }
-    return Objects.equals(this.country, other.country);
+    if (!Objects.equals(this.country, other.country)) {
+      return false;
+    }
+    return true;
   }
 
   @Override
   public String toString() {
-    return "Address{" + super.toString() + ", additionalName=" + additionalName + ", number=" + number + ", zipCode="
-            + zipCode + ", city=" + city + ", country=" + country + '}';
+    return "Address{" + super.toString() + ", additionalName=" + additionalName + ", number=" + number + ", cityName=" + cityName + ", countryName=" + countryName + ", zipCodeName=" + zipCodeName + ", zipCode=" + zipCode + ", city=" + city + ", country=" + country + '}';
   }
 
 }

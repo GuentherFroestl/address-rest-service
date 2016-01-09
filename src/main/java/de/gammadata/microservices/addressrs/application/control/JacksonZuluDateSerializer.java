@@ -31,7 +31,7 @@ public class JacksonZuluDateSerializer extends JsonSerializer<Date> {
   @Override
   public void serialize(Date date, JsonGenerator jg, SerializerProvider sp)
           throws IOException, JsonGenerationException {
-    String dateString = getDateFormat().format(date);
+    String dateString = serialize(date);
     jg.writeString(dateString);
   }
 

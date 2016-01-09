@@ -42,12 +42,12 @@ public class ZipCodeCrudController extends AbstractCrudController<ZipCode, BaseQ
 
   @Override
   public String getSimpleSearchQueryName() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return ZipCode.SIMPLE_SEARCH_QUERY_NAME;
   }
 
   @Override
   public String getSimpleSearchCountName() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return ZipCode.SIMPLE_COUNT_QUERY_NAME;
   }
 
 }

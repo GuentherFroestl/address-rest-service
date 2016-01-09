@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Index;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -16,24 +18,33 @@ import javax.persistence.Table;
 @EntityListeners({BaseEntityListener.class})
 @Table(indexes = {
   @Index(name = "COUNTRY_NAME_IDX", columnList = "NAME")})
+
+@NamedQueries({
+  @NamedQuery(name = Country.SIMPLE_SEARCH_QUERY_NAME,
+          query = "select e from Country e"
+          + Country.WHERE_CLAUSE
+  ),
+  @NamedQuery(name = Country.SIMPLE_COUNT_QUERY_NAME,
+          query = "select count(e) from Country e"
+          + Country.WHERE_CLAUSE
+  )})
 public class Country extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
+  public static final String SIMPLE_SEARCH_QUERY_NAME = "Country_simpleSearchQuery";
+  public static final String SIMPLE_COUNT_QUERY_NAME = "County_simpleSearchCount";
+
+  public static final String WHERE_CLAUSE = " where "
+          + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.iso2CountryCode) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.iso3CountryCode) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
+
   @Column
   private Integer isoNumber;
   @Column(length = 2)
   private String iso2CountryCode;
   @Column(length = 3)
   private String iso3CountryCode;
-
-  public Country(Integer isoNumber, String iso2CountryCode, String iso3CountryCode) {
-    this.isoNumber = isoNumber;
-    this.iso2CountryCode = iso2CountryCode;
-    this.iso3CountryCode = iso3CountryCode;
-  }
-
-  public Country() {
-  }
 
   public Integer getIsoNumber() {
     return isoNumber;

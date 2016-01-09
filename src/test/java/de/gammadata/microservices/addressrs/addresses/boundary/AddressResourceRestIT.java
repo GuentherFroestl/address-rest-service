@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -70,7 +72,7 @@ public class AddressResourceRestIT extends AbstractResourceRestIT {
     assertNotNull("no id", adrCreated.getModified());
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
-    TestEntityProvider.setIdAndVersion(adrReq, adrCreated);
+    TestEntityProvider.setBasePropertiesForEquals(adrReq, adrCreated);
     System.out.println(adrCreated);
     assertThat(adrCreated, is(equalTo(adrReq)));
 
@@ -101,7 +103,7 @@ public class AddressResourceRestIT extends AbstractResourceRestIT {
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
     System.out.println(adrCreated);
-    TestEntityProvider.setIdAndVersion(adrReq, adrCreated);
+    TestEntityProvider.setBasePropertiesForEquals(adrReq, adrCreated);
     assertThat(adrCreated.getName(), is(equalTo(adrReq.getName())));
 
     //Change address
@@ -137,7 +139,7 @@ public class AddressResourceRestIT extends AbstractResourceRestIT {
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());
     System.out.println(adrCreated);
-    TestEntityProvider.setIdAndVersion(adrReq, adrCreated);
+    TestEntityProvider.setBasePropertiesForEquals(adrReq, adrCreated);
     assertThat(adrCreated.getName(), is(equalTo(adrReq.getName())));
 
     WebTarget userTarget = webTarget.path(adrCreated.getId().toString());

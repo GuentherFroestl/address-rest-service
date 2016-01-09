@@ -37,10 +37,12 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
 
   @After
   public void tearDown() {
+    AbstractEntityJpaTest.deleteEntities(createTestEntity().getClass(), em);
   }
 
   @Test
   public void test_CRUD() {
+    AbstractEntityJpaTest.deleteEntities(createTestEntity().getClass(), em);
     //Test create
     T entity = createTestEntity();
     EntityTransaction tx = em.getTransaction();
@@ -57,7 +59,8 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     T resRead = (T) getTestee().getEntity(res1.getId());
     tx.commit();
     Assert.assertNotNull("unexpected null result", res1);
-    Assert.assertEquals("Entity fetched are not equal to entityCreated", res1, resRead);
+    TestEntityProvider.setBasePropertiesForEquals(entity, resRead);
+    Assert.assertEquals("Entity fetched are not equal to entityCreated", entity, resRead);
 
     //Test Update
     String newName = "changed name";
