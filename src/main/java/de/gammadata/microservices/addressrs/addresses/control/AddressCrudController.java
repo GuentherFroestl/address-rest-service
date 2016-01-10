@@ -1,12 +1,16 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
 /**
  * CRUD Controller for Addresses.
@@ -15,6 +19,37 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AddressCrudController extends AbstractCrudController<Address, BaseQuerySpecification> {
+
+  public List<Building> findBuildings(BaseQuerySpecification querySpec, Long adrId) {
+    
+    if (adrId==null||adrId==0){
+      throw new RuntimeException("AddressID must not be null to query buildings");
+    }
+
+    TypedQuery<Building> query;
+    if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
+      Address adr = getEntity(adrId);
+      if (adr != null) {
+        return adr.getBuildings();
+      } else {
+        return null;
+      }
+    } else {
+      query = getEm().createNamedQuery(Building.BUILDING_FOR_ADR_SEARCH_QUERY_NAME, Building.class);
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
+      query.setParameter(Building.ADR_ID_QUERY_PARAMETER, adrId);
+    }
+
+    if (querySpec != null && querySpec.getStart() != null) {
+      query.setFirstResult(querySpec.getStart());
+    }
+    if (querySpec != null && querySpec.getLimit() != null) {
+      query.setMaxResults(querySpec.getLimit());
+    }
+    List<Building> results = query.getResultList();
+    return results;
+
+  }
 
   @Override
   public Class<Address> getEntityClass() {

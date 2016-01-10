@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -81,7 +83,8 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     List<T> list = getTestee().getEntities(null);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size is not correct", 1, list.size());
-    Assert.assertEquals("Entities are not equal", resUpdate, list.get(0));
+    Assert.assertEquals("Entities.id are not equal", resUpdate.getId(), list.get(0).getId());
+    Assert.assertEquals("Names are not equal", newName, list.get(0).getName());
 
     long count = getTestee().countEntities(null);
     Assert.assertEquals("List size is not correct", 1l, count);
@@ -92,7 +95,8 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     List<T> list2 = getTestee().getEntities(querySpec);
     Assert.assertNotNull("unexpected null result", list2);
     Assert.assertEquals("List size is not correct", 1, list2.size());
-    Assert.assertEquals("Entities are not equal", resUpdate, list2.get(0));
+    Assert.assertEquals("Entities.id are not equal", resUpdate.getId(), list2.get(0).getId());
+    Assert.assertEquals("Names are not equal", newName, list2.get(0).getName());
 
     long count2 = getTestee().countEntities(querySpec);
     Assert.assertEquals("List size is not correct", 1l, count2);

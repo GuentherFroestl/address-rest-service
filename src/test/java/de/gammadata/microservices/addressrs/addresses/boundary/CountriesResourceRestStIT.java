@@ -12,12 +12,13 @@ import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
  * @author gfr
  */
-public class CountriesResourceRestIT extends AbstractResourceRestIT {
+public class CountriesResourceRestStIT extends AbstractResourceRestIT {
 
   @AfterClass
   public static void tearDownClass() {

@@ -1,11 +1,9 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,8 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -28,7 +24,6 @@ import static org.hamcrest.CoreMatchers.is;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CountryCrudControllerArquillianIT {
 
-  private Long testDate;
   private Long entityId;
   private Country entityCreated;
   private Country entitySaved;
@@ -67,7 +62,6 @@ public class CountryCrudControllerArquillianIT {
     assertNotNull("CountryCrudController not injected", instance);
     AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
-    testDate = new Date().getTime();
     entityCreated = TestEntityProvider.createCountry();
     entitySaved = instance.saveOrUpdateEntity(entityCreated);
     assertNotNull("country not saved, null result", entitySaved);

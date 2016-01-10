@@ -8,19 +8,16 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
  * @author gfr
  */
-public class AddressResourceRestIT extends AbstractResourceRestIT {
+public class AddressResourceRestStIT extends AbstractResourceRestIT {
 
   protected WebTarget webTarget;
 
@@ -43,7 +40,7 @@ public class AddressResourceRestIT extends AbstractResourceRestIT {
     assertNotNull("no result", res);
   }
 
-  private void checkResponse(Response resp) {
+  protected void checkResponse(Response resp) {
     if (resp == null) {
       throw new RuntimeException("Response is null");
     }
@@ -60,7 +57,7 @@ public class AddressResourceRestIT extends AbstractResourceRestIT {
     System.out.println("getAddress");
 
     //Create Address
-    Address adrReq = TestEntityProvider.createAdress();
+    Address adrReq = TestEntityProvider.createAddress();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));

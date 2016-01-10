@@ -14,6 +14,10 @@ public class BaseQuerySpecification {
   public BaseQuerySpecification() {
   }
 
+  public BaseQuerySpecification(String query) {
+    this.query = query;
+  }
+
   public BaseQuerySpecification(Integer limit, Integer start) {
     this.limit = limit;
     this.start = start;

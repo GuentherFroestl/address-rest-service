@@ -1,6 +1,8 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.gammadata.microservices.addressrs.addresses.control.AddressEntityListener;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +12,9 @@ import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.eclipse.persistence.annotations.PrivateOwned;
 
 /**
  *
@@ -50,9 +54,6 @@ public class Address extends BaseEntity {
 
   @Column(name = "ADDITIONAL_NAME")
   private String additionalName;
-
-  @Column
-  private String number;
   /**
    * Mirror field.
    */
@@ -68,6 +69,11 @@ public class Address extends BaseEntity {
    */
   @Column(name = "ZIPCODE_NAME")
   private String zipCodeName;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+  @PrivateOwned
+  private List<Building> buildings;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private ZipCode zipCode;
@@ -86,12 +92,12 @@ public class Address extends BaseEntity {
     this.additionalName = additionalName;
   }
 
-  public String getNumber() {
-    return number;
+  public List<Building> getBuildings() {
+    return buildings;
   }
 
-  public void setNumber(String number) {
-    this.number = number;
+  public void setBuildings(List<Building> buildings) {
+    this.buildings = buildings;
   }
 
   public ZipCode getZipCode() {
@@ -161,7 +167,6 @@ public class Address extends BaseEntity {
   public int hashCode() {
     int hash = super.hashCode();
     hash = 29 * hash + Objects.hashCode(this.additionalName);
-    hash = 29 * hash + Objects.hashCode(this.number);
     hash = 29 * hash + Objects.hashCode(this.cityName);
     hash = 29 * hash + Objects.hashCode(this.countryName);
     hash = 29 * hash + Objects.hashCode(this.zipCodeName);
@@ -189,9 +194,6 @@ public class Address extends BaseEntity {
     if (!Objects.equals(this.additionalName, other.additionalName)) {
       return false;
     }
-    if (!Objects.equals(this.number, other.number)) {
-      return false;
-    }
     if (!Objects.equals(this.cityName, other.cityName)) {
       return false;
     }
@@ -215,7 +217,7 @@ public class Address extends BaseEntity {
 
   @Override
   public String toString() {
-    return "Address{" + super.toString() + ", additionalName=" + additionalName + ", number=" + number + ", cityName=" + cityName + ", countryName=" + countryName + ", zipCodeName=" + zipCodeName + ", zipCode=" + zipCode + ", city=" + city + ", country=" + country + '}';
+    return "Address{" + super.toString() + ", additionalName=" + additionalName + ", cityName=" + cityName + ", countryName=" + countryName + ", zipCodeName=" + zipCodeName + ", zipCode=" + zipCode + ", city=" + city + ", country=" + country + '}';
   }
 
 }

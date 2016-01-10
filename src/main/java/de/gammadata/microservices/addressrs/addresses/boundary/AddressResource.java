@@ -53,8 +53,7 @@ public class AddressResource extends AbstractCrudResource<Address, BaseQuerySpec
                 .add("version", adr.getVersion())
                 .add("modified", JacksonZuluDateSerializer.serialize(adr.getModified()))
                 .add("name", adr.getName())
-                .add("additionalName", adr.getAdditionalName())
-                .add("number", adr.getNumber());
+                .add("additionalName", adr.getAdditionalName());
         if (adr.getCity() != null) {
           objBuilder.add("city", Json.createObjectBuilder()
                   .add("id", adr.getCity().getId())

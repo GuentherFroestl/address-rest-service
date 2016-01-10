@@ -17,6 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -74,7 +75,6 @@ public class AddressCrudControllerArquillianIT {
     Address adr = new Address();
     adr.setName("name");
     adr.setAdditionalName("additional name");
-    adr.setNumber("number");
 
     //Relations with persist cascade
     zip.setCountry(country);
@@ -97,7 +97,6 @@ public class AddressCrudControllerArquillianIT {
     Address adr2 = new Address();
     adr2.setName("name 2");
     adr2.setAdditionalName("additional name 2");
-    adr2.setNumber("number 2");
 
     City c = new City();
     c.setId(res.getCity().getId());

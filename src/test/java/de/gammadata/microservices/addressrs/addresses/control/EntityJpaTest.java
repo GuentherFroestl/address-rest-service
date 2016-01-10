@@ -31,20 +31,17 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
 
   @After
   public void tearDown() {
-    deleteEntities(Address.class,em);
-    deleteEntities(City.class,em);
-    deleteEntities(ZipCode.class,em);
-    deleteEntities(Country.class,em);
+    deleteEntities(Address.class, em);
+    deleteEntities(City.class, em);
+    deleteEntities(ZipCode.class, em);
+    deleteEntities(Country.class, em);
   }
-
-
 
   @Test
   public void testAddress() {
     Address adr = new Address();
     adr.setName("name");
     adr.setAdditionalName("additional name");
-    adr.setNumber("number");
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     em.persist(adr);
@@ -131,6 +128,7 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     System.out.println("testRelations()");
 
     Address adr = TestEntityProvider.createAdressWithAllEntities();
+    int bCount = adr.getBuildings().size();
 
     EntityTransaction tx = em.getTransaction();
     tx.begin();
@@ -143,9 +141,10 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertNotNull("unexpected null resul fore address.zipCode", res.getZipCode());
     Assert.assertNotNull("unexpected null result for address.zipCode.country", res.getZipCode().getCountry());
     Assert.assertNotNull("unexpected null result for address.country", res.getCountry());
-
     Assert.assertNotNull("unexpected null for getCity().getId()", res.getCity().getId());
     Assert.assertNotNull("unexpected null getZipCode().getId()", res.getZipCode().getId());
+    Assert.assertNotNull("unexpected null getBuildings()", res.getBuildings());
+    Assert.assertEquals("getBuildings().size() don't match", bCount, res.getBuildings().size());
 
   }
 }

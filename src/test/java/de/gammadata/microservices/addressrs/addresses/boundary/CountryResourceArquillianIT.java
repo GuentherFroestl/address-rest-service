@@ -21,6 +21,34 @@ import org.junit.runners.MethodSorters;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -28,7 +56,7 @@ import static org.hamcrest.CoreMatchers.is;
  */
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CountryCrudResourceArquillianIT {
+public class CountryResourceArquillianIT {
 
   private Long testDate;
   private Long entityId;
@@ -47,7 +75,7 @@ public class CountryCrudResourceArquillianIT {
   @Inject
   CountriesResource instance;
 
-  public CountryCrudResourceArquillianIT() {
+  public CountryResourceArquillianIT() {
   }
 
 // Deployment will be doene with the suite deployment plugin
