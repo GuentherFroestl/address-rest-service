@@ -1,5 +1,6 @@
 package de.gammadata.microservices.addressrs.application.control;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator.Feature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,7 +40,9 @@ public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
     SimpleModule module = new SimpleModule("MyModule");
     module.addSerializer(Date.class, new JacksonZuluDateSerializer());
     final ObjectMapper result = new ObjectMapper();
-    result.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true)
+    result.setSerializationInclusion(Include.NON_NULL)
+            .configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true)
+            .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .configure(Feature.IGNORE_UNKNOWN, true)
             .configure(Feature.WRITE_BIGDECIMAL_AS_PLAIN, true)
