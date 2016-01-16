@@ -18,6 +18,10 @@ public class CitiesResource  extends AbstractCrudResource<City,BaseQuerySpecific
   @EJB
   CityCrudController cityController;
 
+  /**
+   *
+   * @return
+   */
   @Override
   public AbstractCrudController<City,BaseQuerySpecification> getCrudController() {
     return cityController;

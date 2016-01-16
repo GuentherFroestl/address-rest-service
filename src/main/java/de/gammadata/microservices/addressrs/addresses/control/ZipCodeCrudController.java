@@ -14,11 +14,20 @@ import javax.ejb.Stateless;
 @Stateless
 public class ZipCodeCrudController extends AbstractCrudController<ZipCode, BaseQuerySpecification> {
 
+  /**
+   *
+   * @return
+   */
   @Override
   public Class<ZipCode> getEntityClass() {
     return ZipCode.class;
   }
 
+  /**
+   *
+   * @param pZipCode
+   * @return
+   */
   @Override
   public ZipCode saveOrUpdateEntity(ZipCode pZipCode) {
     relateEntities(pZipCode);
@@ -40,11 +49,19 @@ public class ZipCodeCrudController extends AbstractCrudController<ZipCode, BaseQ
     }
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getSimpleSearchQueryName() {
     return ZipCode.SIMPLE_SEARCH_QUERY_NAME;
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getSimpleSearchCountName() {
     return ZipCode.SIMPLE_COUNT_QUERY_NAME;

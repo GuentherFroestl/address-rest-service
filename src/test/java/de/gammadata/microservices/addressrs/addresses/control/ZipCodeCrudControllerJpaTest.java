@@ -15,6 +15,9 @@ public class ZipCodeCrudControllerJpaTest extends AbstractCrudControllerTest<Zip
 
   private ZipCodeCrudController testee = spy(new ZipCodeCrudController());
 
+  /**
+   *
+   */
   @Before
   @Override
   public void setUp() {
@@ -23,11 +26,19 @@ public class ZipCodeCrudControllerJpaTest extends AbstractCrudControllerTest<Zip
 
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public ZipCode createTestEntity() {
     return TestEntityProvider.createZipCodeWithCountry();
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public ZipCodeCrudController getTestee() {
     return testee;

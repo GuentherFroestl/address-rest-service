@@ -31,9 +31,20 @@ import javax.persistence.Table;
 public class Country extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
+
+  /**
+   *
+   */
   public static final String SIMPLE_SEARCH_QUERY_NAME = "Country_simpleSearchQuery";
+
+  /**
+   *
+   */
   public static final String SIMPLE_COUNT_QUERY_NAME = "County_simpleSearchCount";
 
+  /**
+   *
+   */
   public static final String WHERE_CLAUSE = " where "
           + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.iso2CountryCode) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
@@ -46,26 +57,50 @@ public class Country extends BaseEntity {
   @Column(length = 3)
   private String iso3CountryCode;
 
+  /**
+   *
+   * @return
+   */
   public Integer getIsoNumber() {
     return isoNumber;
   }
 
+  /**
+   *
+   * @param isoNumber
+   */
   public void setIsoNumber(Integer isoNumber) {
     this.isoNumber = isoNumber;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getIso2CountryCode() {
     return iso2CountryCode;
   }
 
+  /**
+   *
+   * @param iso2CountryCode
+   */
   public void setIso2CountryCode(String iso2CountryCode) {
     this.iso2CountryCode = iso2CountryCode;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getIso3CountryCode() {
     return iso3CountryCode;
   }
 
+  /**
+   *
+   * @param iso3CountryCode
+   */
   public void setIso3CountryCode(String iso3CountryCode) {
     this.iso3CountryCode = iso3CountryCode;
   }

@@ -28,11 +28,22 @@ public class AddressResource extends AbstractCrudResource<Address, BaseQuerySpec
   @EJB
   AddressCrudController adrController;
 
+  /**
+   *
+   * @return
+   */
   @Override
   public AddressCrudController getCrudController() {
     return adrController;
   }
 
+  /**
+   *
+   * @param start
+   * @param limit
+   * @param query
+   * @return
+   */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)

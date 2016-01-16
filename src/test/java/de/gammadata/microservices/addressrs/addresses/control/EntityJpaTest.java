@@ -21,14 +21,23 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
 
   private BaseEntityListener entityListener = spy(new BaseEntityListener());
 
+  /**
+   *
+   */
   public EntityJpaTest() {
   }
 
+  /**
+   *
+   */
   @Before
   public void setUp() {
     when(entityListener.getEm()).thenReturn(em);
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
     deleteEntities(Address.class, em);
@@ -37,6 +46,9 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     deleteEntities(Country.class, em);
   }
 
+  /**
+   *
+   */
   @Test
   public void testAddress() {
     Address adr = new Address();
@@ -54,6 +66,9 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertNotNull("unexpected null for timestap", res.getModified());
   }
 
+  /**
+   *
+   */
   @Test
   public void testCity() {
     City city = new City();
@@ -70,6 +85,9 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertNotNull("unexpected null for timestap", res.getModified());
   }
 
+  /**
+   *
+   */
   @Test
   public void testZipCode() {
     ZipCode zip = new ZipCode();
@@ -86,6 +104,9 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertNotNull("unexpected null for timestap", res.getModified());
   }
 
+  /**
+   *
+   */
   @Test
   public void testCountry() {
     Country country = new Country();
@@ -105,6 +126,9 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertNotNull("unexpected null for timestap", res.getModified());
   }
 
+  /**
+   *
+   */
   @Test(expected = javax.persistence.RollbackException.class)
   public void testCountryValidation() {
     Country country = new Country();
@@ -123,6 +147,9 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertEquals("Object are not equal", country, res);
   }
 
+  /**
+   *
+   */
   @Test
   public void testRelations() {
     System.out.println("testRelations()");

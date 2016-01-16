@@ -16,9 +16,19 @@ import org.junit.BeforeClass;
  */
 public class AbstractEntityJpaTest {
 
+  /**
+   *
+   */
   protected static EntityManagerFactory emFactory;
+
+  /**
+   *
+   */
   protected static EntityManager em;
 
+  /**
+   *
+   */
   @BeforeClass
   public static synchronized void setUpClass() {
     //Creating Entity Manager
@@ -28,6 +38,11 @@ public class AbstractEntityJpaTest {
     }
   }
 
+  /**
+   *
+   * @param cl
+   * @param em
+   */
   public static void deleteEntities(Class cl,EntityManager em) {
     TypedQuery<BaseEntity> query = em.createQuery("Select t from "
             + cl.getSimpleName() + " t",

@@ -34,8 +34,19 @@ public class ZipCode extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   *
+   */
   public static final String SIMPLE_SEARCH_QUERY_NAME = "Zip_simpleSearchQuery";
+
+  /**
+   *
+   */
   public static final String SIMPLE_COUNT_QUERY_NAME = "Zip_simpleSearchCount";
+
+  /**
+   *
+   */
   public static final String WHERE_CLAUSE = " where "
           + "LOWER(e.name) like :" + ZipCode.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.countryName) like :" + ZipCode.SIMPLE_SEARCH_QUERY_PARAMETER;
@@ -49,10 +60,18 @@ public class ZipCode extends BaseEntity {
   @Column(name = "COUNTRY_NAME")
   private String countryName;
 
+  /**
+   *
+   * @return
+   */
   public Country getCountry() {
     return country;
   }
 
+  /**
+   *
+   * @param country
+   */
   public void setCountry(Country country) {
     this.country = country;
     if (country != null) {
@@ -62,10 +81,18 @@ public class ZipCode extends BaseEntity {
     }
   }
 
+  /**
+   *
+   * @return
+   */
   public String getCountryName() {
     return countryName;
   }
 
+  /**
+   *
+   * @param countryName
+   */
   public void setCountryName(String countryName) {
     this.countryName = countryName;
   }

@@ -19,11 +19,19 @@ public class MyObjectMapperProvider implements ContextResolver<ObjectMapper> {
   final ObjectMapper defaultObjectMapper;
   SimpleModule module;
 
+  /**
+   *
+   */
   public MyObjectMapperProvider() {
     defaultObjectMapper = createDefaultMapper();
 
   }
 
+  /**
+   *
+   * @param type
+   * @return
+   */
   @Override
   public ObjectMapper getContext(final Class<?> type) {
 

@@ -19,26 +19,58 @@ import javax.persistence.Version;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
+  /**
+   *
+   */
   public static final String SIMPLE_SEARCH_QUERY_PARAMETER = "parameter";
 
+  /**
+   *
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   protected Long id;
+
+  /**
+   *
+   */
   @Version
   protected Integer version;
+
+  /**
+   *
+   */
   @Column(name = "NAME")
   protected String name;
+
+  /**
+   *
+   */
   @Column
   @Temporal(TemporalType.TIMESTAMP)
   protected Date modified;
 
+  /**
+   *
+   */
   public BaseEntity() {
   }
 
+  /**
+   *
+   * @param name
+   */
   public BaseEntity(String name) {
     this.name = name;
   }
 
+  /**
+   *
+   * @param id
+   * @param version
+   * @param name
+   * @param modified
+   */
   public BaseEntity(Long id, Integer version, String name, Date modified) {
     this.id = id;
     this.version = version;
@@ -46,34 +78,66 @@ public class BaseEntity implements Serializable {
     this.modified = modified;
   }
 
+  /**
+   *
+   * @return
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   *
+   * @param id
+   */
   public void setId(Long id) {
     this.id = id;
   }
 
+  /**
+   *
+   * @return
+   */
   public Integer getVersion() {
     return version;
   }
 
+  /**
+   *
+   * @param version
+   */
   public void setVersion(Integer version) {
     this.version = version;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   *
+   * @param name
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   *
+   * @return
+   */
   public Date getModified() {
     return modified;
   }
 
+  /**
+   *
+   * @param modified
+   */
   public void setModified(Date modified) {
     this.modified = modified;
   }

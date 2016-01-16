@@ -67,8 +67,19 @@ import org.eclipse.persistence.annotations.PrivateOwned;
 })
 public class Address extends BaseEntity {
 
+  /**
+   *
+   */
   public static final String SIMPLE_SEARCH_QUERY_NAME = "Address_simpleSearchQuery";
+
+  /**
+   *
+   */
   public static final String SIMPLE_COUNT_QUERY_NAME = "Address_simpleSearchCount";
+
+  /**
+   *
+   */
   public static final String WHERE_CLAUSE = " where "
           + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.additionalName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
@@ -76,6 +87,9 @@ public class Address extends BaseEntity {
           + " OR LOWER(e.countryName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.zipCodeName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
+  /**
+   *
+   */
   public static final String WHERE_CLAUSE_NATIVE = " where "
           + "LOWER(e.name) like ?1"
           + " OR LOWER(e.ADDITIONAL_NAME) like ?1"
@@ -83,6 +97,9 @@ public class Address extends BaseEntity {
           + " OR LOWER(e.COUNTRY_NAME) like ?1"
           + " OR LOWER(e.ZIPCODE_NAME) like ?1";
 
+  /**
+   *
+   */
   public static final String NATIVE_SEARCH_QUERY = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.ADDITIONAL_NAME,"
           + " e.CITY_ID, e.CITY_NAME, e.COUNTRY_NAME, e.COUNTRY_ID, e.ZIPCODE_NAME, e.ZIPCODE_ID from Address e"
           + WHERE_CLAUSE_NATIVE;
@@ -124,26 +141,50 @@ public class Address extends BaseEntity {
   @JoinColumn(name = "COUNTRY_ID")
   private Country country;
 
+  /**
+   *
+   * @return
+   */
   public String getAdditionalName() {
     return additionalName;
   }
 
+  /**
+   *
+   * @param additionalName
+   */
   public void setAdditionalName(String additionalName) {
     this.additionalName = additionalName;
   }
 
+  /**
+   *
+   * @return
+   */
   public List<Building> getBuildings() {
     return buildings;
   }
 
+  /**
+   *
+   * @param buildings
+   */
   public void setBuildings(List<Building> buildings) {
     this.buildings = buildings;
   }
 
+  /**
+   *
+   * @return
+   */
   public ZipCode getZipCode() {
     return zipCode;
   }
 
+  /**
+   *
+   * @param zipCode
+   */
   public void setZipCode(ZipCode zipCode) {
     this.zipCode = zipCode;
     if (zipCode != null) {
@@ -153,10 +194,18 @@ public class Address extends BaseEntity {
     }
   }
 
+  /**
+   *
+   * @return
+   */
   public City getCity() {
     return city;
   }
 
+  /**
+   *
+   * @param city
+   */
   public void setCity(City city) {
     this.city = city;
     if (city != null) {
@@ -166,10 +215,18 @@ public class Address extends BaseEntity {
     }
   }
 
+  /**
+   *
+   * @return
+   */
   public Country getCountry() {
     return country;
   }
 
+  /**
+   *
+   * @param country
+   */
   public void setCountry(Country country) {
     this.country = country;
     if (country != null) {
@@ -179,26 +236,50 @@ public class Address extends BaseEntity {
     }
   }
 
+  /**
+   *
+   * @return
+   */
   public String getCityName() {
     return cityName;
   }
 
+  /**
+   *
+   * @param cityName
+   */
   public void setCityName(String cityName) {
     this.cityName = cityName;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getCountryName() {
     return countryName;
   }
 
+  /**
+   *
+   * @param countryName
+   */
   public void setCountryName(String countryName) {
     this.countryName = countryName;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getZipCodeName() {
     return zipCodeName;
   }
 
+  /**
+   *
+   * @param zipCodeName
+   */
   public void setZipCodeName(String zipCodeName) {
     this.zipCodeName = zipCodeName;
   }

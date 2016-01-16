@@ -22,6 +22,11 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class AddressCrudController extends AbstractCrudController<Address, BaseQuerySpecification> {
 
+  /**
+   *
+   * @param querySpec
+   * @return
+   */
   public List<AddressBasics> findNative(BaseQuerySpecification querySpec) {
     Query query = getEm().createNativeQuery(Address.NATIVE_SEARCH_QUERY, "AddressBasicsContructor");
     if (querySpec != null) {
@@ -38,6 +43,12 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
     return result;
   }
 
+  /**
+   *
+   * @param querySpec
+   * @param adrId
+   * @return
+   */
   public List<Building> findBuildings(BaseQuerySpecification querySpec, Long adrId) {
 
     if (adrId == null || adrId == 0) {
@@ -69,11 +80,20 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
 
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public Class<Address> getEntityClass() {
     return Address.class;
   }
 
+  /**
+   *
+   * @param pAdr
+   * @return
+   */
   @Override
   public Address saveOrUpdateEntity(Address pAdr) {
     relateEntities(pAdr);
@@ -126,11 +146,19 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
     }
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getSimpleSearchQueryName() {
     return Address.SIMPLE_SEARCH_QUERY_NAME;
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getSimpleSearchCountName() {
     return Address.SIMPLE_COUNT_QUERY_NAME;

@@ -7,9 +7,24 @@ package de.gammadata.microservices.addressrs.application.entity;
  */
 public class AddressServiceException extends RuntimeException {
 
+  /**
+   *
+   */
   public enum Error {
+
+    /**
+     *
+     */
     VALIDATION(400, "VALIDATION"),
+
+    /**
+     *
+     */
     DATABASE(400, "DATABASE"),
+
+    /**
+     *
+     */
     SYSTEM(500, "SYSTEM");
 
     private final int httpStatus;
@@ -20,34 +35,70 @@ public class AddressServiceException extends RuntimeException {
       this.errorCode = errorCode;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHttpStatus() {
       return httpStatus;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getErrorCode() {
       return errorCode;
     }
   }
 
+  /**
+   *
+   * @param error
+   */
   public AddressServiceException(Error error) {
     this.error = error;
   }
 
+  /**
+   *
+   * @param error
+   * @param message
+   */
   public AddressServiceException(Error error, String message) {
     super(message);
     this.error = error;
   }
 
+  /**
+   *
+   * @param error
+   * @param message
+   * @param cause
+   */
   public AddressServiceException(Error error, String message, Throwable cause) {
     super(message, cause);
     this.error = error;
   }
 
+  /**
+   *
+   * @param error
+   * @param cause
+   */
   public AddressServiceException(Error error, Throwable cause) {
     super(cause);
     this.error = error;
   }
 
+  /**
+   *
+   * @param error
+   * @param message
+   * @param cause
+   * @param enableSuppression
+   * @param writableStackTrace
+   */
   public AddressServiceException(Error error, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
     this.error = error;
@@ -55,10 +106,18 @@ public class AddressServiceException extends RuntimeException {
 
   private Error error;
 
+  /**
+   *
+   * @return
+   */
   public Error getError() {
     return error;
   }
 
+  /**
+   *
+   * @param error
+   */
   public void setError(Error error) {
     this.error = error;
   }

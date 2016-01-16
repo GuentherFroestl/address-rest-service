@@ -55,6 +55,9 @@ public class AbstractCrudControllerArquillianTest {
     }
   }
 
+  /**
+   *
+   */
   public AbstractCrudControllerArquillianTest() {
   }
   

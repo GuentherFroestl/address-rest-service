@@ -36,9 +36,24 @@ public class Building extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   *
+   */
   public static final String BUILDING_FOR_ADR_SEARCH_QUERY_NAME = "Building_simpleSearchQuery";
+
+  /**
+   *
+   */
   public static final String BUILDING_FOR_ADR_COUNT_QUERY_NAME = "Building_simpleSearchCount";
+
+  /**
+   *
+   */
   public static final String ADR_ID_QUERY_PARAMETER = "Adr_id";
+
+  /**
+   *
+   */
   public static final String WHERE_CLAUSE = " where ( "
           + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.number) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
@@ -55,22 +70,42 @@ public class Building extends BaseEntity {
   @Column(name = "ADDRESS_ID", insertable = false, updatable = false)
   private Long addressId;
 
+  /**
+   *
+   * @return
+   */
   public String getNumber() {
     return number;
   }
 
+  /**
+   *
+   * @param number
+   */
   public void setNumber(String number) {
     this.number = number;
   }
 
+  /**
+   *
+   * @return
+   */
   public Address getAddress() {
     return address;
   }
 
+  /**
+   *
+   * @param address
+   */
   public void setAddress(Address address) {
     this.address = address;
   }
 
+  /**
+   *
+   * @return
+   */
   public Long getAddressId() {
     return addressId;
   }

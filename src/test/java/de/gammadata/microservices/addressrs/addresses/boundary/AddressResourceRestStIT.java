@@ -19,9 +19,15 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class AddressResourceRestStIT extends AbstractResourceRestIT {
 
+  /**
+   *
+   */
   protected WebTarget webTarget;
 
-
+  /**
+   *
+   * @throws Exception
+   */
   @Before
   public void setUp() throws Exception {
     webTarget = client.target(BASE_URL + "addresses");
@@ -40,6 +46,10 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
     assertNotNull("no result", res);
   }
 
+  /**
+   *
+   * @param resp
+   */
   protected void checkResponse(Response resp) {
     if (resp == null) {
       throw new RuntimeException("Response is null");

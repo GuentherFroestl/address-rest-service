@@ -21,9 +21,16 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class HealthResourceArquillianIT {
 
+  /**
+   *
+   */
   public HealthResourceArquillianIT() {
   }
 
+  /**
+   *
+   * @return
+   */
   @Deployment
   public static JavaArchive createDeployment() {
     JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
@@ -36,19 +43,31 @@ public class HealthResourceArquillianIT {
   @Inject
   HealthResource instance;
 
+  /**
+   *
+   */
   @BeforeClass
   public static void setUpClass() {
 
   }
 
+  /**
+   *
+   */
   @AfterClass
   public static void tearDownClass() {
   }
 
+  /**
+   *
+   */
   @Before
   public void setUp() {
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
   }

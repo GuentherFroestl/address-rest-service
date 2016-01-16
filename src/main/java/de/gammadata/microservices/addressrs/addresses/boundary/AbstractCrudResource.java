@@ -22,8 +22,16 @@ import javax.ws.rs.core.MediaType;
  */
 public abstract class AbstractCrudResource<T extends BaseEntity, Q extends BaseQuerySpecification> {
 
+  /**
+   *
+   * @return
+   */
   abstract public AbstractCrudController<T, Q> getCrudController();
 
+  /**
+   *
+   * @return
+   */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -32,6 +40,13 @@ public abstract class AbstractCrudResource<T extends BaseEntity, Q extends BaseQ
     return result;
   }
 
+  /**
+   *
+   * @param start
+   * @param limit
+   * @param query
+   * @return
+   */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -45,6 +60,11 @@ public abstract class AbstractCrudResource<T extends BaseEntity, Q extends BaseQ
     return result;
   }
 
+  /**
+   *
+   * @param query
+   * @return
+   */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -55,6 +75,11 @@ public abstract class AbstractCrudResource<T extends BaseEntity, Q extends BaseQ
     return result;
   }
 
+  /**
+   *
+   * @param id
+   * @return
+   */
   @GET
   @Path("/{id}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -64,6 +89,11 @@ public abstract class AbstractCrudResource<T extends BaseEntity, Q extends BaseQ
     return result;
   }
 
+  /**
+   *
+   * @param pIn
+   * @return
+   */
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
@@ -73,6 +103,10 @@ public abstract class AbstractCrudResource<T extends BaseEntity, Q extends BaseQ
     return result;
   }
 
+  /**
+   *
+   * @param id
+   */
   @DELETE
   @Path("/{id}")
   @Consumes(MediaType.APPLICATION_JSON)

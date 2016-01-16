@@ -12,6 +12,10 @@ import javax.persistence.PreUpdate;
  */
 public class AddressEntityListener extends BaseEntityListener {
 
+  /**
+   *
+   * @param entity
+   */
   @PrePersist
   public void prePersist(Address entity) {
     super.prePersist(entity);
@@ -19,6 +23,10 @@ public class AddressEntityListener extends BaseEntityListener {
     updateMirrorsFields(entity);
   }
 
+  /**
+   *
+   * @param entity
+   */
   @PreUpdate
   public void preUpdate(Address entity) {
     super.preUpdate(entity);

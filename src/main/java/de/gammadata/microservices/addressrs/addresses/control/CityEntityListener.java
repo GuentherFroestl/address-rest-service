@@ -11,12 +11,20 @@ import javax.persistence.PreUpdate;
  */
 public class CityEntityListener extends BaseEntityListener {
 
+  /**
+   *
+   * @param entity
+   */
   @PrePersist
   public void prePersist(City entity) {
     super.prePersist(entity);
     updateMirrorsFields(entity);
   }
 
+  /**
+   *
+   * @param entity
+   */
   @PreUpdate
   public void preUpdate(City entity) {
     super.preUpdate(entity);

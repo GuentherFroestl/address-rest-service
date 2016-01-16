@@ -3,7 +3,6 @@ package de.gammadata.microservices.addressrs.addresses.control;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import org.junit.Before;
-import org.junit.Ignore;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 

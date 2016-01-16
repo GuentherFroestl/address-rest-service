@@ -17,6 +17,10 @@ public class TestEntityProvider {
   private TestEntityProvider() {
   }
 
+  /**
+   *
+   * @return
+   */
   public static Address createAddress() {
     Address adrIn = new Address();
     adrIn.setAdditionalName("additional Name");
@@ -24,12 +28,21 @@ public class TestEntityProvider {
     return adrIn;
   }
 
+  /**
+   *
+   * @param number
+   * @return
+   */
   public static Building createBuilding(String number) {
     Building b = new Building();
     b.setNumber(number);
     return b;
   }
 
+  /**
+   *
+   * @return
+   */
   public static Address createAdressWithAllEntities() {
     Address adrIn = createAddress();
     adrIn.setBuildings(new ArrayList<Building>());
@@ -49,12 +62,20 @@ public class TestEntityProvider {
     return adrIn;
   }
 
+  /**
+   *
+   * @return
+   */
   public static City createCity() {
     City city = new City();
     city.setName("city name");
     return city;
   }
 
+  /**
+   *
+   * @return
+   */
   public static City createCityWithCountry() {
     City city = new City();
     city.setName("city name");
@@ -62,6 +83,10 @@ public class TestEntityProvider {
     return city;
   }
 
+  /**
+   *
+   * @return
+   */
   public static ZipCode createZipCodeWithCountry() {
     ZipCode zip = new ZipCode();
     zip.setName("name");
@@ -69,6 +94,10 @@ public class TestEntityProvider {
     return zip;
   }
 
+  /**
+   *
+   * @return
+   */
   public static Country createCountry() {
 
     Country country = new Country();
@@ -79,6 +108,11 @@ public class TestEntityProvider {
     return country;
   }
 
+  /**
+   *
+   * @param pIn
+   * @param withId
+   */
   public static void setBasePropertiesForEquals(BaseEntity pIn, BaseEntity withId) {
     pIn.setId(withId.getId());
     pIn.setVersion(withId.getVersion());

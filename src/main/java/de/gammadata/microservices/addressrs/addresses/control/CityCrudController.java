@@ -14,11 +14,20 @@ import javax.ejb.Stateless;
 @Stateless
 public class CityCrudController extends AbstractCrudController<City, BaseQuerySpecification> {
 
+  /**
+   *
+   * @return
+   */
   @Override
   public Class<City> getEntityClass() {
     return City.class;
   }
 
+  /**
+   *
+   * @param pCity
+   * @return
+   */
   @Override
   public City saveOrUpdateEntity(City pCity) {
     relateEntities(pCity);
@@ -41,11 +50,19 @@ public class CityCrudController extends AbstractCrudController<City, BaseQuerySp
     }
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getSimpleSearchQueryName() {
     return City.SIMPLE_SEARCH_QUERY_NAME;
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getSimpleSearchCountName() {
     return City.SIMPLE_COUNT_QUERY_NAME;

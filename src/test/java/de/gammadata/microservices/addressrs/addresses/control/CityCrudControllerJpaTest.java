@@ -15,6 +15,9 @@ public class CityCrudControllerJpaTest extends AbstractCrudControllerTest<City, 
 
   private CityCrudController testee = spy(new CityCrudController());
 
+  /**
+   *
+   */
   @Before
   @Override
   public void setUp() {
@@ -23,11 +26,19 @@ public class CityCrudControllerJpaTest extends AbstractCrudControllerTest<City, 
 
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public City createTestEntity() {
     return TestEntityProvider.createCity();
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public AbstractCrudController getTestee() {
     return testee;

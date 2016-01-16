@@ -24,10 +24,23 @@ public class JacksonZuluDateSerializer extends JsonSerializer<Date> {
     return zuluDateFormat;
   }
   
+  /**
+   *
+   * @param date
+   * @return
+   */
   public static String serialize(Date date){
     return getDateFormat().format(date);
   }
 
+  /**
+   *
+   * @param date
+   * @param jg
+   * @param sp
+   * @throws IOException
+   * @throws JsonGenerationException
+   */
   @Override
   public void serialize(Date date, JsonGenerator jg, SerializerProvider sp)
           throws IOException, JsonGenerationException {

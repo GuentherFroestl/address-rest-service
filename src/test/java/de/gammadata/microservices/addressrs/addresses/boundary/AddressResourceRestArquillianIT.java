@@ -47,6 +47,11 @@ public class AddressResourceRestArquillianIT extends AddressResourceRestStIT {
 //  public static WebArchive createDeployment() {
 //    return DeploymentLoaderArquillianIT.createDeployment();
 //  }
+
+  /**
+   *
+   * @throws Exception
+   */
   @Before
   @Override
   public void setUp() throws Exception {
@@ -59,11 +64,17 @@ public class AddressResourceRestArquillianIT extends AddressResourceRestStIT {
     webTarget = client.target(URI.create(new URL(base, "api/addresses").toExternalForm()));
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
     AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
   }
 
+  /**
+   *
+   */
   @Test
   public void testRelations() {
     System.out.println("testRelations()");

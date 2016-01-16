@@ -11,6 +11,9 @@ import org.glassfish.jersey.server.ResourceConfig;
 @ApplicationPath("/api")
 public class JaxRsApplication extends ResourceConfig {
 
+  /**
+   *
+   */
   public JaxRsApplication() {
     super(JacksonFeature.class,
             MyObjectMapperProvider.class);

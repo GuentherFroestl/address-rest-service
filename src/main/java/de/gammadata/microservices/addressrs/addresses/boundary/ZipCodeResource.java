@@ -18,6 +18,10 @@ public class ZipCodeResource extends AbstractCrudResource<ZipCode, BaseQuerySpec
   @EJB
   ZipCodeCrudController zipCodeController;
 
+  /**
+   *
+   * @return
+   */
   @Override
   public AbstractCrudController<ZipCode, BaseQuerySpecification> getCrudController() {
     return zipCodeController;

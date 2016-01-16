@@ -18,6 +18,10 @@ public class CountriesResource extends AbstractCrudResource<Country, BaseQuerySp
   @EJB
   CountryCrudController countryController;
 
+  /**
+   *
+   * @return
+   */
   @Override
   public AbstractCrudController<Country, BaseQuerySpecification> getCrudController() {
     return countryController;

@@ -8,6 +8,20 @@ import java.util.Date;
  */
 public class AddressBasics extends BaseEntity {
 
+  /**
+   *
+   * @param id
+   * @param version
+   * @param name
+   * @param modified
+   * @param additionalName
+   * @param cityId
+   * @param cityName
+   * @param countryId
+   * @param countryName
+   * @param zipCodeId
+   * @param zipCodeName
+   */
   public AddressBasics(Long id, Integer version, String name, Date modified, String additionalName,
           Long cityId, String cityName, Long countryId, String countryName, Long zipCodeId, String zipCodeName) {
     super(id, version, name, modified);
@@ -29,58 +43,114 @@ public class AddressBasics extends BaseEntity {
   private Long zipCodeId;
   private String zipCodeName;
 
+  /**
+   *
+   * @return
+   */
   public String getAdditionalName() {
     return additionalName;
   }
 
+  /**
+   *
+   * @param additionalName
+   */
   public void setAdditionalName(String additionalName) {
     this.additionalName = additionalName;
   }
 
+  /**
+   *
+   * @return
+   */
   public Long getCityId() {
     return cityId;
   }
 
+  /**
+   *
+   * @param cityId
+   */
   public void setCityId(Long cityId) {
     this.cityId = cityId;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getCityName() {
     return cityName;
   }
 
+  /**
+   *
+   * @param cityName
+   */
   public void setCityName(String cityName) {
     this.cityName = cityName;
   }
 
+  /**
+   *
+   * @return
+   */
   public Long getCountryId() {
     return countryId;
   }
 
+  /**
+   *
+   * @param countryId
+   */
   public void setCountryId(Long countryId) {
     this.countryId = countryId;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getCountryName() {
     return countryName;
   }
 
+  /**
+   *
+   * @param countryName
+   */
   public void setCountryName(String countryName) {
     this.countryName = countryName;
   }
 
+  /**
+   *
+   * @return
+   */
   public Long getZipCodeId() {
     return zipCodeId;
   }
 
+  /**
+   *
+   * @param zipCodeId
+   */
   public void setZipCodeId(Long zipCodeId) {
     this.zipCodeId = zipCodeId;
   }
 
+  /**
+   *
+   * @return
+   */
   public String getZipCodeName() {
     return zipCodeName;
   }
 
+  /**
+   *
+   * @param zipCodeName
+   */
   public void setZipCodeName(String zipCodeName) {
     this.zipCodeName = zipCodeName;
   }

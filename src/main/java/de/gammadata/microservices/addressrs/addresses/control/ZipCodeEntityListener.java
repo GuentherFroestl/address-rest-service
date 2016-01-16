@@ -10,12 +10,20 @@ import javax.persistence.PreUpdate;
  */
 public class ZipCodeEntityListener extends BaseEntityListener {
 
+  /**
+   *
+   * @param entity
+   */
   @PrePersist
   public void prePersist(ZipCode entity) {
     super.prePersist(entity);
     updateMirrorsFields(entity);
   }
 
+  /**
+   *
+   * @param entity
+   */
   @PreUpdate
   public void preUpdate(ZipCode entity) {
     super.preUpdate(entity);

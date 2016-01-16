@@ -40,6 +40,9 @@ public class CountryCrudControllerArquillianIT {
   @EJB
   CountryCrudController instance;
 
+  /**
+   *
+   */
   public CountryCrudControllerArquillianIT() {
   }
 
@@ -48,15 +51,25 @@ public class CountryCrudControllerArquillianIT {
 //  public static WebArchive createDeployment() {
 //    return DeploymentLoaderArquillianIT.createDeployment();
 //  }
+
+  /**
+   *
+   */
   @BeforeClass
   public static void setUpClass() {
 
   }
 
+  /**
+   *
+   */
   @AfterClass
   public static void tearDownClass() {
   }
 
+  /**
+   *
+   */
   @Before
   public void setUp() {
     assertNotNull("CountryCrudController not injected", instance);
@@ -71,6 +84,9 @@ public class CountryCrudControllerArquillianIT {
     entityId = entitySaved.getId();
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
     AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);

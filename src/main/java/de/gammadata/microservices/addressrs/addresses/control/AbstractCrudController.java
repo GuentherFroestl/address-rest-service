@@ -18,12 +18,27 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 public abstract class AbstractCrudController<T extends BaseEntity, Q extends BaseQuerySpecification> {
 
+  /**
+   *
+   * @return
+   */
   public abstract Class<T> getEntityClass();
 
+  /**
+   *
+   * @return
+   */
   public abstract String getSimpleSearchQueryName();
 
+  /**
+   *
+   * @return
+   */
   public abstract String getSimpleSearchCountName();
 
+  /**
+   *
+   */
   @SuppressWarnings("unchecked")
   public AbstractCrudController() {
 
@@ -32,10 +47,19 @@ public abstract class AbstractCrudController<T extends BaseEntity, Q extends Bas
   @PersistenceContext(name = "address-pu")
   EntityManager em;
 
+  /**
+   *
+   * @return
+   */
   protected EntityManager getEm() {
     return em;
   }
 
+  /**
+   *
+   * @param querySpec
+   * @return
+   */
   public List<T> getEntities(BaseQuerySpecification querySpec) {
     TypedQuery<T> query;
     if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
@@ -57,6 +81,11 @@ public abstract class AbstractCrudController<T extends BaseEntity, Q extends Bas
     return results;
   }
 
+  /**
+   *
+   * @param querySpec
+   * @return
+   */
   public Long countEntities(BaseQuerySpecification querySpec) {
     if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
       return countEntities();
@@ -78,16 +107,30 @@ public abstract class AbstractCrudController<T extends BaseEntity, Q extends Bas
     return count;
   }
 
+  /**
+   *
+   * @param id
+   * @return
+   */
   public T getEntity(Long id) {
     T res = getEm().find(this.getEntityClass(), id);
     return res;
   }
 
+  /**
+   *
+   * @param pAdr
+   * @return
+   */
   public T saveOrUpdateEntity(T pAdr) {
     T res = getEm().merge(pAdr);
     return res;
   }
 
+  /**
+   *
+   * @param id
+   */
   public void deleteEntity(Long id) {
     T entity = getEntity(id);
     if (entity == null) {

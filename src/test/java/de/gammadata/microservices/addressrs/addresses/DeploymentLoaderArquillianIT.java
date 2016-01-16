@@ -2,17 +2,10 @@ package de.gammadata.microservices.addressrs.addresses;
 
 import de.gammadata.microservices.addressrs.addresses.boundary.AddressResource;
 import de.gammadata.microservices.addressrs.addresses.control.AddressCrudController;
-import de.gammadata.microservices.addressrs.addresses.control.CityCrudController;
-import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
-import de.gammadata.microservices.addressrs.addresses.control.ZipCodeCrudController;
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
-import de.gammadata.microservices.addressrs.addresses.entity.City;
-import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.control.JaxRsApplication;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import de.gammadata.microservices.addressrs.health.boundary.HealthResource;
-import java.util.List;
 import javax.inject.Inject;
 import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
 import org.jboss.arquillian.container.test.api.Deployment;

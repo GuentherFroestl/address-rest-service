@@ -1,8 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.gammadata.microservices.addressrs.addresses.control.CityEntityListener;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,9 +10,7 @@ import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.eclipse.persistence.annotations.PrivateOwned;
 
 /**
  *
