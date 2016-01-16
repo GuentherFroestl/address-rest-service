@@ -1,6 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.AddressBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
@@ -10,6 +11,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -20,9 +22,25 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class AddressCrudController extends AbstractCrudController<Address, BaseQuerySpecification> {
 
+  public List<AddressBasics> findNative(BaseQuerySpecification querySpec) {
+    Query query = getEm().createNativeQuery(Address.NATIVE_SEARCH_QUERY, "AddressBasicsContructor");
+    if (querySpec != null) {
+      query.setParameter(1, querySpec.getQuery().toLowerCase() + "%");
+    }
+    if (querySpec != null && querySpec.getStart() != null) {
+      query.setFirstResult(querySpec.getStart());
+    }
+    if (querySpec != null && querySpec.getLimit() != null) {
+      query.setMaxResults(querySpec.getLimit());
+    }
+
+    List<AddressBasics> result = query.getResultList();
+    return result;
+  }
+
   public List<Building> findBuildings(BaseQuerySpecification querySpec, Long adrId) {
-    
-    if (adrId==null||adrId==0){
+
+    if (adrId == null || adrId == 0) {
       throw new RuntimeException("AddressID must not be null to query buildings");
     }
 
@@ -40,10 +58,10 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
       query.setParameter(Building.ADR_ID_QUERY_PARAMETER, adrId);
     }
 
-    if (querySpec != null && querySpec.getStart() != null) {
+    if (querySpec.getStart() != null) {
       query.setFirstResult(querySpec.getStart());
     }
-    if (querySpec != null && querySpec.getLimit() != null) {
+    if (querySpec.getLimit() != null) {
       query.setMaxResults(querySpec.getLimit());
     }
     List<Building> results = query.getResultList();

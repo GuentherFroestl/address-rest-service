@@ -2,17 +2,23 @@ package de.gammadata.microservices.addressrs.addresses.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.gammadata.microservices.addressrs.addresses.control.AddressEntityListener;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import org.eclipse.persistence.annotations.PrivateOwned;
 
@@ -39,6 +45,26 @@ import org.eclipse.persistence.annotations.PrivateOwned;
           query = "select count(e) from Address e"
           + Address.WHERE_CLAUSE
   )})
+
+@SqlResultSetMappings({
+  @SqlResultSetMapping(
+          name = "AddressBasicsContructor",
+          classes = @ConstructorResult(
+                  targetClass = AddressBasics.class,
+                  columns = {
+                    @ColumnResult(name = "ID", type = Long.class),
+                    @ColumnResult(name = "VERSION", type = Integer.class),
+                    @ColumnResult(name = "NAME"),
+                    @ColumnResult(name = "MODIFIED", type = Date.class),
+                    @ColumnResult(name = "ADDITIONAL_NAME"),
+                    @ColumnResult(name = "CITY_ID", type = Long.class),
+                    @ColumnResult(name = "CITY_NAME"),
+                    @ColumnResult(name = "COUNTRY_ID", type = Long.class),
+                    @ColumnResult(name = "COUNTRY_NAME"),
+                    @ColumnResult(name = "ZIPCODE_ID", type = Long.class),
+                    @ColumnResult(name = "ZIPCODE_NAME")
+                  }))
+})
 public class Address extends BaseEntity {
 
   public static final String SIMPLE_SEARCH_QUERY_NAME = "Address_simpleSearchQuery";
@@ -49,6 +75,17 @@ public class Address extends BaseEntity {
           + " OR LOWER(e.cityName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.countryName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.zipCodeName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
+
+  public static final String WHERE_CLAUSE_NATIVE = " where "
+          + "LOWER(e.name) like ?1"
+          + " OR LOWER(e.ADDITIONAL_NAME) like ?1"
+          + " OR LOWER(e.CITY_NAME) like ?1"
+          + " OR LOWER(e.COUNTRY_NAME) like ?1"
+          + " OR LOWER(e.ZIPCODE_NAME) like ?1";
+
+  public static final String NATIVE_SEARCH_QUERY = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.ADDITIONAL_NAME,"
+          + " e.CITY_ID, e.CITY_NAME, e.COUNTRY_NAME, e.COUNTRY_ID, e.ZIPCODE_NAME, e.ZIPCODE_ID from Address e"
+          + WHERE_CLAUSE_NATIVE;
 
   private static final long serialVersionUID = 1L;
 
@@ -76,12 +113,15 @@ public class Address extends BaseEntity {
   private List<Building> buildings;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "ZIPCODE_ID")
   private ZipCode zipCode;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "CITY_ID")
   private City city;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "COUNTRY_ID")
   private Country country;
 
   public String getAdditionalName() {
@@ -209,10 +249,7 @@ public class Address extends BaseEntity {
     if (!Objects.equals(this.city, other.city)) {
       return false;
     }
-    if (!Objects.equals(this.country, other.country)) {
-      return false;
-    }
-    return true;
+    return Objects.equals(this.country, other.country);
   }
 
   @Override

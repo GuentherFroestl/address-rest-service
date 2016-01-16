@@ -26,17 +26,24 @@ public class BaseEntity implements Serializable {
   protected Long id;
   @Version
   protected Integer version;
-  @Column(name="NAME")
+  @Column(name = "NAME")
   protected String name;
   @Column
   @Temporal(TemporalType.TIMESTAMP)
   protected Date modified;
 
+  public BaseEntity() {
+  }
+
   public BaseEntity(String name) {
     this.name = name;
   }
 
-  public BaseEntity() {
+  public BaseEntity(Long id, Integer version, String name, Date modified) {
+    this.id = id;
+    this.version = version;
+    this.name = name;
+    this.modified = modified;
   }
 
   public Long getId() {
