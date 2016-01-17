@@ -2,6 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.AddressCrudController;
 import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.AddressBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.application.control.JacksonZuluDateSerializer;
 import java.util.List;
@@ -35,6 +36,19 @@ public class AddressResource extends AbstractCrudResource<Address, BaseQuerySpec
   @Override
   public AddressCrudController getCrudController() {
     return adrController;
+  }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Path("/list")
+  public List<AddressBasics> listAddresses(
+          @QueryParam("start") Integer start,
+          @QueryParam("limit") Integer limit,
+          @QueryParam("query") String query) {
+    BaseQuerySpecification querySpec = new BaseQuerySpecification(limit, start, query);
+    List<AddressBasics> result = adrController.findNative(querySpec);
+    return result;
   }
 
   /**

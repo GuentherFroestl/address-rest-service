@@ -26,8 +26,7 @@ import static org.hamcrest.CoreMatchers.is;
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CountryResourceArquillianIT {
-
-  private Long testDate;
+  
   private Long entityId;
   private Country entityCreated;
   private Country entitySaved;
@@ -66,7 +65,6 @@ public class CountryResourceArquillianIT {
     assertNotNull("CountryCrudController not injected", instance);
     AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
-    testDate = new Date().getTime();
     entityCreated = TestEntityProvider.createCountry();
     entitySaved = instance.saveOrUpdateEntity(entityCreated);
     assertNotNull("country not saved, null result", entitySaved);

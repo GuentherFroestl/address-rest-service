@@ -29,9 +29,11 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
    */
   public List<AddressBasics> findNative(BaseQuerySpecification querySpec) {
     Query query = getEm().createNativeQuery(Address.NATIVE_SEARCH_QUERY, "AddressBasicsContructor");
-    if (querySpec != null) {
-      query.setParameter(1, querySpec.getQuery().toLowerCase() + "%");
+    String searchTxt = "%";
+    if (querySpec != null && querySpec.getQuery() != null) {
+      searchTxt = querySpec.getQuery().toLowerCase() + "%";
     }
+    query.setParameter(1, searchTxt);
     if (querySpec != null && querySpec.getStart() != null) {
       query.setFirstResult(querySpec.getStart());
     }
