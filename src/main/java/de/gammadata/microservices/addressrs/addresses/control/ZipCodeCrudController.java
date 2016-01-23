@@ -1,11 +1,14 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
+import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
 /**
  * CRUD Controller for ZipCode.
@@ -14,6 +17,35 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ZipCodeCrudController extends AbstractCrudController<ZipCode, ZipCode, BaseQuerySpecification> {
+
+  /**
+   *
+   * @param querySpec
+   * @return
+   */
+  public List<ZipCode> findZipCodesInCountry(EntityRelatedQuerySpec querySpec) {
+    if (querySpec == null || querySpec.getRelatedId() == 0) {
+      throw new AddressServiceException(AddressServiceException.Error.VALIDATION,
+              "CountryID must not be null to query ZipCodes within country");
+    }
+    TypedQuery<ZipCode> query;
+    query = getEm().createNamedQuery(ZipCode.QUERY_ZIPCODES_BY_COUNTRY_NAME, ZipCode.class);
+    query.setParameter(BaseEntity.ID_PARAMETER, querySpec.getRelatedId());
+    if (querySpec.getQuery() != null) {
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
+    } else {
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, "%");
+    }
+
+    if (querySpec.getStart() != null) {
+      query.setFirstResult(querySpec.getStart());
+    }
+    if (querySpec.getLimit() != null) {
+      query.setMaxResults(querySpec.getLimit());
+    }
+    List<ZipCode> results = query.getResultList();
+    return results;
+  }
 
   @Override
   public List<ZipCode> getList(BaseQuerySpecification querySpec) {

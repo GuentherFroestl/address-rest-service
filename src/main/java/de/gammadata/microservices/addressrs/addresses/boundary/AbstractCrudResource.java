@@ -26,21 +26,9 @@ public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseE
 
   /**
    *
-   * @return
+   * @return AbstractCrudController
    */
   abstract public AbstractCrudController<T, L, Q> getCrudController();
-
-//  /**
-//   *
-//   * @return
-//   */
-//  @GET
-//  @Produces(MediaType.APPLICATION_JSON)
-//  @Consumes(MediaType.APPLICATION_JSON)
-//  public List<T> getAllEntities() {
-//    List<T> result = getCrudController().getEntities(null);
-//    return result;
-//  }
 
   /**
    *

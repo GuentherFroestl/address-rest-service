@@ -2,7 +2,6 @@ package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.*;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;

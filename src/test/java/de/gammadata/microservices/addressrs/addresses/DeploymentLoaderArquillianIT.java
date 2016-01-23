@@ -24,6 +24,10 @@ import org.junit.runner.RunWith;
 @ArquillianSuiteDeployment
 public class DeploymentLoaderArquillianIT {
 
+  /**
+   *
+   * @return
+   */
   @Deployment
   public static WebArchive createDeployment() {
     WebArchive war = ShrinkWrap.create(WebArchive.class)
@@ -42,6 +46,9 @@ public class DeploymentLoaderArquillianIT {
   @Inject
   HealthResource resource;
 
+  /**
+   *
+   */
   @Test
   public void test1_Injected() {
     System.out.println("test1_Injected");

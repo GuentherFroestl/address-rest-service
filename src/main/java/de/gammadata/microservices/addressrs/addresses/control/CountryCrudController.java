@@ -15,9 +15,9 @@ public class CountryCrudController extends AbstractCrudController<Country, Count
 
   @Override
   public List<Country> getList(BaseQuerySpecification querySpec) {
-    return super.searchEntities(querySpec);
+    return super.searchEntities(querySpec); //To change body of generated methods, choose Tools | Templates.
   }
-
+  
   /**
    *
    * @return

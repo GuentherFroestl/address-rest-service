@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,6 +30,10 @@ import javax.persistence.Table;
   @NamedQuery(name = ZipCode.SIMPLE_COUNT_QUERY_NAME,
           query = "select count(e) from ZipCode e"
           + ZipCode.WHERE_CLAUSE
+  ),
+  @NamedQuery(name = ZipCode.QUERY_ZIPCODES_BY_COUNTRY_NAME,
+          query = "select e from ZipCode e"
+          + ZipCode.WHERE_CLAUSE_COUNTRY_ID
   )})
 public class ZipCode extends BaseEntity {
 
@@ -47,11 +52,25 @@ public class ZipCode extends BaseEntity {
   /**
    *
    */
+  public static final String QUERY_ZIPCODES_BY_COUNTRY_NAME = "ZipCode_queryByCountry";
+
+  /**
+   *
+   */
   public static final String WHERE_CLAUSE = " where "
           + "LOWER(e.name) like :" + ZipCode.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.countryName) like :" + ZipCode.SIMPLE_SEARCH_QUERY_PARAMETER;
+  
+  /**
+   *
+   */
+  public static final String WHERE_CLAUSE_COUNTRY_ID = " where "
+          + " e.country.id= :" + BaseEntity.ID_PARAMETER
+          + " AND"
+          + " LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "COUNTRY_ID")
   private Country country;
 
   /**

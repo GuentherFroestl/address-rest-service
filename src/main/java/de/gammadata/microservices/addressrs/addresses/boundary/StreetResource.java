@@ -4,6 +4,8 @@ import de.gammadata.microservices.addressrs.addresses.control.StreetCrudControll
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.addresses.entity.Building;
+import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.application.control.JacksonZuluDateSerializer;
 import java.util.List;
 import javax.annotation.ManagedBean;
@@ -15,30 +17,63 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
- * StreetResource (exposed at "addresses" path)
+ * StreetResource (exposed at "streets" path)
  */
 @ManagedBean
 @Path(StreetResource.PATH)
 public class StreetResource extends AbstractCrudResource<Street, StreetBasics,
         BaseQuerySpecification> {
   
+  /**
+   *
+   */
   public static final String PATH="/streets";
 
+  /**
+   *
+   */
+  public static final String BUILDINGS_PATH="/{id}/buildings";
+
   @EJB
-  StreetCrudController adrController;
+  StreetCrudController streetController;
   /**
    *
    * @return
    */
   @Override
   public StreetCrudController getCrudController() {
-    return adrController;
+    return streetController;
   }
+  
+    /**
+   * Query street within a city given by ID.
+   *
+   * @param id Long
+   * @param start Integer
+   * @param limit Integer
+   * @param query String
+   * @return List of StreetBasics
+   */
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Path(BUILDINGS_PATH)
+  public List<Building> queryStreets(
+          @PathParam("id") Long id,
+          @QueryParam("start") Integer start,
+          @QueryParam("limit") Integer limit,
+          @QueryParam("query") String query) {
+    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(id, limit, start, query);
+    List<Building> result = streetController.findBuildings(querySpec);
+    return result;
+  }
+
 
   /**
    *

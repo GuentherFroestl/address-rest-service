@@ -6,11 +6,13 @@ import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
+import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -19,9 +21,58 @@ import javax.persistence.TypedQuery;
  * @author gfr
  */
 @Stateless
-public class StreetCrudController extends AbstractCrudController<Street, StreetBasics,
-        BaseQuerySpecification> {
+public class StreetCrudController extends AbstractCrudController<Street, StreetBasics, BaseQuerySpecification> {
 
+  /**
+   * Find streets for a city given by id
+   *
+   * @param querySpec EntityRelatedQuerySpec
+   * @return StreetBasics
+   */
+  public List<StreetBasics> findStreetsInCity(EntityRelatedQuerySpec querySpec) {
+    if (querySpec == null || querySpec.getRelatedId() == 0) {
+      throw new AddressServiceException(AddressServiceException.Error.VALIDATION, "CityID must not be null to query streets within city");
+    }
+    return findStreetsByRelatedId(querySpec, Street.NATIVE_SEARCH_QUERY_CITY);
+  }
+
+  /**
+   * Find streets for a city given by id
+   *
+   * @param querySpec EntityRelatedQuerySpec
+   * @return StreetBasics
+   */
+  public List<StreetBasics> findStreetsInZipCode(EntityRelatedQuerySpec querySpec) {
+    if (querySpec == null || querySpec.getRelatedId() == 0) {
+      throw new AddressServiceException(AddressServiceException.Error.VALIDATION, "ZipCodeID must not be null to query streets within city");
+    }
+    return findStreetsByRelatedId(querySpec, Street.NATIVE_SEARCH_QUERY_ZIPCODE);
+  }
+
+  /**
+   *
+   * @param querySpec
+   * @param nativeQuery
+   * @return
+   */
+  public List<StreetBasics> findStreetsByRelatedId(EntityRelatedQuerySpec querySpec, String nativeQuery) {
+    Query query = getEm().createNativeQuery(nativeQuery, getResultSetMappingName());
+    query.setParameter(1, querySpec.getRelatedId());
+    String searchTxt = "%";
+    if (querySpec.getQuery() != null) {
+      searchTxt = querySpec.getQuery().toLowerCase() + "%";
+    }
+    query.setParameter(2, searchTxt);
+    if (querySpec.getStart() != null) {
+      query.setFirstResult(querySpec.getStart());
+    }
+    if (querySpec.getLimit() != null) {
+      query.setMaxResults(querySpec.getLimit());
+    }
+
+    List<StreetBasics> result = query.getResultList();
+    return result;
+  }
 
   /**
    *
@@ -29,15 +80,15 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
    * @param adrId
    * @return
    */
-  public List<Building> findBuildings(BaseQuerySpecification querySpec, Long adrId) {
+  public List<Building> findBuildings(EntityRelatedQuerySpec querySpec) {
 
-    if (adrId == null || adrId == 0) {
-      throw new RuntimeException("StreetID must not be null to query buildings");
+    if (querySpec == null || querySpec.getRelatedId() == 0) {
+      throw new AddressServiceException(AddressServiceException.Error.VALIDATION, "StreetID must not be null to query buildings");
     }
 
     TypedQuery<Building> query;
-    if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
-      Street adr = getEntity(adrId);
+    if (querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
+      Street adr = getEntity(querySpec.getRelatedId());
       if (adr != null) {
         return adr.getBuildings();
       } else {
@@ -46,7 +97,7 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
     } else {
       query = getEm().createNamedQuery(Building.BUILDING_FOR_ADR_SEARCH_QUERY_NAME, Building.class);
       query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
-      query.setParameter(Building.ADR_ID_QUERY_PARAMETER, adrId);
+      query.setParameter(Building.ADR_ID_QUERY_PARAMETER, querySpec.getRelatedId() );
     }
 
     if (querySpec.getStart() != null) {

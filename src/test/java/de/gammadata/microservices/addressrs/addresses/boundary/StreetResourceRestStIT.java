@@ -18,7 +18,7 @@ import static org.hamcrest.CoreMatchers.is;
  *
  * @author gfr
  */
-public class AddressResourceRestStIT extends AbstractResourceRestIT {
+public class StreetResourceRestStIT extends AbstractResourceRestIT {
 
   /**
    *

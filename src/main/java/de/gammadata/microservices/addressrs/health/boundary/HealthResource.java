@@ -13,6 +13,9 @@ import javax.ws.rs.core.MediaType;
 @Path(HealthResource.PATH)
 public class HealthResource {
   
+  /**
+   *
+   */
   public static final String PATH = "/healthcheck";
 
   /**

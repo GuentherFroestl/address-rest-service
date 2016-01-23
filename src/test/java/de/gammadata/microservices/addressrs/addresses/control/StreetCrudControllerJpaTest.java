@@ -6,6 +6,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
+import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import java.util.ArrayList;
@@ -13,11 +14,11 @@ import java.util.List;
 import javax.persistence.EntityTransaction;
 import org.junit.After;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertTrue;
  *
  * @author gfr
  */
-public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Street, BaseQuerySpecification> {
+public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Street, BaseQuerySpecification> {
 
   private StreetCrudController testee = spy(new StreetCrudController());
 
@@ -78,6 +79,18 @@ public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Str
     assertEquals("countryname does not match", result.getCountry().getName(),resList.get(0).getCountryName());
     assertEquals("zipcodeid does not match", result.getZipCode().getId(),resList.get(0).getZipCodeId());
     assertEquals("zipcodename does not match", result.getZipCode().getName(),resList.get(0).getZipCodeName());
+    //find streets in city
+    List<StreetBasics> resList2 = testee.findStreetsInCity(new EntityRelatedQuerySpec(result.getCity().getId()));
+    assertNotNull("resultlist unexpected null", resList2);
+    assertTrue("resultlist has no content", !resList2.isEmpty());
+    assertNotNull("resultlist unexpected null entity", resList2.get(0));
+    assertEquals("id does not match",resList2.get(0).getCityId(),result.getCity().getId());
+    //find streets in zipcode
+    List<StreetBasics> resList3 = testee.findStreetsInZipCode(new EntityRelatedQuerySpec(resList.get(0).getZipCodeId()));
+    assertNotNull("resultlist unexpected null", resList3);
+    assertTrue("resultlist has no content", !resList3.isEmpty());
+    assertNotNull("resultlist unexpected null entity", resList3.get(0));
+    assertEquals("id does not match",resList.get(0).getZipCodeId(),resList3.get(0).getZipCodeId());
   }
 
   @Test
@@ -109,11 +122,11 @@ public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Str
     assertEquals("getBuildings().size() don't match", bCount, res.getBuildings().size());
 
     // Test buildings
-    List<Building> bList = testee.findBuildings(null, res.getId());
+    List<Building> bList = testee.findBuildings(new EntityRelatedQuerySpec(res.getId()));
     assertEquals("getBuildings().size() don't match", bCount, bList.size());
 
-    BaseQuerySpecification query = new BaseQuerySpecification(res.getBuildings().get(0).getNumber());
-    List<Building> bList2 = testee.findBuildings(query, res.getId());
+    EntityRelatedQuerySpec query = new EntityRelatedQuerySpec(res.getId(),res.getBuildings().get(0).getNumber());
+    List<Building> bList2 = testee.findBuildings(query);
     assertEquals("getBuildings().size() don't match", 1, bList2.size());
 
     //Update Buildings
@@ -128,8 +141,7 @@ public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Str
     tx.begin();
     Street adrB = testee.saveOrUpdateEntity(res);
     tx.commit();
-    query.setQuery("name"); // 2 Times in buildings
-    List<Building> bList3 = testee.findBuildings(query, res.getId());
+    List<Building> bList3 = testee.findBuildings(new EntityRelatedQuerySpec(res.getId(),"name"));
     assertEquals("getBuildings().size() don't match", 2, bList3.size());
   }
 

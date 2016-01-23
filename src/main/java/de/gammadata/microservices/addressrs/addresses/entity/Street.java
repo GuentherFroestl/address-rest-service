@@ -54,27 +54,39 @@ import org.eclipse.persistence.annotations.PrivateOwned;
                   columns = {
                     @ColumnResult(name = "ID", type = Long.class),
                     @ColumnResult(name = "VERSION", type = Integer.class),
-                    @ColumnResult(name = "NAME", type=String.class),
+                    @ColumnResult(name = "NAME", type = String.class),
                     @ColumnResult(name = "MODIFIED", type = Date.class),
-                    @ColumnResult(name = "ADDITIONAL_NAME", type=String.class),
+                    @ColumnResult(name = "ADDITIONAL_NAME", type = String.class),
                     @ColumnResult(name = "CITY_ID", type = Long.class),
-                    @ColumnResult(name = "CITY_NAME", type=String.class),
+                    @ColumnResult(name = "CITY_NAME", type = String.class),
                     @ColumnResult(name = "COUNTRY_ID", type = Long.class),
-                    @ColumnResult(name = "COUNTRY_NAME", type=String.class),
+                    @ColumnResult(name = "COUNTRY_NAME", type = String.class),
                     @ColumnResult(name = "ZIPCODE_ID", type = Long.class),
-                    @ColumnResult(name = "ZIPCODE_NAME", type=String.class)
+                    @ColumnResult(name = "ZIPCODE_NAME", type = String.class)
                   }))
 })
 public class Street extends BaseEntity {
 
+  /**
+   *
+   */
   public static final String SIMPLE_SEARCH_QUERY_NAME = "Street_simpleSearchQuery";
 
+  /**
+   *
+   */
   public static final String SIMPLE_COUNT_QUERY_NAME = "Street_simpleSearchCount";
-  
+
+  /**
+   *
+   */
   public static final String RESULT_SET_MAPPING_NAME = "StreetsBasicsContructor";
 
-  public static final String WHERE_CLAUSE = " where "
-          + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+  /**
+   *
+   */
+  public static final String WHERE_CLAUSE = " where"
+          + " LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.additionalName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.cityName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.countryName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
@@ -83,8 +95,8 @@ public class Street extends BaseEntity {
   /**
    *
    */
-  public static final String WHERE_CLAUSE_NATIVE = " where "
-          + "LOWER(e.name) like ?1"
+  public static final String WHERE_CLAUSE_NATIVE = " where"
+          + " LOWER(e.name) like ?1"
           + " OR LOWER(e.ADDITIONAL_NAME) like ?1"
           + " OR LOWER(e.CITY_NAME) like ?1"
           + " OR LOWER(e.COUNTRY_NAME) like ?1"
@@ -93,9 +105,43 @@ public class Street extends BaseEntity {
   /**
    *
    */
-  public static final String NATIVE_SEARCH_QUERY = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.ADDITIONAL_NAME,"
-          + " e.CITY_ID, e.CITY_NAME, e.COUNTRY_NAME, e.COUNTRY_ID, e.ZIPCODE_NAME, e.ZIPCODE_ID from Street e"
-          + WHERE_CLAUSE_NATIVE;
+  public static final String CITY_WHERE_CLAUSE_NATIVE = " where"
+          + " e.CITY_ID = ?1"
+          + " AND ("
+          + " LOWER(e.name) like ?2"
+          + " OR LOWER(e.ADDITIONAL_NAME) like ?2"
+          + " )";
+  
+  /**
+   *
+   */
+  public static final String ZIPCODE_WHERE_CLAUSE_NATIVE = " where"
+          + " e.ZIPCODE_ID = ?1"
+          + " AND ("
+          + " LOWER(e.name) like ?2"
+          + " OR LOWER(e.ADDITIONAL_NAME) like ?2"
+          + " )";
+
+  /**
+   *
+   */
+  public static final String NATIVE_SEARCH_COULMS = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.ADDITIONAL_NAME,"
+          + " e.CITY_ID, e.CITY_NAME, e.COUNTRY_NAME, e.COUNTRY_ID, e.ZIPCODE_NAME, e.ZIPCODE_ID from Street e";
+
+  /**
+   *
+   */
+  public static final String NATIVE_SEARCH_QUERY = NATIVE_SEARCH_COULMS + WHERE_CLAUSE_NATIVE;
+
+  /**
+   *
+   */
+  public static final String NATIVE_SEARCH_QUERY_CITY = NATIVE_SEARCH_COULMS + CITY_WHERE_CLAUSE_NATIVE;
+
+  /**
+   *
+   */
+  public static final String NATIVE_SEARCH_QUERY_ZIPCODE = NATIVE_SEARCH_COULMS + ZIPCODE_WHERE_CLAUSE_NATIVE;
 
   private static final long serialVersionUID = 1L;
 

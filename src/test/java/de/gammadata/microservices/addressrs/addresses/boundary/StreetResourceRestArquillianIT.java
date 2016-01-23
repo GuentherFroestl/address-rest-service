@@ -18,17 +18,17 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.After;
 import org.junit.Assert;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
  * @author gfr
  */
 @RunWith(Arquillian.class)
-public class AddressResourceRestArquillianIT extends AddressResourceRestStIT {
+public class StreetResourceRestArquillianIT extends StreetResourceRestStIT {
 
   @EJB
   StreetCrudController adrController;

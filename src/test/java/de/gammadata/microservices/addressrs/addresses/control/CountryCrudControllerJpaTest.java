@@ -12,11 +12,17 @@ import static org.mockito.Mockito.when;
  */
 public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Country, BaseQuerySpecification> {
 
+  /**
+   *
+   */
   public CountryCrudControllerJpaTest() {
   }
 
   private CountryCrudController testee = spy(new CountryCrudController());
 
+  /**
+   *
+   */
   @Before
   @Override
   public void setUp() {
@@ -24,11 +30,19 @@ public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Cou
     when(testee.getEm()).thenReturn(em);
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public Country createTestEntity() {
     return TestEntityProvider.createCountry();
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public AbstractCrudController getTestee() {
     return testee;

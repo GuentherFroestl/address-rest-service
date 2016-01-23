@@ -19,16 +19,28 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class ZipCodeResourceRestStIT extends AbstractResourceRestIT {
   
+  /**
+   *
+   */
   protected static final String ZIPCODE_URL = BASE_URL + ZipCodeResource.PATH;
 
+  /**
+   *
+   */
   @AfterClass
   public static void tearDownClass() {
   }
 
+  /**
+   *
+   */
   @Before
   public void setUp() {
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
   }

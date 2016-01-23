@@ -23,7 +23,7 @@ import static org.hamcrest.CoreMatchers.is;
  * @author gfr
  */
 @RunWith(Arquillian.class)
-public class AddressCrudControllerArquillianIT {
+public class StreetCrudControllerArquillianIT {
 
 
   @EJB

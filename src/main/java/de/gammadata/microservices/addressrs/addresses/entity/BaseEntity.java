@@ -23,6 +23,11 @@ public class BaseEntity implements Serializable {
    *
    */
   public static final String SIMPLE_SEARCH_QUERY_PARAMETER = "parameter";
+  
+  /**
+   *
+   */
+  public static final String ID_PARAMETER = "id";
 
   /**
    *

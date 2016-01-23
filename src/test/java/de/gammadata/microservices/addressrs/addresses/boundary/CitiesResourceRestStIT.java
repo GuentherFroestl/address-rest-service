@@ -19,18 +19,30 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class CitiesResourceRestStIT extends AbstractResourceRestIT {
 
+  /**
+   *
+   */
   @AfterClass
   public static void tearDownClass() {
   }
 
+  /**
+   *
+   */
   @Before
   public void setUp() {
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
   }
   
+  /**
+   *
+   */
   protected static String CITY_URL = BASE_URL + CitiesResource.PATH;
 
   /**

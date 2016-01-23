@@ -24,22 +24,39 @@ import static org.junit.Assert.fail;
 public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends BaseQuerySpecification>
         extends AbstractEntityJpaTest {
 
+  /**
+   *
+   * @return
+   */
   public abstract T createTestEntity();
 
+  /**
+   *
+   * @return
+   */
   public abstract AbstractCrudController getTestee();
 
   private BaseEntityListener entityListener = spy(new BaseEntityListener());
 
+  /**
+   *
+   */
   @Before
   public void setUp() {
     when(entityListener.getEm()).thenReturn(em);
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
     AbstractEntityJpaTest.deleteEntities(createTestEntity().getClass(), em);
   }
 
+  /**
+   *
+   */
   @Test
   public void test_CRUD() {
     AbstractEntityJpaTest.deleteEntities(createTestEntity().getClass(), em);

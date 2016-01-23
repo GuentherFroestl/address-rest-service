@@ -19,16 +19,28 @@ import static org.hamcrest.CoreMatchers.is;
  */
 public class CountriesResourceRestStIT extends AbstractResourceRestIT {
   
+  /**
+   *
+   */
   protected static final String COUNTRY_URL = BASE_URL + CountriesResource.PATH;
 
+  /**
+   *
+   */
   @AfterClass
   public static void tearDownClass() {
   }
 
+  /**
+   *
+   */
   @Before
   public void setUp() {
   }
 
+  /**
+   *
+   */
   @After
   public void tearDown() {
   }
