@@ -10,8 +10,10 @@ import javax.ws.rs.core.MediaType;
  *
  * @author gfr
  */
-@Path("health")
+@Path(HealthResource.PATH)
 public class HealthResource {
+  
+  public static final String PATH = "/healthcheck";
 
   /**
    * Retrieves representation of an instance of de.gammadata.microservices.addressrs.health.HealthResource

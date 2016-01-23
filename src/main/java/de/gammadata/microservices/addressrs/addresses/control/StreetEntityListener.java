@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -10,14 +10,14 @@ import javax.persistence.PreUpdate;
  *
  * @author gfr
  */
-public class AddressEntityListener extends BaseEntityListener {
+public class StreetEntityListener extends BaseEntityListener {
 
   /**
    *
    * @param entity
    */
   @PrePersist
-  public void prePersist(Address entity) {
+  public void prePersist(Street entity) {
     super.prePersist(entity);
     updateBuildings(entity);
     updateMirrorsFields(entity);
@@ -28,21 +28,21 @@ public class AddressEntityListener extends BaseEntityListener {
    * @param entity
    */
   @PreUpdate
-  public void preUpdate(Address entity) {
+  public void preUpdate(Street entity) {
     super.preUpdate(entity);
     updateBuildings(entity);
     updateMirrorsFields(entity);
   }
 
-  private void updateBuildings(Address entity) {
+  private void updateBuildings(Street entity) {
     if (entity != null && entity.getBuildings() != null && !entity.getBuildings().isEmpty()) {
       for (Building b : entity.getBuildings()) {
-        b.setAddress(entity);
+        b.setStreet(entity);
       }
     }
   }
 
-  private void updateMirrorsFields(Address entity) {
+  private void updateMirrorsFields(Street entity) {
     if (entity != null) {
       if (entity.getCity() != null) {
         entity.setCityName(entity.getCity().getName());

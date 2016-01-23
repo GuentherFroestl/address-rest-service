@@ -29,7 +29,7 @@ public class CountryCrudControllerArquillianIT {
   private Country entitySaved;
 
   @EJB
-  AddressCrudController adrController;
+  StreetCrudController adrController;
   @EJB
   CountryCrudController countryController;
   @EJB
@@ -121,7 +121,7 @@ public class CountryCrudControllerArquillianIT {
   @Test
   public void test3_FindAll() {
     System.out.println("findAll");
-    List<Country> result = instance.getEntities(null);
+    List<Country> result = instance.searchEntities(null);
     assertNotNull("no result", result);
     assertTrue("result list empty", result.size() > 0);
     Country testEntity = null;
@@ -140,13 +140,13 @@ public class CountryCrudControllerArquillianIT {
   @Test
   public void test4_Delete() {
     System.out.println("delete");
-    List<Country> result = instance.getEntities(null);
+    List<Country> result = instance.searchEntities(null);
     assertNotNull("no result", result);
     assertTrue("result list empty", result.size() > 0);
     for (Country c : result) {
       instance.deleteEntity(c.getId());
     }
-    List<Country> delResult = instance.getEntities(null);
+    List<Country> delResult = instance.searchEntities(null);
     assertTrue("result list empty", delResult.isEmpty());
   }
 

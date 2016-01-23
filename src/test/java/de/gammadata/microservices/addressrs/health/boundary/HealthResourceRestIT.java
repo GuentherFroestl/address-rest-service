@@ -16,12 +16,12 @@ public class HealthResourceRestIT  extends AbstractResourceRestIT {
 
 
   /**
-   * Test of ping method, of class AddressResource.
+   * Test of ping method, of class HealthResource.
    */
   @Test
   public void testPing() {
     System.out.println("test ping");
-    WebTarget userTarget = client.target(BASE_URL+"health");
+    WebTarget userTarget = client.target(HealthResource.PATH);
     Response response = userTarget
             .request(MediaType.TEXT_PLAIN).get();
     String res = response.readEntity(String.class);

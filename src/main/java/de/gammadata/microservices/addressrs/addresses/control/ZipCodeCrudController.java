@@ -4,6 +4,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecificat
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -12,7 +13,12 @@ import javax.ejb.Stateless;
  * @author gfr
  */
 @Stateless
-public class ZipCodeCrudController extends AbstractCrudController<ZipCode, BaseQuerySpecification> {
+public class ZipCodeCrudController extends AbstractCrudController<ZipCode, ZipCode, BaseQuerySpecification> {
+
+  @Override
+  public List<ZipCode> getList(BaseQuerySpecification querySpec) {
+    return super.searchEntities(querySpec);
+  }
 
   /**
    *
@@ -65,6 +71,16 @@ public class ZipCodeCrudController extends AbstractCrudController<ZipCode, BaseQ
   @Override
   public String getSimpleSearchCountName() {
     return ZipCode.SIMPLE_COUNT_QUERY_NAME;
+  }
+
+  @Override
+  public String getNativeSearchQuery() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public String getResultSetMappingName() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
 }

@@ -1,8 +1,8 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
-import de.gammadata.microservices.addressrs.addresses.entity.AddressBasics;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
+import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
@@ -25,9 +25,9 @@ import static org.junit.Assert.assertTrue;
  *
  * @author gfr
  */
-public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Address, BaseQuerySpecification> {
+public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Street, BaseQuerySpecification> {
 
-  private AddressCrudController testee = spy(new AddressCrudController());
+  private StreetCrudController testee = spy(new StreetCrudController());
 
   @Before
   @Override
@@ -54,15 +54,15 @@ public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Add
   @Test
   public void testNativeQuery() {
     System.out.println("testNativeQuery()");
-    Address adrCreated = TestEntityProvider.createAdressWithAllEntities();
+    Street adrCreated = TestEntityProvider.createAdressWithAllEntities();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
-    Address result = testee.saveOrUpdateEntity(adrCreated);
+    Street result = testee.saveOrUpdateEntity(adrCreated);
     tx.commit();
     assertNotNull("unexpected null result for address", result);
     assertNotNull("unexpected null result for address.id", result.getId());
 
-    List<AddressBasics> resList = testee.findNative(new BaseQuerySpecification("name"));
+    List<StreetBasics> resList = testee.getList(new BaseQuerySpecification("name"));
     assertNotNull("resultlist unexpected null", resList);
     assertTrue("resultlist has no content", !resList.isEmpty());
     assertNotNull("resultlist unexpected null entity", resList.get(0));
@@ -84,17 +84,17 @@ public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Add
   public void testRelations() {
     System.out.println("testRelations()");
 
-    Address adrCreated = TestEntityProvider.createAdressWithAllEntities();
+    Street adrCreated = TestEntityProvider.createAdressWithAllEntities();
     int bCount = adrCreated.getBuildings().size();
 
     EntityTransaction tx = em.getTransaction();
     tx.begin();
-    Address result = testee.saveOrUpdateEntity(adrCreated);
+    Street result = testee.saveOrUpdateEntity(adrCreated);
     tx.commit();
     assertNotNull("unexpected null result for address", result);
     assertNotNull("unexpected null result for address.id", result.getId());
 
-    Address res = testee.getEntity(result.getId());
+    Street res = testee.getEntity(result.getId());
     TestEntityProvider.setBasePropertiesForEquals(adrCreated, res);
 
     assertNotNull("unexpected null result for address", res);
@@ -126,7 +126,7 @@ public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Add
     b2.setName("name 2");
     bListNew.add(b2);
     tx.begin();
-    Address adrB = testee.saveOrUpdateEntity(res);
+    Street adrB = testee.saveOrUpdateEntity(res);
     tx.commit();
     query.setQuery("name"); // 2 Times in buildings
     List<Building> bList3 = testee.findBuildings(query, res.getId());
@@ -134,7 +134,7 @@ public class AddressCrudControllerJpaTest extends AbstractCrudControllerTest<Add
   }
 
   @Override
-  public Address createTestEntity() {
+  public Street createTestEntity() {
     return TestEntityProvider.createAddress();
   }
 

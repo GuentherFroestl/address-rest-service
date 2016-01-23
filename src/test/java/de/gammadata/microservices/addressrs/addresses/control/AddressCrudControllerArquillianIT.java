@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
@@ -27,7 +27,7 @@ public class AddressCrudControllerArquillianIT {
 
 
   @EJB
-  AddressCrudController adrController;
+  StreetCrudController adrController;
   @EJB
   CountryCrudController countryController;
   @EJB
@@ -71,7 +71,7 @@ public class AddressCrudControllerArquillianIT {
 
     Country country = TestEntityProvider.createCountry();
 
-    Address adr = new Address();
+    Street adr = new Street();
     adr.setName("name");
     adr.setAdditionalName("additional name");
 
@@ -83,7 +83,7 @@ public class AddressCrudControllerArquillianIT {
 
     adr = adrController.saveOrUpdateEntity(adr);
 
-    Address res = adrController.getEntity(adr.getId());
+    Street res = adrController.getEntity(adr.getId());
     assertNotNull("unexpected null result", res);
     assertNotNull("unexpected null result", res.getCity());
     assertNotNull("unexpected null result", res.getZipCode());
@@ -93,7 +93,7 @@ public class AddressCrudControllerArquillianIT {
     assertNotNull("unexpected null getZipCode().getId()", res.getZipCode().getId());
 
     //Test relations on a new address with existing related entities
-    Address adr2 = new Address();
+    Street adr2 = new Street();
     adr2.setName("name 2");
     adr2.setAdditionalName("additional name 2");
 
@@ -120,14 +120,14 @@ public class AddressCrudControllerArquillianIT {
     assertThat("new City not correctly created name is not city 2", adr2.getCity().getName(), is(equalTo("City 2")));
 
     //Search w/o argument
-    List<Address> adrList = adrController.getEntities(new BaseQuerySpecification());
+    List<Street> adrList = adrController.searchEntities(new BaseQuerySpecification());
     assertNotNull("unexpected null result list for simple search query", adrList);
     assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
     Long count = adrController.countEntities(new BaseQuerySpecification());
     assertThat("simple search count does not match", count, is(equalTo(2l)));
 
     //Search with argument
-    adrList = adrController.getEntities(new BaseQuerySpecification(null, null, "name"));
+    adrList = adrController.searchEntities(new BaseQuerySpecification(null, null, "name"));
     assertNotNull("unexpected null result list for simple search query", adrList);
     assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "name"));
@@ -142,7 +142,7 @@ public class AddressCrudControllerArquillianIT {
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "City"));
     assertThat("simple search count for city does not match", count, is(equalTo(2l)));
 
-    adrList = adrController.getEntities(new BaseQuerySpecification(null, null, "City"));
+    adrList = adrController.searchEntities(new BaseQuerySpecification(null, null, "City"));
     System.out.println(adrList);
 
     count = adrController.countEntities(new BaseQuerySpecification(null, null, "City 2"));

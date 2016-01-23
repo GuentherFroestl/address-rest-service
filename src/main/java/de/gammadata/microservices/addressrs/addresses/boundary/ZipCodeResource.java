@@ -12,8 +12,10 @@ import javax.ws.rs.Path;
  * Cities resources, exposed as /cities.
  */
 @ManagedBean
-@Path("/zipcodes")
-public class ZipCodeResource extends AbstractCrudResource<ZipCode, BaseQuerySpecification> {
+@Path(ZipCodeResource.PATH)
+public class ZipCodeResource extends AbstractCrudResource<ZipCode, ZipCode, BaseQuerySpecification> {
+  
+  public static final String PATH="/zipcodes";
 
   @EJB
   ZipCodeCrudController zipCodeController;
@@ -23,7 +25,7 @@ public class ZipCodeResource extends AbstractCrudResource<ZipCode, BaseQuerySpec
    * @return
    */
   @Override
-  public AbstractCrudController<ZipCode, BaseQuerySpecification> getCrudController() {
+  public AbstractCrudController<ZipCode, ZipCode, BaseQuerySpecification> getCrudController() {
     return zipCodeController;
   }
 

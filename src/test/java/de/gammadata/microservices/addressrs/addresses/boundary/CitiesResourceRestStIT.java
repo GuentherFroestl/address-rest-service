@@ -30,6 +30,8 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
   @After
   public void tearDown() {
   }
+  
+  protected static String CITY_URL = BASE_URL + CitiesResource.PATH;
 
   /**
    * Test of getAllAdresses method, of class CityResource.
@@ -37,7 +39,7 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
   @Test
   public void testGetAll() {
 
-    WebTarget userTarget = client.target(BASE_URL + "cities");
+    WebTarget userTarget = client.target(CITY_URL);
     Response response = userTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response);
@@ -63,7 +65,7 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
 
     //Create City
     City adrReq = createCity();
-    Response response = client.target(BASE_URL + "cities")
+    Response response = client.target(CITY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -75,7 +77,7 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println(adrCreated);
     assertThat(adrReq, is(equalTo(adrCreated)));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "cities").path(adrCreated.getId().toString());
+    WebTarget adrGetTarget = client.target(CITY_URL).path(adrCreated.getId().toString());
     response = adrGetTarget
             .request(MediaType.APPLICATION_JSON).get();
     City adrFetched = response.readEntity(City.class);
@@ -91,7 +93,7 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println("saveOrUpdateCity");
     //Create City
     City adrReq = createCity();
-    Response response = client.target(BASE_URL + "cities")
+    Response response = client.target(CITY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -106,7 +108,7 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
     //Change address
     adrCreated.setName("name changed");
 
-    response = client.target(BASE_URL + "cities")
+    response = client.target(CITY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrCreated, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -126,7 +128,7 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println("deleteCity");
     //Create City
     City adrReq = createCity();
-    Response response = client.target(BASE_URL + "cities")
+    Response response = client.target(CITY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -138,13 +140,13 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println(adrCreated);
     assertThat(adrReq, is(equalTo(adrCreated)));
 
-    WebTarget userTarget = client.target(BASE_URL + "cities").path(adrCreated.getId().toString());
+    WebTarget userTarget = client.target(CITY_URL).path(adrCreated.getId().toString());
     Response resp = userTarget.request(MediaType.APPLICATION_JSON).delete();
     checkResponse(response);
     System.out.println(resp);
     assertThat(resp.getStatus(), is(equalTo(204)));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "cities").path(adrCreated.getId().toString());
+    WebTarget adrGetTarget = client.target(CITY_URL).path(adrCreated.getId().toString());
     Response response2 = adrGetTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response2);

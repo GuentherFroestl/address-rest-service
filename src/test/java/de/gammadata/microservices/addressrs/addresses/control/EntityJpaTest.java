@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
@@ -40,7 +40,7 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
    */
   @After
   public void tearDown() {
-    deleteEntities(Address.class, em);
+    deleteEntities(Street.class, em);
     deleteEntities(City.class, em);
     deleteEntities(ZipCode.class, em);
     deleteEntities(Country.class, em);
@@ -51,7 +51,7 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
    */
   @Test
   public void testAddress() {
-    Address adr = new Address();
+    Street adr = new Street();
     adr.setName("name");
     adr.setAdditionalName("additional name");
     EntityTransaction tx = em.getTransaction();
@@ -60,7 +60,7 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     tx.commit();
     Assert.assertTrue("No ID for Address", adr.getId() != null);
     System.out.println("Got ID = " + adr.getId());
-    Address res = em.find(Address.class, adr.getId());
+    Street res = em.find(Street.class, adr.getId());
     Assert.assertNotNull("unexpected null result", res);
     Assert.assertEquals("Object are not equal", adr, res);
     Assert.assertNotNull("unexpected null for timestap", res.getModified());
@@ -154,7 +154,7 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
   public void testRelations() {
     System.out.println("testRelations()");
 
-    Address adr = TestEntityProvider.createAdressWithAllEntities();
+    Street adr = TestEntityProvider.createAdressWithAllEntities();
     int bCount = adr.getBuildings().size();
 
     EntityTransaction tx = em.getTransaction();
@@ -162,7 +162,7 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     em.persist(adr);
     tx.commit();
 
-    Address res = em.find(Address.class, adr.getId());
+    Street res = em.find(Street.class, adr.getId());
     Assert.assertNotNull("unexpected null result for address", res);
     Assert.assertNotNull("unexpected null result for address.city", res.getCity());
     Assert.assertNotNull("unexpected null resul fore address.zipCode", res.getZipCode());

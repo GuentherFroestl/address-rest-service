@@ -1,7 +1,8 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
+import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import java.util.List;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -30,7 +31,7 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
    */
   @Before
   public void setUp() throws Exception {
-    webTarget = client.target(BASE_URL + "addresses");
+    webTarget = client.target(BASE_URL + StreetResource.PATH);
   }
 
   /**
@@ -39,10 +40,10 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
   @Test
   public void testGetAllAdresses() {
 
-    Response response = webTarget
+    Response response = webTarget.path("/query")
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response);
-    Address[] res = response.readEntity(Address[].class);
+    StreetBasics[] res = response.readEntity(StreetBasics[].class);
     assertNotNull("no result", res);
   }
 
@@ -51,12 +52,8 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
    * @param resp
    */
   protected void checkResponse(Response resp) {
-    if (resp == null) {
-      throw new RuntimeException("Response is null");
-    }
-    if (resp.getStatus() > 299) {
-      throw new RuntimeException("Response has Status " + resp.getStatus());
-    }
+    assertNotNull("no result", resp);
+    assertTrue("wrong status for response=" + resp.getStatus(), resp.getStatus() >= 200 && resp.getStatus() < 300);
   }
 
   /**
@@ -66,14 +63,14 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
   public void testGetAddress() {
     System.out.println("getAddress");
 
-    //Create Address
-    Address adrReq = TestEntityProvider.createAddress();
+    //Create Street
+    Street adrReq = TestEntityProvider.createAddress();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    Address adrCreated = response.readEntity(Address.class);
+    Street adrCreated = response.readEntity(Street.class);
     assertNotNull("no result", adrCreated);
     assertNotNull("no id", adrCreated.getId());
     assertNotNull("no id", adrCreated.getModified());
@@ -83,9 +80,10 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
     System.out.println(adrCreated);
     assertThat(adrCreated, is(equalTo(adrReq)));
 
-    response = webTarget
+    response = webTarget.path("/query")
             .request(MediaType.APPLICATION_JSON).get();
-    List<Address> adrList = response.readEntity(List.class);
+    checkResponse(response);
+    List<StreetBasics> adrList = response.readEntity(List.class);
     assertNotNull("no result", adrList);
     assertTrue("list empty", !adrList.isEmpty());
   }
@@ -96,14 +94,14 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
   @Test
   public void testSaveOrUpdateAddress() {
     System.out.println("saveOrUpdateAddress");
-    //Create Address
-    Address adrReq = TestEntityProvider.createAdressWithAllEntities();
+    //Create Street
+    Street adrReq = TestEntityProvider.createAdressWithAllEntities();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    Address adrCreated = response.readEntity(Address.class);
+    Street adrCreated = response.readEntity(Street.class);
     assertNotNull("no result", adrCreated);
     assertNotNull("no id", adrCreated.getId());
     assertNotNull("no id", adrCreated.getModified());
@@ -121,7 +119,7 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
             .post(Entity.entity(adrCreated, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    Address resultChanged = response.readEntity(Address.class);
+    Street resultChanged = response.readEntity(Street.class);
     assertNotNull("no result", adrCreated);
     System.out.println(resultChanged);
     assertThat(resultChanged.getName(), is(equalTo(adrCreated.getName())));
@@ -134,14 +132,14 @@ public class AddressResourceRestStIT extends AbstractResourceRestIT {
   @Test
   public void testDeleteAddress() {
     System.out.println("deleteAddress");
-    //Create Address
-    Address adrReq = TestEntityProvider.createAdressWithAllEntities();
+    //Create Street
+    Street adrReq = TestEntityProvider.createAdressWithAllEntities();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    Address adrCreated = response.readEntity(Address.class);
+    Street adrCreated = response.readEntity(Street.class);
     assertNotNull("no result", adrCreated);
     adrReq.setId(adrCreated.getId());
     adrReq.setVersion(adrCreated.getVersion());

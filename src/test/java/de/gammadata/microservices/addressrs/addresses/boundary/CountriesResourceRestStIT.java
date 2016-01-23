@@ -18,6 +18,8 @@ import static org.hamcrest.CoreMatchers.is;
  * @author gfr
  */
 public class CountriesResourceRestStIT extends AbstractResourceRestIT {
+  
+  protected static final String COUNTRY_URL = BASE_URL + CountriesResource.PATH;
 
   @AfterClass
   public static void tearDownClass() {
@@ -37,7 +39,7 @@ public class CountriesResourceRestStIT extends AbstractResourceRestIT {
   @Test
   public void testGetAll() {
 
-    WebTarget userTarget = client.target(BASE_URL + "countries");
+    WebTarget userTarget = client.target(COUNTRY_URL);
     Response response = userTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response);
@@ -63,7 +65,7 @@ public class CountriesResourceRestStIT extends AbstractResourceRestIT {
 
     //Create Country
     Country adrReq = createCountry();
-    Response response = client.target(BASE_URL + "countries")
+    Response response = client.target(COUNTRY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -75,7 +77,7 @@ public class CountriesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println(adrCreated);
     assertThat(adrReq, is(equalTo(adrCreated)));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "countries").path(adrCreated.getId().toString());
+    WebTarget adrGetTarget = client.target(COUNTRY_URL).path(adrCreated.getId().toString());
     response = adrGetTarget
             .request(MediaType.APPLICATION_JSON).get();
     Country adrFetched = response.readEntity(Country.class);
@@ -91,7 +93,7 @@ public class CountriesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println("saveOrUpdateCountry");
     //Create Country
     Country adrReq = createCountry();
-    Response response = client.target(BASE_URL + "countries")
+    Response response = client.target(COUNTRY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -106,7 +108,7 @@ public class CountriesResourceRestStIT extends AbstractResourceRestIT {
     //Change address
     adrCreated.setName("name changed");
 
-    response = client.target(BASE_URL + "countries")
+    response = client.target(COUNTRY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrCreated, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -126,7 +128,7 @@ public class CountriesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println("deleteCountry");
     //Create Country
     Country adrReq = createCountry();
-    Response response = client.target(BASE_URL + "countries")
+    Response response = client.target(COUNTRY_URL)
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
@@ -138,13 +140,13 @@ public class CountriesResourceRestStIT extends AbstractResourceRestIT {
     System.out.println(adrCreated);
     assertThat(adrReq, is(equalTo(adrCreated)));
 
-    WebTarget userTarget = client.target(BASE_URL + "countries").path(adrCreated.getId().toString());
+    WebTarget userTarget = client.target(COUNTRY_URL).path(adrCreated.getId().toString());
     Response resp = userTarget.request(MediaType.APPLICATION_JSON).delete();
     checkResponse(response);
     System.out.println(resp);
     assertThat(resp.getStatus(), is(equalTo(204)));
 
-    WebTarget adrGetTarget = client.target(BASE_URL + "countries").path(adrCreated.getId().toString());
+    WebTarget adrGetTarget = client.target(COUNTRY_URL).path(adrCreated.getId().toString());
     Response response2 = adrGetTarget
             .request(MediaType.APPLICATION_JSON).get();
     checkResponse(response2);

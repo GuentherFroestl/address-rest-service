@@ -12,8 +12,10 @@ import javax.ws.rs.Path;
  * Cities resources, exposed as /cities.
  */
 @ManagedBean
-@Path("/cities")
-public class CitiesResource  extends AbstractCrudResource<City,BaseQuerySpecification>{
+@Path(CitiesResource.PATH)
+public class CitiesResource  extends AbstractCrudResource<City,City ,BaseQuerySpecification>{
+  
+  public static final String PATH="/cities";
 
   @EJB
   CityCrudController cityController;
@@ -23,7 +25,7 @@ public class CitiesResource  extends AbstractCrudResource<City,BaseQuerySpecific
    * @return
    */
   @Override
-  public AbstractCrudController<City,BaseQuerySpecification> getCrudController() {
+  public AbstractCrudController<City,City, BaseQuerySpecification> getCrudController() {
     return cityController;
   }
 

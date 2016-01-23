@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
@@ -21,8 +21,8 @@ public class TestEntityProvider {
    *
    * @return
    */
-  public static Address createAddress() {
-    Address adrIn = new Address();
+  public static Street createAddress() {
+    Street adrIn = new Street();
     adrIn.setAdditionalName("additional Name");
     adrIn.setName("name");
     return adrIn;
@@ -43,8 +43,8 @@ public class TestEntityProvider {
    *
    * @return
    */
-  public static Address createAdressWithAllEntities() {
-    Address adrIn = createAddress();
+  public static Street createAdressWithAllEntities() {
+    Street adrIn = createAddress();
     adrIn.setBuildings(new ArrayList<Building>());
     adrIn.getBuildings().add(createBuilding("1"));
     adrIn.getBuildings().add(createBuilding("2"));

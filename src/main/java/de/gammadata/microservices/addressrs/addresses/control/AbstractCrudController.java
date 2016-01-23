@@ -6,6 +6,7 @@ import de.gammadata.microservices.addressrs.application.entity.AddressServiceExc
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,9 +15,11 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @author gfr
  * @param <T> extends BaseEntity
+ * @param <ListDTO> extends BaseEntity for List views
  * @param <Q> extends BaseQuerySpecification
  */
-public abstract class AbstractCrudController<T extends BaseEntity, Q extends BaseQuerySpecification> {
+public abstract class AbstractCrudController<T extends BaseEntity, ListDTO extends BaseEntity,
+        Q extends BaseQuerySpecification> {
 
   /**
    *
@@ -35,14 +38,20 @@ public abstract class AbstractCrudController<T extends BaseEntity, Q extends Bas
    * @return
    */
   public abstract String getSimpleSearchCountName();
-
-  /**
+  
+    /**
    *
+   * @return
    */
-  @SuppressWarnings("unchecked")
-  public AbstractCrudController() {
+  public abstract String getNativeSearchQuery();
+  
+      /**
+   *
+   * @return
+   */
+  public abstract String getResultSetMappingName();
 
-  }
+
 
   @PersistenceContext(name = "address-pu")
   EntityManager em;
@@ -54,13 +63,37 @@ public abstract class AbstractCrudController<T extends BaseEntity, Q extends Bas
   protected EntityManager getEm() {
     return em;
   }
+  
+  
+  /**
+   *
+   * @param querySpec BaseQuerySpecification
+   * @return List of ListDTO
+   */
+  public List<ListDTO> getList(BaseQuerySpecification querySpec) {
+    Query query = getEm().createNativeQuery(getNativeSearchQuery(), getResultSetMappingName());
+    String searchTxt = "%";
+    if (querySpec != null && querySpec.getQuery() != null) {
+      searchTxt = querySpec.getQuery().toLowerCase() + "%";
+    }
+    query.setParameter(1, searchTxt);
+    if (querySpec != null && querySpec.getStart() != null) {
+      query.setFirstResult(querySpec.getStart());
+    }
+    if (querySpec != null && querySpec.getLimit() != null) {
+      query.setMaxResults(querySpec.getLimit());
+    }
+
+    List<ListDTO> result = query.getResultList();
+    return result;
+  }
 
   /**
    *
    * @param querySpec
    * @return
    */
-  public List<T> getEntities(BaseQuerySpecification querySpec) {
+  public List<T> searchEntities(BaseQuerySpecification querySpec) {
     TypedQuery<T> query;
     if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
       query = getEm().createQuery("Select t from "

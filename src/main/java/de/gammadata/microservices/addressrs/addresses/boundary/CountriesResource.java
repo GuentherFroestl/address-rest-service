@@ -12,8 +12,10 @@ import javax.ws.rs.Path;
  * Countries resources, exposed as /Countries.
  */
 @ManagedBean
-@Path("/countries")
-public class CountriesResource extends AbstractCrudResource<Country, BaseQuerySpecification> {
+@Path(CountriesResource.PATH)
+public class CountriesResource extends AbstractCrudResource<Country, Country,BaseQuerySpecification> {
+  
+  public static final String PATH="/countries";
 
   @EJB
   CountryCrudController countryController;
@@ -23,7 +25,7 @@ public class CountriesResource extends AbstractCrudResource<Country, BaseQuerySp
    * @return
    */
   @Override
-  public AbstractCrudController<Country, BaseQuerySpecification> getCrudController() {
+  public AbstractCrudController<Country, Country, BaseQuerySpecification> getCrudController() {
     return countryController;
   }
 

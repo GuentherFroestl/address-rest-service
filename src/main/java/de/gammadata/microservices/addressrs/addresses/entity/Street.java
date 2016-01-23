@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import de.gammadata.microservices.addressrs.addresses.control.AddressEntityListener;
+import de.gammadata.microservices.addressrs.addresses.control.StreetEntityListener;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -27,7 +27,7 @@ import org.eclipse.persistence.annotations.PrivateOwned;
  * @author gfr
  */
 @Entity
-@EntityListeners({AddressEntityListener.class})
+@EntityListeners({StreetEntityListener.class})
 
 @Table(indexes = {
   @Index(name = "ADR_NAME_IDX", columnList = "NAME"),
@@ -37,49 +37,42 @@ import org.eclipse.persistence.annotations.PrivateOwned;
   @Index(name = "ADR_ZIPCODE_NAME_IDX", columnList = "ZIPCODE_NAME")})
 
 @NamedQueries({
-  @NamedQuery(name = Address.SIMPLE_SEARCH_QUERY_NAME,
-          query = "select e from Address e"
-          + Address.WHERE_CLAUSE
+  @NamedQuery(name = Street.SIMPLE_SEARCH_QUERY_NAME,
+          query = "select e from Street e"
+          + Street.WHERE_CLAUSE
   ),
-  @NamedQuery(name = Address.SIMPLE_COUNT_QUERY_NAME,
-          query = "select count(e) from Address e"
-          + Address.WHERE_CLAUSE
+  @NamedQuery(name = Street.SIMPLE_COUNT_QUERY_NAME,
+          query = "select count(e) from Street e"
+          + Street.WHERE_CLAUSE
   )})
 
 @SqlResultSetMappings({
   @SqlResultSetMapping(
-          name = "AddressBasicsContructor",
+          name = Street.RESULT_SET_MAPPING_NAME,
           classes = @ConstructorResult(
-                  targetClass = AddressBasics.class,
+                  targetClass = StreetBasics.class,
                   columns = {
                     @ColumnResult(name = "ID", type = Long.class),
                     @ColumnResult(name = "VERSION", type = Integer.class),
-                    @ColumnResult(name = "NAME"),
+                    @ColumnResult(name = "NAME", type=String.class),
                     @ColumnResult(name = "MODIFIED", type = Date.class),
-                    @ColumnResult(name = "ADDITIONAL_NAME"),
+                    @ColumnResult(name = "ADDITIONAL_NAME", type=String.class),
                     @ColumnResult(name = "CITY_ID", type = Long.class),
-                    @ColumnResult(name = "CITY_NAME"),
+                    @ColumnResult(name = "CITY_NAME", type=String.class),
                     @ColumnResult(name = "COUNTRY_ID", type = Long.class),
-                    @ColumnResult(name = "COUNTRY_NAME"),
+                    @ColumnResult(name = "COUNTRY_NAME", type=String.class),
                     @ColumnResult(name = "ZIPCODE_ID", type = Long.class),
-                    @ColumnResult(name = "ZIPCODE_NAME")
+                    @ColumnResult(name = "ZIPCODE_NAME", type=String.class)
                   }))
 })
-public class Address extends BaseEntity {
+public class Street extends BaseEntity {
 
-  /**
-   *
-   */
-  public static final String SIMPLE_SEARCH_QUERY_NAME = "Address_simpleSearchQuery";
+  public static final String SIMPLE_SEARCH_QUERY_NAME = "Street_simpleSearchQuery";
 
-  /**
-   *
-   */
-  public static final String SIMPLE_COUNT_QUERY_NAME = "Address_simpleSearchCount";
+  public static final String SIMPLE_COUNT_QUERY_NAME = "Street_simpleSearchCount";
+  
+  public static final String RESULT_SET_MAPPING_NAME = "StreetsBasicsContructor";
 
-  /**
-   *
-   */
   public static final String WHERE_CLAUSE = " where "
           + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.additionalName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
@@ -101,7 +94,7 @@ public class Address extends BaseEntity {
    *
    */
   public static final String NATIVE_SEARCH_QUERY = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.ADDITIONAL_NAME,"
-          + " e.CITY_ID, e.CITY_NAME, e.COUNTRY_NAME, e.COUNTRY_ID, e.ZIPCODE_NAME, e.ZIPCODE_ID from Address e"
+          + " e.CITY_ID, e.CITY_NAME, e.COUNTRY_NAME, e.COUNTRY_ID, e.ZIPCODE_NAME, e.ZIPCODE_ID from Street e"
           + WHERE_CLAUSE_NATIVE;
 
   private static final long serialVersionUID = 1L;
@@ -125,7 +118,7 @@ public class Address extends BaseEntity {
   private String zipCodeName;
 
   @JsonManagedReference
-  @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "Street", cascade = CascadeType.ALL)
   @PrivateOwned
   private List<Building> buildings;
 
@@ -311,7 +304,7 @@ public class Address extends BaseEntity {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final Address other = (Address) obj;
+    final Street other = (Street) obj;
     if (!Objects.equals(this.additionalName, other.additionalName)) {
       return false;
     }
@@ -335,7 +328,7 @@ public class Address extends BaseEntity {
 
   @Override
   public String toString() {
-    return "Address{" + super.toString() + ", additionalName=" + additionalName + ", cityName=" + cityName + ", countryName=" + countryName + ", zipCodeName=" + zipCodeName + ", zipCode=" + zipCode + ", city=" + city + ", country=" + country + '}';
+    return "Street{" + super.toString() + ", additionalName=" + additionalName + ", cityName=" + cityName + ", countryName=" + countryName + ", zipCodeName=" + zipCodeName + ", zipCode=" + zipCode + ", city=" + city + ", country=" + country + '}';
   }
 
 }

@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -19,7 +20,7 @@ public class JacksonZuluDateSerializer extends JsonSerializer<Date> {
 
   private static DateFormat getDateFormat() {
     DateFormat zuluDateFormat;
-    zuluDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    zuluDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.GERMANY);
     zuluDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     return zuluDateFormat;
   }

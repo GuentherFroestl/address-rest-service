@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
-import de.gammadata.microservices.addressrs.addresses.entity.AddressBasics;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
+import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
@@ -11,39 +11,17 @@ import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
- * CRUD Controller for Addresses.
+ * CRUD Controller for Streets.
  *
  * @author gfr
  */
 @Stateless
-public class AddressCrudController extends AbstractCrudController<Address, BaseQuerySpecification> {
+public class StreetCrudController extends AbstractCrudController<Street, StreetBasics,
+        BaseQuerySpecification> {
 
-  /**
-   *
-   * @param querySpec
-   * @return
-   */
-  public List<AddressBasics> findNative(BaseQuerySpecification querySpec) {
-    Query query = getEm().createNativeQuery(Address.NATIVE_SEARCH_QUERY, "AddressBasicsContructor");
-    String searchTxt = "%";
-    if (querySpec != null && querySpec.getQuery() != null) {
-      searchTxt = querySpec.getQuery().toLowerCase() + "%";
-    }
-    query.setParameter(1, searchTxt);
-    if (querySpec != null && querySpec.getStart() != null) {
-      query.setFirstResult(querySpec.getStart());
-    }
-    if (querySpec != null && querySpec.getLimit() != null) {
-      query.setMaxResults(querySpec.getLimit());
-    }
-
-    List<AddressBasics> result = query.getResultList();
-    return result;
-  }
 
   /**
    *
@@ -54,12 +32,12 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
   public List<Building> findBuildings(BaseQuerySpecification querySpec, Long adrId) {
 
     if (adrId == null || adrId == 0) {
-      throw new RuntimeException("AddressID must not be null to query buildings");
+      throw new RuntimeException("StreetID must not be null to query buildings");
     }
 
     TypedQuery<Building> query;
     if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
-      Address adr = getEntity(adrId);
+      Street adr = getEntity(adrId);
       if (adr != null) {
         return adr.getBuildings();
       } else {
@@ -87,8 +65,8 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
    * @return
    */
   @Override
-  public Class<Address> getEntityClass() {
-    return Address.class;
+  public Class<Street> getEntityClass() {
+    return Street.class;
   }
 
   /**
@@ -97,12 +75,12 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
    * @return
    */
   @Override
-  public Address saveOrUpdateEntity(Address pAdr) {
+  public Street saveOrUpdateEntity(Street pAdr) {
     relateEntities(pAdr);
     return super.saveOrUpdateEntity(pAdr);
   }
 
-  private void relateEntities(final Address pAdr) {
+  private void relateEntities(final Street pAdr) {
     if (pAdr == null) {
       return;
     }
@@ -154,7 +132,7 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
    */
   @Override
   public String getSimpleSearchQueryName() {
-    return Address.SIMPLE_SEARCH_QUERY_NAME;
+    return Street.SIMPLE_SEARCH_QUERY_NAME;
   }
 
   /**
@@ -163,7 +141,17 @@ public class AddressCrudController extends AbstractCrudController<Address, BaseQ
    */
   @Override
   public String getSimpleSearchCountName() {
-    return Address.SIMPLE_COUNT_QUERY_NAME;
+    return Street.SIMPLE_COUNT_QUERY_NAME;
+  }
+
+  @Override
+  public String getNativeSearchQuery() {
+    return Street.NATIVE_SEARCH_QUERY;
+  }
+
+  @Override
+  public String getResultSetMappingName() {
+    return Street.RESULT_SET_MAPPING_NAME;
   }
 
 }

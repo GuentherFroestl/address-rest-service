@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * @author gfr
  */
-public class AddressBasics extends BaseEntity {
+public class StreetBasics extends BaseEntity {
 
   /**
    *
@@ -22,7 +22,7 @@ public class AddressBasics extends BaseEntity {
    * @param zipCodeId
    * @param zipCodeName
    */
-  public AddressBasics(Long id, Integer version, String name, Date modified, String additionalName,
+  public StreetBasics(Long id, Integer version, String name, Date modified, String additionalName,
           Long cityId, String cityName, Long countryId, String countryName, Long zipCodeId, String zipCodeName) {
     super(id, version, name, modified);
     this.additionalName = additionalName;
@@ -157,7 +157,7 @@ public class AddressBasics extends BaseEntity {
 
   @Override
   public String toString() {
-    return "AddressBasics{"+ super.toString() + ", additionalName=" + additionalName + ", cityId=" + cityId + ", cityName=" + cityName + ", countryId=" + countryId + ", countryName=" + countryName + ", zipCodeId=" + zipCodeId + ", zipCodeName=" + zipCodeName + '}';
+    return "StreetBasics{"+ super.toString() + ", additionalName=" + additionalName + ", cityId=" + cityId + ", cityName=" + cityName + ", countryId=" + countryId + ", countryName=" + countryName + ", zipCodeId=" + zipCodeId + ", zipCodeName=" + zipCodeName + '}';
   }
   
   

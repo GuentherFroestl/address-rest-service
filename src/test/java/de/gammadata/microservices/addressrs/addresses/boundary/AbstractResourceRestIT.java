@@ -20,7 +20,7 @@ public class AbstractResourceRestIT {
   /**
    *
    */
-  public static String BASE_URL = "http://localhost:8080/address-rs/api/";
+  public static final String BASE_URL = "http://localhost:8080/address-rs/api";
 
   /**
    *

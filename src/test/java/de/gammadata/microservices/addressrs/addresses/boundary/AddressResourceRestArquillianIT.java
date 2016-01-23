@@ -1,12 +1,12 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudControllerArquillianTest;
-import de.gammadata.microservices.addressrs.addresses.control.AddressCrudController;
+import de.gammadata.microservices.addressrs.addresses.control.StreetCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CityCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
 import de.gammadata.microservices.addressrs.addresses.control.ZipCodeCrudController;
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import java.net.URI;
 import java.net.URL;
 import javax.ejb.EJB;
@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
 public class AddressResourceRestArquillianIT extends AddressResourceRestStIT {
 
   @EJB
-  AddressCrudController adrController;
+  StreetCrudController adrController;
   @EJB
   CountryCrudController countryController;
   @EJB
@@ -61,7 +61,7 @@ public class AddressResourceRestArquillianIT extends AddressResourceRestStIT {
     AbstractCrudControllerArquillianTest.deleteAllEntities(adrController, zipCodeController, cityController, countryController);
 
     System.out.println("Arquillian Tests using URL = " + base.toExternalForm());
-    webTarget = client.target(URI.create(new URL(base, "api/addresses").toExternalForm()));
+    webTarget = client.target(URI.create(new URL(base, "api"+StreetResource.PATH).toExternalForm()));
   }
 
   /**
@@ -79,15 +79,15 @@ public class AddressResourceRestArquillianIT extends AddressResourceRestStIT {
   public void testRelations() {
     System.out.println("testRelations()");
     System.out.println("saveOrUpdateAddress");
-    //Create Address
-    Address adrReq = TestEntityProvider.createAdressWithAllEntities();
+    //Create Street
+    Street adrReq = TestEntityProvider.createAdressWithAllEntities();
     int bCount = adrReq.getBuildings().size();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
     checkResponse(response);
     System.out.println(response);
-    Address res = response.readEntity(Address.class);
+    Street res = response.readEntity(Street.class);
 
     TestEntityProvider.setBasePropertiesForEquals(adrReq, res);
 
@@ -97,7 +97,7 @@ public class AddressResourceRestArquillianIT extends AddressResourceRestStIT {
     WebTarget getTarget = webTarget.path(res.getId().toString());
     response = getTarget
             .request(MediaType.APPLICATION_JSON).get();
-    Address resGet = response.readEntity(Address.class);
+    Street resGet = response.readEntity(Street.class);
     
     assertNotNull("unexpected null result for read address", resGet);
     assertNotNull("unexpected null result for read address.id", resGet.getId());

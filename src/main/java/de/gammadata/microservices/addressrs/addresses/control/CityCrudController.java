@@ -4,6 +4,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecificat
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -12,7 +13,7 @@ import javax.ejb.Stateless;
  * @author gfr
  */
 @Stateless
-public class CityCrudController extends AbstractCrudController<City, BaseQuerySpecification> {
+public class CityCrudController extends AbstractCrudController<City, City, BaseQuerySpecification> {
 
   /**
    *
@@ -21,6 +22,11 @@ public class CityCrudController extends AbstractCrudController<City, BaseQuerySp
   @Override
   public Class<City> getEntityClass() {
     return City.class;
+  }
+
+  @Override
+  public List<City> getList(BaseQuerySpecification querySpec) {
+    return super.searchEntities(querySpec);
   }
 
   /**
@@ -66,6 +72,16 @@ public class CityCrudController extends AbstractCrudController<City, BaseQuerySp
   @Override
   public String getSimpleSearchCountName() {
     return City.SIMPLE_COUNT_QUERY_NAME;
+  }
+
+  @Override
+  public String getNativeSearchQuery() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public String getResultSetMappingName() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
 }

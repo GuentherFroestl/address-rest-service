@@ -5,8 +5,8 @@
     <class>de.gammadata.microservices.addressrs.addresses.entity.City</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.ZipCode</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.Country</class>
-    <class>de.gammadata.microservices.addressrs.addresses.entity.Address</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.Building</class>
+    <class>de.gammadata.microservices.addressrs.addresses.entity.Street</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!--

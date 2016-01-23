@@ -78,7 +78,7 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     Assert.assertEquals("Names are not equal", newName, resUpdate.getName());
 
     //Test list with no query
-    List<T> list = getTestee().getEntities(null);
+    List<T> list = getTestee().searchEntities(null);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size is not correct", 1, list.size());
     Assert.assertEquals("Entities.id are not equal", resUpdate.getId(), list.get(0).getId());
@@ -90,7 +90,7 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     //Test with query
     BaseQuerySpecification querySpec = new BaseQuerySpecification();
     querySpec.setQuery("changed");
-    List<T> list2 = getTestee().getEntities(querySpec);
+    List<T> list2 = getTestee().searchEntities(querySpec);
     Assert.assertNotNull("unexpected null result", list2);
     Assert.assertEquals("List size is not correct", 1, list2.size());
     Assert.assertEquals("Entities.id are not equal", resUpdate.getId(), list2.get(0).getId());
@@ -101,25 +101,25 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
 
     querySpec.setStart(0);
     querySpec.setLimit(10);
-    List<T> list3 = getTestee().getEntities(querySpec);
+    List<T> list3 = getTestee().searchEntities(querySpec);
     Assert.assertNotNull("unexpected null result", list3);
     Assert.assertEquals("List size is not correct", 1, list3.size());
 
     querySpec.setStart(2);
     querySpec.setLimit(10);
-    List<T> list4 = getTestee().getEntities(querySpec);
+    List<T> list4 = getTestee().searchEntities(querySpec);
     Assert.assertNotNull("unexpected null result", list4);
     Assert.assertEquals("List size is not correct", 0, list4.size());
 
     //test delete
-    list = getTestee().getEntities(null);
+    list = getTestee().searchEntities(null);
     tx.begin();
     for (T en : list) {
       getTestee().deleteEntity(en.getId());
     }
     tx.commit();
 
-    List<T> emptyList = getTestee().getEntities(null);
+    List<T> emptyList = getTestee().searchEntities(null);
     Assert.assertNotNull("unexpected null list", emptyList);
     assertTrue("list is not empty after deleting all entities", emptyList.isEmpty());
 

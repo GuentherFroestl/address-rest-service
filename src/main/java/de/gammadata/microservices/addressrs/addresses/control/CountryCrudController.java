@@ -2,6 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -10,7 +11,12 @@ import javax.ejb.Stateless;
  * @author gfr
  */
 @Stateless
-public class CountryCrudController extends AbstractCrudController<Country, BaseQuerySpecification> {
+public class CountryCrudController extends AbstractCrudController<Country, Country, BaseQuerySpecification> {
+
+  @Override
+  public List<Country> getList(BaseQuerySpecification querySpec) {
+    return super.searchEntities(querySpec);
+  }
 
   /**
    *
@@ -37,5 +43,15 @@ public class CountryCrudController extends AbstractCrudController<Country, BaseQ
   @Override
   public String getSimpleSearchCountName() {
     return Country.SIMPLE_COUNT_QUERY_NAME;
+  }
+
+  @Override
+  public String getNativeSearchQuery() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+  @Override
+  public String getResultSetMappingName() {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 }

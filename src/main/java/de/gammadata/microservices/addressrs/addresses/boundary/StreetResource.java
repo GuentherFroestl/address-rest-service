@@ -1,8 +1,8 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
-import de.gammadata.microservices.addressrs.addresses.control.AddressCrudController;
-import de.gammadata.microservices.addressrs.addresses.entity.Address;
-import de.gammadata.microservices.addressrs.addresses.entity.AddressBasics;
+import de.gammadata.microservices.addressrs.addresses.control.StreetCrudController;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
+import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.application.control.JacksonZuluDateSerializer;
 import java.util.List;
@@ -20,35 +20,24 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
- * AddressResource (exposed at "addresses" path)
+ * StreetResource (exposed at "addresses" path)
  */
 @ManagedBean
-@Path("/addresses")
-public class AddressResource extends AbstractCrudResource<Address, BaseQuerySpecification> {
+@Path(StreetResource.PATH)
+public class StreetResource extends AbstractCrudResource<Street, StreetBasics,
+        BaseQuerySpecification> {
+  
+  public static final String PATH="/streets";
 
   @EJB
-  AddressCrudController adrController;
-
+  StreetCrudController adrController;
   /**
    *
    * @return
    */
   @Override
-  public AddressCrudController getCrudController() {
+  public StreetCrudController getCrudController() {
     return adrController;
-  }
-
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Path("/list")
-  public List<AddressBasics> listAddresses(
-          @QueryParam("start") Integer start,
-          @QueryParam("limit") Integer limit,
-          @QueryParam("query") String query) {
-    BaseQuerySpecification querySpec = new BaseQuerySpecification(limit, start, query);
-    List<AddressBasics> result = adrController.findNative(querySpec);
-    return result;
   }
 
   /**
@@ -67,12 +56,12 @@ public class AddressResource extends AbstractCrudResource<Address, BaseQuerySpec
           @QueryParam("limit") Integer limit,
           @QueryParam("query") String query) {
     BaseQuerySpecification querySpec = new BaseQuerySpecification(limit, start, query);
-    List<Address> list = getCrudController().getEntities(querySpec);
+    List<Street> list = getCrudController().searchEntities(querySpec);
 
     JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
     if (list != null && !list.isEmpty()) {
 
-      for (Address adr : list) {
+      for (Street adr : list) {
         JsonObjectBuilder objBuilder = Json.createObjectBuilder();
         objBuilder.add("id", adr.getId())
                 .add("version", adr.getVersion())

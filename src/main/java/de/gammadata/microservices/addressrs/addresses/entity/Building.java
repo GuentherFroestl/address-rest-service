@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Table(indexes = {
   @Index(name = "BUILDING_NAME_IDX", columnList = "NAME"),
   @Index(name = "BUILDING_NUMBER_IDX", columnList = "NUMBER"),
-  @Index(name = "BUILDING_ADR_ID_IDX", columnList = "ADDRESS_ID")})
+  @Index(name = "BUILDING_STREET_ID_IDX", columnList = "STREET_ID")})
 
 @NamedQueries({
   @NamedQuery(name = Building.BUILDING_FOR_ADR_SEARCH_QUERY_NAME,
@@ -57,18 +57,18 @@ public class Building extends BaseEntity {
   public static final String WHERE_CLAUSE = " where ( "
           + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.number) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
-          + " ) AND e.addressId = :" + ADR_ID_QUERY_PARAMETER;
+          + " ) AND e.streetId = :" + ADR_ID_QUERY_PARAMETER;
 
   @Column(name = "NUMBER")
   private String number;
 
   @JsonBackReference
   @ManyToOne
-  @JoinColumn(name = "ADDRESS_ID")
-  private Address address;
+  @JoinColumn(name = "STREET_ID")
+  private Street street;
 
-  @Column(name = "ADDRESS_ID", insertable = false, updatable = false)
-  private Long addressId;
+  @Column(name = "STREET_ID", insertable = false, updatable = false)
+  private Long streetId;
 
   /**
    *
@@ -90,24 +90,24 @@ public class Building extends BaseEntity {
    *
    * @return
    */
-  public Address getAddress() {
-    return address;
+  public Street getStreet() {
+    return street;
   }
 
   /**
    *
-   * @param address
+   * @param street
    */
-  public void setAddress(Address address) {
-    this.address = address;
+  public void setStreet(Street street) {
+    this.street = street;
   }
 
   /**
    *
    * @return
    */
-  public Long getAddressId() {
-    return addressId;
+  public Long getStreetId() {
+    return streetId;
   }
 
 }
