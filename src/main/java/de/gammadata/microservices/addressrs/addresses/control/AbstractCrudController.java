@@ -18,8 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
  * @param <ListDTO> extends BaseEntity for List views
  * @param <Q> extends BaseQuerySpecification
  */
-public abstract class AbstractCrudController<T extends BaseEntity, ListDTO extends BaseEntity,
-        Q extends BaseQuerySpecification> {
+public abstract class AbstractCrudController<T extends BaseEntity, ListDTO extends BaseEntity, Q extends BaseQuerySpecification> {
 
   /**
    *
@@ -38,20 +37,18 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    * @return
    */
   public abstract String getSimpleSearchCountName();
-  
-    /**
+
+  /**
    *
    * @return
    */
   public abstract String getNativeSearchQuery();
-  
-      /**
+
+  /**
    *
    * @return
    */
   public abstract String getResultSetMappingName();
-
-
 
   @PersistenceContext(name = "address-pu")
   EntityManager em;
@@ -63,8 +60,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
   protected EntityManager getEm() {
     return em;
   }
-  
-  
+
   /**
    *
    * @param querySpec BaseQuerySpecification
@@ -77,15 +73,28 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
       searchTxt = querySpec.getQuery().toLowerCase() + "%";
     }
     query.setParameter(1, searchTxt);
-    if (querySpec != null && querySpec.getStart() != null) {
-      query.setFirstResult(querySpec.getStart());
-    }
-    if (querySpec != null && querySpec.getLimit() != null) {
-      query.setMaxResults(querySpec.getLimit());
-    }
+    setQueryLimits(query, querySpec);
 
     List<ListDTO> result = query.getResultList();
     return result;
+  }
+
+  /**
+   * Set start and limit for a query
+   *
+   * @param query Query
+   * @param querySpec BaseQuerySpecification
+   */
+  public void setQueryLimits(Query query, BaseQuerySpecification querySpec) {
+    if (querySpec == null || query == null) {
+      return;
+    }
+    if (querySpec.getStart() != null) {
+      query.setFirstResult(querySpec.getStart());
+    }
+    if (querySpec.getLimit() != null) {
+      query.setMaxResults(querySpec.getLimit());
+    }
   }
 
   /**
@@ -103,13 +112,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
       query = getEm().createNamedQuery(getSimpleSearchQueryName(), this.getEntityClass());
       query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
     }
-
-    if (querySpec != null && querySpec.getStart() != null) {
-      query.setFirstResult(querySpec.getStart());
-    }
-    if (querySpec != null && querySpec.getLimit() != null) {
-      query.setMaxResults(querySpec.getLimit());
-    }
+    setQueryLimits(query, querySpec);
     List<T> results = query.getResultList();
     return results;
   }

@@ -63,12 +63,7 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
       searchTxt = querySpec.getQuery().toLowerCase() + "%";
     }
     query.setParameter(2, searchTxt);
-    if (querySpec.getStart() != null) {
-      query.setFirstResult(querySpec.getStart());
-    }
-    if (querySpec.getLimit() != null) {
-      query.setMaxResults(querySpec.getLimit());
-    }
+    setQueryLimits(query, querySpec);
 
     List<StreetBasics> result = query.getResultList();
     return result;
@@ -97,15 +92,9 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
     } else {
       query = getEm().createNamedQuery(Building.BUILDING_FOR_ADR_SEARCH_QUERY_NAME, Building.class);
       query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
-      query.setParameter(Building.ADR_ID_QUERY_PARAMETER, querySpec.getRelatedId() );
+      query.setParameter(Building.ADR_ID_QUERY_PARAMETER, querySpec.getRelatedId());
     }
-
-    if (querySpec.getStart() != null) {
-      query.setFirstResult(querySpec.getStart());
-    }
-    if (querySpec.getLimit() != null) {
-      query.setMaxResults(querySpec.getLimit());
-    }
+    setQueryLimits(query, querySpec);
     List<Building> results = query.getResultList();
     return results;
 

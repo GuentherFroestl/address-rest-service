@@ -35,13 +35,7 @@ public class CityCrudController extends AbstractCrudController<City, City, BaseQ
     } else {
       query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, "%");
     }
-
-    if (querySpec.getStart() != null) {
-      query.setFirstResult(querySpec.getStart());
-    }
-    if (querySpec.getLimit() != null) {
-      query.setMaxResults(querySpec.getLimit());
-    }
+    setQueryLimits(query, querySpec);
     List<City> results = query.getResultList();
     return results;
   }
