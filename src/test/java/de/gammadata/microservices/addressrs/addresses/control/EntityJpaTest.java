@@ -11,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 /**
  *
@@ -32,7 +31,6 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
    */
   @Before
   public void setUp() {
-    when(entityListener.getEm()).thenReturn(em);
   }
 
   /**

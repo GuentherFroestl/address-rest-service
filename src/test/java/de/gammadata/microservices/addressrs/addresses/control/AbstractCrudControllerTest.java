@@ -11,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -43,7 +42,6 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
    */
   @Before
   public void setUp() {
-    when(entityListener.getEm()).thenReturn(em);
   }
 
   /**
