@@ -56,7 +56,7 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
    * @return
    */
   public List<StreetBasics> findStreetsByRelatedId(EntityRelatedQuerySpec querySpec, String nativeQuery) {
-    Query query = getEm().createNativeQuery(nativeQuery, getResultSetMappingName());
+    Query query = getEm().createNativeQuery(adaptNativeQueryForSchema(nativeQuery), getResultSetMappingName());
     query.setParameter(1, querySpec.getRelatedId());
     String searchTxt = "%";
     if (querySpec.getQuery() != null) {

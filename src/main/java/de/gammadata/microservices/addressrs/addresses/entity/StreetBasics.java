@@ -8,6 +8,9 @@ import java.util.Date;
  */
 public class StreetBasics extends BaseEntity {
 
+  public StreetBasics() {
+  }
+
   /**
    *
    * @param id
@@ -157,9 +160,7 @@ public class StreetBasics extends BaseEntity {
 
   @Override
   public String toString() {
-    return "StreetBasics{"+ super.toString() + ", additionalName=" + additionalName + ", cityId=" + cityId + ", cityName=" + cityName + ", countryId=" + countryId + ", countryName=" + countryName + ", zipCodeId=" + zipCodeId + ", zipCodeName=" + zipCodeName + '}';
+    return "StreetBasics{" + super.toString() + ", additionalName=" + additionalName + ", cityId=" + cityId + ", cityName=" + cityName + ", countryId=" + countryId + ", countryName=" + countryName + ", zipCodeId=" + zipCodeId + ", zipCodeName=" + zipCodeName + '}';
   }
-  
-  
 
 }

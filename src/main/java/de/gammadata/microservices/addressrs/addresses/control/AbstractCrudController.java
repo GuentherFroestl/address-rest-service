@@ -2,10 +2,12 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.application.control.EntityManagerQualifier;
+import de.gammadata.microservices.addressrs.application.control.EntityManagerType;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -50,7 +52,9 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    */
   public abstract String getResultSetMappingName();
 
-  @PersistenceContext(name = "address-pu")
+//  @PersistenceContext(name = "address-pu")
+  @Inject
+  @EntityManagerQualifier(EntityManagerType.PROVIDER)
   EntityManager em;
 
   /**
@@ -58,6 +62,9 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    * @return
    */
   protected EntityManager getEm() {
+    if (em != null) {
+      em.joinTransaction();
+    }
     return em;
   }
 
@@ -67,7 +74,8 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    * @return List of ListDTO
    */
   public List<ListDTO> getList(BaseQuerySpecification querySpec) {
-    Query query = getEm().createNativeQuery(getNativeSearchQuery(), getResultSetMappingName());
+    Query query = getEm().createNativeQuery(adaptNativeQueryForSchema(getNativeSearchQuery()),
+            getResultSetMappingName());
     String searchTxt = "%";
     if (querySpec != null && querySpec.getQuery() != null) {
       searchTxt = querySpec.getQuery().toLowerCase() + "%";
@@ -77,6 +85,17 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
 
     List<ListDTO> result = query.getResultList();
     return result;
+  }
+
+  /**
+   * deals with multitenancy in native queries
+   *
+   * @param nativeQuery String
+   * @return adapted QueryString with actual tenant.id set
+   */
+  public String adaptNativeQueryForSchema(String nativeQuery) {
+    String tenantId = (String) getEm().getProperties().get(BaseEntity.TENANT_ID);
+    return nativeQuery.replaceAll(BaseEntity.TENANT_SCHEMA_NAME, tenantId);
   }
 
   /**

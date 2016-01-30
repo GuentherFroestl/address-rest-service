@@ -63,6 +63,28 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertEquals("Object are not equal", adr, res);
     Assert.assertNotNull("unexpected null for timestap", res.getModified());
   }
+  
+    /**
+   *
+   */
+  @Test
+  public void testAddressMultitenancy() {
+    Street adr = new Street();
+    adr.setName("name2");
+    adr.setAdditionalName("additional name2");
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+//    em.setProperty("tenant.id", 1);
+    em.persist(adr);
+    tx.commit();
+    Assert.assertTrue("No ID for Address", adr.getId() != null);
+    System.out.println("Got ID = " + adr.getId());
+
+    Street res = em.find(Street.class, adr.getId());
+    Assert.assertNotNull("unexpected null result", res);
+    Assert.assertEquals("Object are not equal", adr, res);
+    Assert.assertNotNull("unexpected null for timestap", res.getModified());
+  }
 
   /**
    *

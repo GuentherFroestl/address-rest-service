@@ -8,18 +8,10 @@
     <class>de.gammadata.microservices.addressrs.addresses.entity.Building</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.Street</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <!--
-      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.9.165:5432/testdb"/>
-      <property name="javax.persistence.jdbc.user" value="psqluser"/>
-      <property name="javax.persistence.jdbc.password" value="psqluser"/>
-      -->
-      <!-- EclipseLink should create the database schema automatically -->
-      <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
-      <property name="javax.persistence.schema-generation.scripts.create-target" value="create_ddl.sql"/>
-      <property name="javax.persistence.schema-generation.scripts.drop-target" value="drop_ddl.sql"/>
+    <properties>    
+      <property name="tenant.id" value="public"/>
+      <property name="eclipselink.jdbc.allow-native-sql-queries" value="true"/>
+      <property name="eclipselink.logging.level" value="ALL"/>
     </properties>
   </persistence-unit>
 </persistence>

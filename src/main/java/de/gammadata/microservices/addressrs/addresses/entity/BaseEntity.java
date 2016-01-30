@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,19 +12,32 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import org.eclipse.persistence.annotations.Multitenant;
+import org.eclipse.persistence.annotations.MultitenantType;
+import org.eclipse.persistence.annotations.TenantDiscriminatorColumn;
+import org.eclipse.persistence.annotations.TenantTableDiscriminator;
+import static org.eclipse.persistence.annotations.TenantTableDiscriminatorType.SCHEMA;
 
 /**
  *
  * @author gfr
  */
 @MappedSuperclass
+@Multitenant(MultitenantType.TABLE_PER_TENANT)
+@TenantTableDiscriminator(type = SCHEMA, contextProperty = BaseEntity.TENANT_ID)
+//@Multitenant
+//@TenantDiscriminatorColumn(name = "TENANT_ID", contextProperty = "tenant.id",
+//        discriminatorType = DiscriminatorType.STRING)
 public class BaseEntity implements Serializable {
+
+  public final static String TENANT_SCHEMA_NAME = "tenant_schema";
+  public final static String TENANT_ID = "tenant.id";
 
   /**
    *
    */
   public static final String SIMPLE_SEARCH_QUERY_PARAMETER = "parameter";
-  
+
   /**
    *
    */
@@ -149,11 +163,11 @@ public class BaseEntity implements Serializable {
 
   @Override
   public int hashCode() {
-    int hash = 3;
-    hash = 41 * hash + Objects.hashCode(this.id);
-    hash = 41 * hash + Objects.hashCode(this.version);
-    hash = 41 * hash + Objects.hashCode(this.name);
-    hash = 41 * hash + Objects.hashCode(this.modified);
+    int hash = 7;
+    hash = 59 * hash + Objects.hashCode(this.id);
+    hash = 59 * hash + Objects.hashCode(this.version);
+    hash = 59 * hash + Objects.hashCode(this.name);
+    hash = 59 * hash + Objects.hashCode(this.modified);
     return hash;
   }
 
@@ -201,6 +215,7 @@ public class BaseEntity implements Serializable {
 
   @Override
   public String toString() {
-    return "BaseEntity{" + "id=" + id + ", version=" + version + ", name=" + name + ", modified=" + modified + '}';
+    return "BaseEntity{" + "id=" + id + ", version=" + version
+            + ", name=" + name + ", modified=" + modified + '}';
   }
 }
