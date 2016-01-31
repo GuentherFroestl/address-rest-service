@@ -139,7 +139,7 @@ public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Stre
     b2.setName("name 2");
     bListNew.add(b2);
     tx.begin();
-    Street adrB = testee.saveOrUpdateEntity(res);
+    testee.saveOrUpdateEntity(res);
     tx.commit();
     List<Building> bList3 = testee.findBuildings(new EntityRelatedQuerySpec(res.getId(),"name"));
     assertEquals("getBuildings().size() don't match", 2, bList3.size());

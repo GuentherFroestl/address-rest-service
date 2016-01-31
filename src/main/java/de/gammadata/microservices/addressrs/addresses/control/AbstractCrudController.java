@@ -6,6 +6,7 @@ import de.gammadata.microservices.addressrs.application.control.EntityManagerQua
 import de.gammadata.microservices.addressrs.application.control.EntityManagerType;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
+import java.util.Locale;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -21,6 +22,10 @@ import javax.persistence.criteria.CriteriaQuery;
  * @param <Q> extends BaseQuerySpecification
  */
 public abstract class AbstractCrudController<T extends BaseEntity, ListDTO extends BaseEntity, Q extends BaseQuerySpecification> {
+  //  @PersistenceContext(name = "address-pu")
+  @Inject
+  @EntityManagerQualifier(EntityManagerType.MULTI_TENANT)
+          EntityManager em;
 
   /**
    *
@@ -52,10 +57,6 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    */
   public abstract String getResultSetMappingName();
 
-//  @PersistenceContext(name = "address-pu")
-  @Inject
-  @EntityManagerQualifier(EntityManagerType.MULTI_TENANT)
-  EntityManager em;
 
   /**
    *
@@ -78,7 +79,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
             getResultSetMappingName());
     String searchTxt = "%";
     if (querySpec != null && querySpec.getQuery() != null) {
-      searchTxt = querySpec.getQuery().toLowerCase() + "%";
+      searchTxt = querySpec.getQuery().toLowerCase(Locale.GERMAN)+ "%";
     }
     query.setParameter(1, searchTxt);
     setQueryLimits(query, querySpec);
@@ -129,7 +130,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
               this.getEntityClass());
     } else {
       query = getEm().createNamedQuery(getSimpleSearchQueryName(), this.getEntityClass());
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%");
     }
     setQueryLimits(query, querySpec);
     List<T> results = query.getResultList();
@@ -147,7 +148,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
     } else {
       TypedQuery<Long> query;
       query = getEm().createNamedQuery(getSimpleSearchCountName(), Long.class);
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%");
       Long result = query.getSingleResult();
       return result;
     }

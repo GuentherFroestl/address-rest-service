@@ -1,6 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
 import de.gammadata.microservices.addressrs.addresses.control.ZipCodeEntityListener;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -60,7 +61,7 @@ public class ZipCode extends BaseEntity {
   public static final String WHERE_CLAUSE = " where "
           + "LOWER(e.name) like :" + ZipCode.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.countryName) like :" + ZipCode.SIMPLE_SEARCH_QUERY_PARAMETER;
-  
+
   /**
    *
    */
@@ -114,6 +115,35 @@ public class ZipCode extends BaseEntity {
    */
   public void setCountryName(String countryName) {
     this.countryName = countryName;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = super.hashCode();
+    hash = 37 * hash + Objects.hashCode(this.country);
+    hash = 37 * hash + Objects.hashCode(this.countryName);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!super.equals(obj)) {
+      return false;
+    }
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final ZipCode other = (ZipCode) obj;
+    if (!Objects.equals(this.countryName, other.countryName)) {
+      return false;
+    }
+    return Objects.equals(this.country, other.country);
   }
 
   @Override

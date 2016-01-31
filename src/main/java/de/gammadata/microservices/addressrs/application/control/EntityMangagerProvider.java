@@ -1,6 +1,5 @@
 package de.gammadata.microservices.addressrs.application.control;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.Singleton;
@@ -14,7 +13,7 @@ import javax.persistence.PersistenceUnit;
  * @author gfr
  */
 @Singleton
-public class EntityMangagerProvider implements Serializable {
+public class EntityMangagerProvider {
 
   @PersistenceUnit(name = "address-pu")
   private EntityManagerFactory emf;

@@ -7,6 +7,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQueryS
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
@@ -32,7 +33,7 @@ public class ZipCodeCrudController extends AbstractCrudController<ZipCode, ZipCo
     query = getEm().createNamedQuery(ZipCode.QUERY_ZIPCODES_BY_COUNTRY_NAME, ZipCode.class);
     query.setParameter(BaseEntity.ID_PARAMETER, querySpec.getRelatedId());
     if (querySpec.getQuery() != null) {
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%");
     } else {
       query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, "%");
     }

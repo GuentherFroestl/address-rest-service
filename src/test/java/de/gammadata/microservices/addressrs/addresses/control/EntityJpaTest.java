@@ -10,7 +10,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.spy;
 
 /**
  *
@@ -18,7 +17,6 @@ import static org.mockito.Mockito.spy;
  */
 public class EntityJpaTest extends AbstractEntityJpaTest {
 
-  private BaseEntityListener entityListener = spy(new BaseEntityListener());
 
   /**
    *

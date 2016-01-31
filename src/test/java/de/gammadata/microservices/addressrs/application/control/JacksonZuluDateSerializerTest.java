@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.core.SerializableString;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -29,6 +28,12 @@ public class JacksonZuluDateSerializerTest {
 
   DateFormat zuluDateFormat;
 
+  public JacksonZuluDateSerializerTest() {
+    zuluDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.GERMANY);
+    zuluDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+  }
+
+  
   /**
    *
    */
@@ -74,10 +79,9 @@ public class JacksonZuluDateSerializerTest {
     System.out.println("serialize");
     Date date = new Date();
     String expResult = zuluDateFormat.format(date);
-    SerializerProvider sp = null;
     MyJsonGenerator jg = new MyJsonGenerator();
     JacksonZuluDateSerializer instance = new JacksonZuluDateSerializer();
-    instance.serialize(date, jg, sp);
+    instance.serialize(date, jg, null);
     assertEquals(expResult, jg.getResult());
 
   }

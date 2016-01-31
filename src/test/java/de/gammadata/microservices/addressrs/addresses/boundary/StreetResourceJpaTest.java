@@ -25,6 +25,9 @@ import org.mockito.Spy;
  * @author gfr
  */
 public class StreetResourceJpaTest extends AbstractEntityJpaTest {
+  @AfterClass
+  public static void tearDownClass() {
+  }
 
   @Spy
   private StreetCrudController crudController = new StreetCrudController();
@@ -32,9 +35,6 @@ public class StreetResourceJpaTest extends AbstractEntityJpaTest {
   @InjectMocks //will inject StreetCrudController
   private StreetResource testee = new StreetResource();
 
-  @AfterClass
-  public static void tearDownClass() {
-  }
 
   @Before
   public void setUp() {

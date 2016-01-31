@@ -23,6 +23,25 @@ import org.junit.runners.MethodSorters;
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CountryCrudControllerArquillianIT {
+  // Deployment will be doene with the suite deployment plugin
+//  @Deployment
+//  public static WebArchive createDeployment() {
+//    return DeploymentLoaderArquillianIT.createDeployment();
+//  }
+  
+  /**
+   *
+   */
+  @BeforeClass
+  public static void setUpClass() {
+    
+  }
+  /**
+   *
+   */
+  @AfterClass
+  public static void tearDownClass() {
+  }
 
   private Long entityId;
   private Country entityCreated;
@@ -44,28 +63,9 @@ public class CountryCrudControllerArquillianIT {
    *
    */
   public CountryCrudControllerArquillianIT() {
+    entitySaved = new Country();
   }
 
-// Deployment will be doene with the suite deployment plugin
-//  @Deployment
-//  public static WebArchive createDeployment() {
-//    return DeploymentLoaderArquillianIT.createDeployment();
-//  }
-
-  /**
-   *
-   */
-  @BeforeClass
-  public static void setUpClass() {
-
-  }
-
-  /**
-   *
-   */
-  @AfterClass
-  public static void tearDownClass() {
-  }
 
   /**
    *

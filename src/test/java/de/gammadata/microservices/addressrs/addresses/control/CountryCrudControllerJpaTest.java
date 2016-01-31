@@ -17,13 +17,13 @@ import static org.mockito.Mockito.when;
  */
 public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Country, BaseQuerySpecification> {
 
+
+  private CountryCrudController testee = spy(new CountryCrudController());
   /**
    *
    */
   public CountryCrudControllerJpaTest() {
   }
-
-  private CountryCrudController testee = spy(new CountryCrudController());
 
   /**
    *
@@ -115,7 +115,7 @@ public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Cou
 
   private void createAndPersistCountry(String name) {
     Country c1 = createTestEntity();
-    c1.setName("AA");
+    c1.setName(name);
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     Country result = testee.saveOrUpdateEntity(c1);

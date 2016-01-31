@@ -34,20 +34,6 @@ public class JacksonZuluDateSerializer extends JsonSerializer<Date> {
     return getDateFormat().format(date);
   }
 
-  /**
-   *
-   * @param date
-   * @param jg
-   * @param sp
-   * @throws IOException
-   * @throws JsonGenerationException
-   */
-  @Override
-  public void serialize(Date date, JsonGenerator jg, SerializerProvider sp)
-          throws IOException, JsonGenerationException {
-    String dateString = serialize(date);
-    jg.writeString(dateString);
-  }
 
   /**
    * For test purposes only.
@@ -63,5 +49,19 @@ public class JacksonZuluDateSerializer extends JsonSerializer<Date> {
       Date res = getDateFormat().parse(dateString);
       return res;
     }
+  }
+  /**
+   *
+   * @param date
+   * @param jg
+   * @param sp
+   * @throws IOException
+   * @throws JsonGenerationException
+   */
+  @Override
+  public void serialize(Date date, JsonGenerator jg, SerializerProvider sp)
+          throws IOException, JsonGenerationException {
+    String dateString = serialize(date);
+    jg.writeString(dateString);
   }
 }

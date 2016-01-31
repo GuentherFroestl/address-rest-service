@@ -7,50 +7,7 @@ package de.gammadata.microservices.addressrs.application.entity;
  */
 public class AddressServiceException extends RuntimeException {
 
-  /**
-   *
-   */
-  public enum Error {
-
-    /**
-     *
-     */
-    VALIDATION(400, "VALIDATION"),
-
-    /**
-     *
-     */
-    DATABASE(400, "DATABASE"),
-
-    /**
-     *
-     */
-    SYSTEM(500, "SYSTEM");
-
-    private final int httpStatus;
-    private final String errorCode;
-
-    private Error(int httpStatus, String errorCode) {
-      this.httpStatus = httpStatus;
-      this.errorCode = errorCode;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getHttpStatus() {
-      return httpStatus;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getErrorCode() {
-      return errorCode;
-    }
-  }
+  private Error error;
 
   /**
    *
@@ -104,7 +61,6 @@ public class AddressServiceException extends RuntimeException {
     this.error = error;
   }
 
-  private Error error;
 
   /**
    *
@@ -120,6 +76,50 @@ public class AddressServiceException extends RuntimeException {
    */
   public void setError(Error error) {
     this.error = error;
+  }
+  /**
+   *
+   */
+  public enum Error {
+    
+    /**
+     *
+     */
+    VALIDATION(400, "VALIDATION"),
+    
+    /**
+     *
+     */
+    DATABASE(400, "DATABASE"),
+    
+    /**
+     *
+     */
+    SYSTEM(500, "SYSTEM");
+    
+    private final int httpStatus;
+    private final String errorCode;
+    
+    private Error(int httpStatus, String errorCode) {
+      this.httpStatus = httpStatus;
+      this.errorCode = errorCode;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public int getHttpStatus() {
+      return httpStatus;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public String getErrorCode() {
+      return errorCode;
+    }
   }
 
 }

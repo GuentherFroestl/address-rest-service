@@ -27,6 +27,8 @@ import static org.eclipse.persistence.annotations.TenantTableDiscriminatorType.S
 //@TenantDiscriminatorColumn(name = "TENANT_ID", contextProperty = "tenant.id",
 //        discriminatorType = DiscriminatorType.STRING)
 public class BaseEntity implements Serializable {
+  
+  static final long serialVersionUID = 1l;
 
   public final static String TENANT_SCHEMA_NAME = "tenant_schema";
   public final static String TENANT_ID = "tenant.id";
@@ -84,7 +86,14 @@ public class BaseEntity implements Serializable {
     this.id = id;
     this.version = version;
     this.name = name;
-    this.modified = modified;
+    this.modified = getInmutableDate(modified);
+  }
+
+  public final Date getInmutableDate(Date in) {
+    if (in == null) {
+      return null;
+    }
+    return new Date(in.getTime());
   }
 
   /**
@@ -140,7 +149,7 @@ public class BaseEntity implements Serializable {
    * @return
    */
   public Date getModified() {
-    return modified;
+    return getInmutableDate(modified);
   }
 
   /**
@@ -148,7 +157,7 @@ public class BaseEntity implements Serializable {
    * @param modified
    */
   public void setModified(Date modified) {
-    this.modified = modified;
+    this.modified = getInmutableDate(modified);
   }
 
   @Override

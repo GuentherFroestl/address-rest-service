@@ -18,6 +18,10 @@ import org.junit.Test;
  * @author gfr
  */
 public class CitiesResourceRestStIT extends AbstractResourceRestIT {
+  /**
+   *
+   */
+  protected static String CITY_URL = BASE_URL + CitiesResource.PATH;
 
   /**
    *
@@ -40,10 +44,6 @@ public class CitiesResourceRestStIT extends AbstractResourceRestIT {
   public void tearDown() {
   }
   
-  /**
-   *
-   */
-  protected static String CITY_URL = BASE_URL + CitiesResource.PATH;
 
   /**
    * Test of getAllAdresses method, of class CityResource.

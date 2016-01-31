@@ -25,6 +25,18 @@ import org.junit.runners.MethodSorters;
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CountryResourceArquillianIT {
+  // Deployment will be doene with the suite deployment plugin
+//  @Deployment
+//  public static WebArchive createDeployment() {
+//    return DeploymentLoaderArquillianIT.createDeployment();
+//  }
+  @BeforeClass
+  public static void setUpClass() {
+    
+  }
+  @AfterClass
+  public static void tearDownClass() {
+  }
   
   private Long entityId;
   private Country entityCreated;
@@ -43,21 +55,9 @@ public class CountryResourceArquillianIT {
   CountriesResource instance;
 
   public CountryResourceArquillianIT() {
+    entitySaved = new Country();
   }
 
-// Deployment will be doene with the suite deployment plugin
-//  @Deployment
-//  public static WebArchive createDeployment() {
-//    return DeploymentLoaderArquillianIT.createDeployment();
-//  }
-  @BeforeClass
-  public static void setUpClass() {
-
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-  }
 
   @Before
   public void setUp() {
@@ -133,7 +133,7 @@ public class CountryResourceArquillianIT {
     for (Country c : result) {
       instance.deleteEntity(c.getId());
     }
-    List<Country> delResult = instance.findByQuery(null,null,null);;
+    List<Country> delResult = instance.findByQuery(null,null,null);
     assertTrue("result list empty", delResult.isEmpty());
   }
 }

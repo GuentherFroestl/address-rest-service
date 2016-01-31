@@ -7,6 +7,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
@@ -31,7 +32,7 @@ public class CityCrudController extends AbstractCrudController<City, City, BaseQ
     query = getEm().createNamedQuery(City.QUERY_CITIES_BY_COUNTRY_NAME, City.class);
     query.setParameter(BaseEntity.ID_PARAMETER, querySpec.getRelatedId());
     if (querySpec.getQuery() != null) {
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%");
     } else {
       query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, "%");
     }
@@ -62,7 +63,7 @@ public class CityCrudController extends AbstractCrudController<City, City, BaseQ
   @Override
   public City saveOrUpdateEntity(City pCity) {
     relateEntities(pCity);
-    return super.saveOrUpdateEntity(pCity); //To change body of generated methods, choose Tools | Templates.
+    return super.saveOrUpdateEntity(pCity); 
   }
 
   private void relateEntities(City pCity) {

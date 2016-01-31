@@ -1,12 +1,23 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
  * @author gfr
  */
 public class StreetBasics extends BaseEntity {
+
+  static final long serialVersionUID = 1l;
+
+  private String additionalName;
+  private Long cityId;
+  private String cityName;
+  private Long countryId;
+  private String countryName;
+  private Long zipCodeId;
+  private String zipCodeName;
 
   public StreetBasics() {
   }
@@ -37,14 +48,6 @@ public class StreetBasics extends BaseEntity {
     this.zipCodeName = zipCodeName;
 
   }
-
-  private String additionalName;
-  private Long cityId;
-  private String cityName;
-  private Long countryId;
-  private String countryName;
-  private Long zipCodeId;
-  private String zipCodeName;
 
   /**
    *
@@ -156,6 +159,55 @@ public class StreetBasics extends BaseEntity {
    */
   public void setZipCodeName(String zipCodeName) {
     this.zipCodeName = zipCodeName;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = super.hashCode();
+    hash = 41 * hash + Objects.hashCode(this.additionalName);
+    hash = 41 * hash + Objects.hashCode(this.cityId);
+    hash = 41 * hash + Objects.hashCode(this.cityName);
+    hash = 41 * hash + Objects.hashCode(this.countryId);
+    hash = 41 * hash + Objects.hashCode(this.countryName);
+    hash = 41 * hash + Objects.hashCode(this.zipCodeId);
+    hash = 41 * hash + Objects.hashCode(this.zipCodeName);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!super.equals(obj)) {
+      return false;
+    }
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final StreetBasics other = (StreetBasics) obj;
+    if (!Objects.equals(this.additionalName, other.additionalName)) {
+      return false;
+    }
+    if (!Objects.equals(this.cityName, other.cityName)) {
+      return false;
+    }
+    if (!Objects.equals(this.countryName, other.countryName)) {
+      return false;
+    }
+    if (!Objects.equals(this.zipCodeName, other.zipCodeName)) {
+      return false;
+    }
+    if (!Objects.equals(this.cityId, other.cityId)) {
+      return false;
+    }
+    if (!Objects.equals(this.countryId, other.countryId)) {
+      return false;
+    }
+    return Objects.equals(this.zipCodeId, other.zipCodeId);
   }
 
   @Override

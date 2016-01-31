@@ -24,6 +24,17 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class StreetCrudControllerArquillianIT {
+  // Deployment will be doene with the suite deployment plugin
+//  @Deployment
+//  public static WebArchive createDeployment() {
+//    return DeploymentLoaderArquillianIT.createDeployment();
+//  }
+  @BeforeClass
+  public static void setUpClass() {
+  }
+  @AfterClass
+  public static void tearDownClass() {
+  }
 
 
   @EJB
@@ -35,18 +46,6 @@ public class StreetCrudControllerArquillianIT {
   @EJB
   CityCrudController cityController;
 
-// Deployment will be doene with the suite deployment plugin
-//  @Deployment
-//  public static WebArchive createDeployment() {
-//    return DeploymentLoaderArquillianIT.createDeployment();
-//  }
-  @BeforeClass
-  public static void setUpClass() {
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-  }
 
   @Before
   public void setUp() {

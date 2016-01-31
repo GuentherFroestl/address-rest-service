@@ -11,6 +11,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -60,7 +61,7 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
     query.setParameter(1, querySpec.getRelatedId());
     String searchTxt = "%";
     if (querySpec.getQuery() != null) {
-      searchTxt = querySpec.getQuery().toLowerCase() + "%";
+      searchTxt = querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%";
     }
     query.setParameter(2, searchTxt);
     setQueryLimits(query, querySpec);
@@ -90,7 +91,7 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
       }
     } else {
       query = getEm().createNamedQuery(Building.BUILDING_FOR_ADR_SEARCH_QUERY_NAME, Building.class);
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase() + "%");
+      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%");
       query.setParameter(Building.ADR_ID_QUERY_PARAMETER, querySpec.getRelatedId());
     }
     setQueryLimits(query, querySpec);

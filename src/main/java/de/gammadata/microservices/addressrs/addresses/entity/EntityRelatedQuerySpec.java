@@ -5,6 +5,7 @@ package de.gammadata.microservices.addressrs.addresses.entity;
  * @author gfr
  */
 public class EntityRelatedQuerySpec extends BaseQuerySpecification {
+  private long relatedId;
 
   /**
    *
@@ -47,7 +48,6 @@ public class EntityRelatedQuerySpec extends BaseQuerySpecification {
     this.relatedId = relatedId;
   }
 
-  private long relatedId;
 
   /**
    *

@@ -14,9 +14,6 @@ import java.util.ArrayList;
  */
 public class TestEntityProvider {
 
-  private TestEntityProvider() {
-  }
-
   /**
    *
    * @return
@@ -114,9 +111,35 @@ public class TestEntityProvider {
    * @param withId
    */
   public static void setBasePropertiesForEquals(BaseEntity pIn, BaseEntity withId) {
+    if (pIn == null || withId == null) {
+      return;
+    }
     pIn.setId(withId.getId());
     pIn.setVersion(withId.getVersion());
     pIn.setModified(withId.getModified());
+
+    if (pIn instanceof ZipCode && withId instanceof ZipCode) {
+      ZipCode z = (ZipCode) pIn;
+      ZipCode z2 = (ZipCode) withId;
+      setBasePropertiesForEquals(z.getCountry(), z2.getCountry());
+    }
+
+    if (pIn instanceof City && withId instanceof City) {
+      City z = (City) pIn;
+      City z2 = (City) withId;
+      setBasePropertiesForEquals(z.getCountry(), z2.getCountry());
+    }
+
+    if (pIn instanceof Street && withId instanceof Street) {
+      Street z = (Street) pIn;
+      Street z2 = (Street) withId;
+      setBasePropertiesForEquals(z.getCountry(), z2.getCountry());
+      setBasePropertiesForEquals(z.getCity(), z2.getCity());
+      setBasePropertiesForEquals(z.getZipCode(), z2.getZipCode());
+    }
+  }
+
+  private TestEntityProvider() {
   }
 
 }

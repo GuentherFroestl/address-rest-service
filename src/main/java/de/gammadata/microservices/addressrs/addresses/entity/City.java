@@ -74,6 +74,9 @@ public class City extends BaseEntity {
    */
   @Column(name = "COUNTRY_NAME")
   private String countryName;
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "COUNTRY_ID")
+  private Country country;
 
   /**
    *
@@ -91,9 +94,6 @@ public class City extends BaseEntity {
     this.countryName = countryName;
   }
 
-  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "COUNTRY_ID")
-  private Country country;
 
   /**
    *
@@ -140,10 +140,7 @@ public class City extends BaseEntity {
     if (!Objects.equals(this.countryName, other.countryName)) {
       return false;
     }
-    if (!Objects.equals(this.country, other.country)) {
-      return false;
-    }
-    return true;
+    return Objects.equals(this.country, other.country);
   }
 
   @Override

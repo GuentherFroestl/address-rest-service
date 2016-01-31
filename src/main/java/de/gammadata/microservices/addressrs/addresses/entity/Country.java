@@ -135,10 +135,7 @@ public class Country extends BaseEntity {
     if (!Objects.equals(this.iso3CountryCode, other.iso3CountryCode)) {
       return false;
     }
-    if (!Objects.equals(this.isoNumber, other.isoNumber)) {
-      return false;
-    }
-    return true;
+    return Objects.equals(this.isoNumber, other.isoNumber);
   }
 
   @Override

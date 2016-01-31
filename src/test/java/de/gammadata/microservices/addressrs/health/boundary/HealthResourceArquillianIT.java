@@ -21,11 +21,6 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class HealthResourceArquillianIT {
 
-  /**
-   *
-   */
-  public HealthResourceArquillianIT() {
-  }
 
   /**
    *
@@ -40,8 +35,6 @@ public class HealthResourceArquillianIT {
     return jar;
   }
 
-  @Inject
-  HealthResource instance;
 
   /**
    *
@@ -56,6 +49,13 @@ public class HealthResourceArquillianIT {
    */
   @AfterClass
   public static void tearDownClass() {
+  }
+  @Inject
+          HealthResource instance;
+  /**
+   *
+   */
+  public HealthResourceArquillianIT() {
   }
 
   /**

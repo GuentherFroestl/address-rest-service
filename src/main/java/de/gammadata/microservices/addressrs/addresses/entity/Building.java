@@ -2,6 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.gammadata.microservices.addressrs.addresses.control.BaseEntityListener;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -109,5 +110,40 @@ public class Building extends BaseEntity {
   public Long getStreetId() {
     return streetId;
   }
+
+  @Override
+  public int hashCode() {
+    int hash = super.hashCode();
+    hash = 97 * hash + Objects.hashCode(this.number);
+    hash = 97 * hash + Objects.hashCode(this.street);
+    hash = 97 * hash + Objects.hashCode(this.streetId);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!super.equals(obj)){
+      return false;
+    }
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final Building other = (Building) obj;
+    if (!Objects.equals(this.number, other.number)) {
+      return false;
+    }
+    if (!Objects.equals(this.street, other.street)) {
+      return false;
+    }
+    return Objects.equals(this.streetId, other.streetId);
+  }
+  
+  
 
 }
