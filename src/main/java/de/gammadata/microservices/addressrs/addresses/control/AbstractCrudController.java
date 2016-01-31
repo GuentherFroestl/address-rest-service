@@ -54,7 +54,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
 
 //  @PersistenceContext(name = "address-pu")
   @Inject
-  @EntityManagerQualifier(EntityManagerType.PROVIDER)
+  @EntityManagerQualifier(EntityManagerType.MULTI_TENANT)
   EntityManager em;
 
   /**

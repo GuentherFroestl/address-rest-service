@@ -27,21 +27,21 @@ import javax.ws.rs.core.MediaType;
  */
 @ManagedBean
 @Path(StreetResource.PATH)
-public class StreetResource extends AbstractCrudResource<Street, StreetBasics,
-        BaseQuerySpecification> {
-  
-  /**
-   *
-   */
-  public static final String PATH="/streets";
+public class StreetResource extends AbstractCrudResource<Street, StreetBasics, BaseQuerySpecification> {
 
   /**
    *
    */
-  public static final String BUILDINGS_PATH="/{id}/buildings";
+  public static final String PATH = "/streets";
+
+  /**
+   *
+   */
+  public static final String BUILDINGS_PATH = "/{streetid}/buildings";
 
   @EJB
   StreetCrudController streetController;
+
   /**
    *
    * @return
@@ -51,10 +51,10 @@ public class StreetResource extends AbstractCrudResource<Street, StreetBasics,
     return streetController;
   }
   
-    /**
+  /**
    * Query street within a city given by ID.
    *
-   * @param id Long
+   * @param streetid Long
    * @param start Integer
    * @param limit Integer
    * @param query String
@@ -65,62 +65,12 @@ public class StreetResource extends AbstractCrudResource<Street, StreetBasics,
   @Consumes(MediaType.APPLICATION_JSON)
   @Path(BUILDINGS_PATH)
   public List<Building> queryStreets(
-          @PathParam("id") Long id,
+          @PathParam("streetid") Long streetid,
           @QueryParam("start") Integer start,
           @QueryParam("limit") Integer limit,
           @QueryParam("query") String query) {
-    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(id, limit, start, query);
+    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(streetid, limit, start, query);
     List<Building> result = streetController.findBuildings(querySpec);
     return result;
-  }
-
-
-  /**
-   *
-   * @param start
-   * @param limit
-   * @param query
-   * @return
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Path("/jsonarray")
-  public JsonArray getListAsJsonArray(
-          @QueryParam("start") Integer start,
-          @QueryParam("limit") Integer limit,
-          @QueryParam("query") String query) {
-    BaseQuerySpecification querySpec = new BaseQuerySpecification(limit, start, query);
-    List<Street> list = getCrudController().searchEntities(querySpec);
-
-    JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-    if (list != null && !list.isEmpty()) {
-
-      for (Street adr : list) {
-        JsonObjectBuilder objBuilder = Json.createObjectBuilder();
-        objBuilder.add("id", adr.getId())
-                .add("version", adr.getVersion())
-                .add("modified", JacksonZuluDateSerializer.serialize(adr.getModified()))
-                .add("name", adr.getName())
-                .add("additionalName", adr.getAdditionalName());
-        if (adr.getCity() != null) {
-          objBuilder.add("city", Json.createObjectBuilder()
-                  .add("id", adr.getCity().getId())
-                  .add("name", adr.getCity().getName()));
-        }
-        if (adr.getCountry() != null) {
-          objBuilder.add("country", Json.createObjectBuilder()
-                  .add("id", adr.getCity().getCountry().getId())
-                  .add("name", adr.getCity().getCountry().getName()));
-        }
-        if (adr.getZipCode() != null) {
-          objBuilder.add("zipCode", Json.createObjectBuilder()
-                  .add("id", adr.getZipCode().getId())
-                  .add("name", adr.getZipCode().getName()));
-        }
-        arrayBuilder.add(objBuilder);
-      }
-    }
-    return arrayBuilder.build();
   }
 }

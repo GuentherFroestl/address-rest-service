@@ -77,14 +77,6 @@ public class BaseEntity implements Serializable {
 
   /**
    *
-   * @param name
-   */
-  public BaseEntity(String name) {
-    this.name = name;
-  }
-
-  /**
-   *
    * @param id
    * @param version
    * @param name

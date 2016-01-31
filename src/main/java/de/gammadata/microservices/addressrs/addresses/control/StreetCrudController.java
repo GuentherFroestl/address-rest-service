@@ -72,7 +72,6 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
   /**
    *
    * @param querySpec
-   * @param adrId
    * @return
    */
   public List<Building> findBuildings(EntityRelatedQuerySpec querySpec) {
