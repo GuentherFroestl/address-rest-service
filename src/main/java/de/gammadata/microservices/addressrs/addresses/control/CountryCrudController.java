@@ -14,7 +14,7 @@ import javax.ejb.Stateless;
 public class CountryCrudController extends AbstractCrudController<Country, Country, BaseQuerySpecification> {
 
   @Override
-  public List<Country> getList(BaseQuerySpecification querySpec) {
+  public List<Country> getListByQuery(BaseQuerySpecification querySpec) {
     return super.searchEntities(querySpec); //To change body of generated methods, choose Tools | Templates.
   }
   

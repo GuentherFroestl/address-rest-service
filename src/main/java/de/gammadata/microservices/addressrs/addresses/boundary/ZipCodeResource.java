@@ -37,8 +37,6 @@ public class ZipCodeResource extends AbstractCrudResource<ZipCode, ZipCode, Base
 
   @EJB
   ZipCodeCrudController zipCodeController;
-  @EJB
-  StreetCrudController streetController;
 
   /**
    *
@@ -49,27 +47,5 @@ public class ZipCodeResource extends AbstractCrudResource<ZipCode, ZipCode, Base
     return zipCodeController;
   }
 
-  /**
-   * Query street within a city given by ID.
-   *
-   * @param id Long
-   * @param start Integer
-   * @param limit Integer
-   * @param query String
-   * @return List of StreetBasics
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Path(STREETS_PATH)
-  public List<StreetBasics> queryStreets(
-          @PathParam("id") Long id,
-          @QueryParam("start") Integer start,
-          @QueryParam("limit") Integer limit,
-          @QueryParam("query") String query) {
-    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(id, limit, start, query);
-    List<StreetBasics> result = streetController.findStreetsInZipCode(querySpec);
-    return result;
-  }
 
 }

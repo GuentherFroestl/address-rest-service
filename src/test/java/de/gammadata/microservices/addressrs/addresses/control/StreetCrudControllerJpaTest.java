@@ -63,7 +63,7 @@ public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Stre
     assertNotNull("unexpected null result for address", result);
     assertNotNull("unexpected null result for address.id", result.getId());
 
-    List<StreetBasics> resList = testee.getList(new BaseQuerySpecification("name"));
+    List<StreetBasics> resList = testee.getListByQuery(new BaseQuerySpecification("name"));
     assertNotNull("resultlist unexpected null", resList);
     assertTrue("resultlist has no content", !resList.isEmpty());
     assertNotNull("resultlist unexpected null entity", resList.get(0));

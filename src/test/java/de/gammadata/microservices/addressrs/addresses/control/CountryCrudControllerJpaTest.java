@@ -70,44 +70,44 @@ public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Cou
     createAndPersistCountry("AI");
     createAndPersistCountry("AJ");
 
-    List<Country> list = testee.getList(null);
+    List<Country> list = testee.getListByQuery(null);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
     BaseQuerySpecification qs = new BaseQuerySpecification(10, 0, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
     
     qs = new BaseQuerySpecification(null, null, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
     
     qs = new BaseQuerySpecification(5, null, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 5, list.size());
     
     qs = new BaseQuerySpecification(null, 0, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
     
     
     qs = new BaseQuerySpecification(5, 0, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 5, list.size());
     qs = new BaseQuerySpecification(5, 5, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 5, list.size());
     qs = new BaseQuerySpecification(5, 9, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 1, list.size());
     qs = new BaseQuerySpecification(10, 10, "A");
-    list = testee.getList(qs);
+    list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 0, list.size());
     AbstractEntityJpaTest.deleteEntities(createTestEntity().getClass(), em);

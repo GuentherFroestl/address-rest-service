@@ -61,7 +61,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    *
    * @return
    */
-  protected EntityManager getEm() {
+  public EntityManager getEm() {
     if (em != null) {
       em.joinTransaction();
     }
@@ -73,7 +73,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    * @param querySpec BaseQuerySpecification
    * @return List of ListDTO
    */
-  public List<ListDTO> getList(BaseQuerySpecification querySpec) {
+  public List<ListDTO> getListByQuery(BaseQuerySpecification querySpec) {
     Query query = getEm().createNativeQuery(adaptNativeQueryForSchema(getNativeSearchQuery()),
             getResultSetMappingName());
     String searchTxt = "%";
@@ -141,7 +141,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    * @param querySpec
    * @return
    */
-  public Long countEntities(BaseQuerySpecification querySpec) {
+  public Long countEntitiesByQuery(BaseQuerySpecification querySpec) {
     if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
       return countEntities();
     } else {

@@ -123,29 +123,29 @@ public class StreetCrudControllerArquillianIT {
     List<Street> adrList = adrController.searchEntities(new BaseQuerySpecification());
     assertNotNull("unexpected null result list for simple search query", adrList);
     assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
-    Long count = adrController.countEntities(new BaseQuerySpecification());
+    Long count = adrController.countEntitiesByQuery(new BaseQuerySpecification());
     assertThat("simple search count does not match", count, is(equalTo(2l)));
 
     //Search with argument
     adrList = adrController.searchEntities(new BaseQuerySpecification(null, null, "name"));
     assertNotNull("unexpected null result list for simple search query", adrList);
     assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
-    count = adrController.countEntities(new BaseQuerySpecification(null, null, "name"));
+    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "name"));
     assertThat("simple search count does not match", 2l, is(equalTo(count)));
 
-    count = adrController.countEntities(new BaseQuerySpecification(null, null, "name 2"));
+    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "name 2"));
     assertThat("simple search count does not match", 1l, is(equalTo(count)));
 
-    count = adrController.countEntities(new BaseQuerySpecification(null, null, "city"));
+    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "city"));
     assertThat("simple search count for city does not match", count, is(equalTo(2l)));
 
-    count = adrController.countEntities(new BaseQuerySpecification(null, null, "City"));
+    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "City"));
     assertThat("simple search count for city does not match", count, is(equalTo(2l)));
 
     adrList = adrController.searchEntities(new BaseQuerySpecification(null, null, "City"));
     System.out.println(adrList);
 
-    count = adrController.countEntities(new BaseQuerySpecification(null, null, "City 2"));
+    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "City 2"));
     assertThat("simple search count for city does not match", count, is(equalTo(1l)));
 
   }

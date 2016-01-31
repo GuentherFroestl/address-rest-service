@@ -42,7 +42,7 @@ public class ZipCodeCrudController extends AbstractCrudController<ZipCode, ZipCo
   }
 
   @Override
-  public List<ZipCode> getList(BaseQuerySpecification querySpec) {
+  public List<ZipCode> getListByQuery(BaseQuerySpecification querySpec) {
     return super.searchEntities(querySpec);
   }
 

@@ -108,7 +108,7 @@ public class CountryResourceArquillianIT {
   @Test
   public void test3_FindAll() {
     System.out.println("findAll");
-    List<Country> result = instance.queryEntities(null,null,null);
+    List<Country> result = instance.findByQuery(null,null,null);
     assertNotNull("no result", result);
     assertTrue("result list empty", result.size() > 0);
     Country testEntity = null;
@@ -127,13 +127,13 @@ public class CountryResourceArquillianIT {
   @Test
   public void test4_Delete() {
     System.out.println("delete");
-    List<Country> result = instance.queryEntities(null,null,null);;
+    List<Country> result = instance.findByQuery(null,null,null);
     assertNotNull("no result", result);
     assertTrue("result list empty", result.size() > 0);
     for (Country c : result) {
       instance.deleteEntity(c.getId());
     }
-    List<Country> delResult = instance.queryEntities(null,null,null);;
+    List<Country> delResult = instance.findByQuery(null,null,null);;
     assertTrue("result list empty", delResult.isEmpty());
   }
 }

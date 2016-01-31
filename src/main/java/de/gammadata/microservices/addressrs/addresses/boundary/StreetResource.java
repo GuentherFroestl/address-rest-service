@@ -6,14 +6,9 @@ import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
-import de.gammadata.microservices.addressrs.application.control.JacksonZuluDateSerializer;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,13 +25,11 @@ import javax.ws.rs.core.MediaType;
 public class StreetResource extends AbstractCrudResource<Street, StreetBasics, BaseQuerySpecification> {
 
   /**
-   *
+   * REST Pathes.
    */
   public static final String PATH = "/streets";
-
-  /**
-   *
-   */
+  public static final String WITHIN_CITY = "/withincity/{fkid}";
+  public static final String WITHIN_ZIPCODE = "/withinzipcode/{fkid}";
   public static final String BUILDINGS_PATH = "/{streetid}/buildings";
 
   @EJB
@@ -50,7 +43,33 @@ public class StreetResource extends AbstractCrudResource<Street, StreetBasics, B
   public StreetCrudController getCrudController() {
     return streetController;
   }
-  
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Path(WITHIN_CITY)
+  public List<StreetBasics> findStreetsInCity(
+          @PathParam("fkid") Long fkid,
+          @QueryParam("start") Integer start,
+          @QueryParam("limit") Integer limit,
+          @QueryParam("query") String query) {
+    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(fkid, limit, start, query);
+    return getCrudController().findStreetsInCity(querySpec);
+  }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Path(WITHIN_ZIPCODE)
+  public List<StreetBasics> findStreetsInZipCode(
+          @PathParam("fkid") Long fkid,
+          @QueryParam("start") Integer start,
+          @QueryParam("limit") Integer limit,
+          @QueryParam("query") String query) {
+    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(fkid, limit, start, query);
+    return getCrudController().findStreetsInZipCode(querySpec);
+  }
+
   /**
    * Query street within a city given by ID.
    *
@@ -70,7 +89,7 @@ public class StreetResource extends AbstractCrudResource<Street, StreetBasics, B
           @QueryParam("limit") Integer limit,
           @QueryParam("query") String query) {
     EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(streetid, limit, start, query);
-    List<Building> result = streetController.findBuildings(querySpec);
+    List<Building> result = getCrudController().findBuildings(querySpec);
     return result;
   }
 }

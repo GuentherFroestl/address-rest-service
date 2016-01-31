@@ -37,8 +37,6 @@ public class CitiesResource extends AbstractCrudResource<City, City, BaseQuerySp
 
   @EJB
   CityCrudController cityController;
-  @EJB
-  StreetCrudController streetController;
 
   /**
    *
@@ -47,27 +45,5 @@ public class CitiesResource extends AbstractCrudResource<City, City, BaseQuerySp
   @Override
   public AbstractCrudController<City, City, BaseQuerySpecification> getCrudController() {
     return cityController;
-  }
-
-  /**
-   * Query street within a city given by ID.
-   * @param id Long
-   * @param start Integer
-   * @param limit Integer
-   * @param query String
-   * @return List of StreetBasics
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Path(STREET_PATH)
-  public List<StreetBasics> queryStreets(
-          @PathParam("id") Long id,
-          @QueryParam("start") Integer start,
-          @QueryParam("limit") Integer limit,
-          @QueryParam("query") String query) {
-    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(id,limit, start, query);
-    List<StreetBasics> result = streetController.findStreetsInCity(querySpec);
-    return result;
   }
 }

@@ -4,11 +4,11 @@ package de.gammadata.microservices.addressrs.addresses.entity;
  *
  * @author gfr
  */
-public class EntityRelatedQuerySpec extends BaseQuerySpecification{
+public class EntityRelatedQuerySpec extends BaseQuerySpecification {
 
   /**
    *
-   * @param relatedId
+   * @param relatedId long related Foreign Key
    */
   public EntityRelatedQuerySpec(long relatedId) {
     this.relatedId = relatedId;
@@ -16,8 +16,8 @@ public class EntityRelatedQuerySpec extends BaseQuerySpecification{
 
   /**
    *
-   * @param relatedId
-   * @param query
+   * @param relatedId long related Foreign Key
+   * @param query String
    */
   public EntityRelatedQuerySpec(long relatedId, String query) {
     super(query);
@@ -26,9 +26,9 @@ public class EntityRelatedQuerySpec extends BaseQuerySpecification{
 
   /**
    *
-   * @param relatedId
-   * @param limit
-   * @param start
+   * @param relatedId long related Foreign Key
+   * @param limit Integer
+   * @param start Integer
    */
   public EntityRelatedQuerySpec(long relatedId, Integer limit, Integer start) {
     super(limit, start);
@@ -37,18 +37,16 @@ public class EntityRelatedQuerySpec extends BaseQuerySpecification{
 
   /**
    *
-   * @param relatedId
-   * @param limit
-   * @param start
-   * @param query
+   * @param relatedId long related Foreign Key
+   * @param limit Integer
+   * @param start Integer
+   * @param query String
    */
   public EntityRelatedQuerySpec(long relatedId, Integer limit, Integer start, String query) {
     super(limit, start, query);
     this.relatedId = relatedId;
   }
-  
-  
-  
+
   private long relatedId;
 
   /**
@@ -66,7 +64,5 @@ public class EntityRelatedQuerySpec extends BaseQuerySpecification{
   public void setRelatedId(long relatedId) {
     this.relatedId = relatedId;
   }
-  
-  
-  
+
 }

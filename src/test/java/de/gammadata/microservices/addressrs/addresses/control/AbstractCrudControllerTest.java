@@ -99,7 +99,7 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     Assert.assertEquals("Entities.id are not equal", resUpdate.getId(), list.get(0).getId());
     Assert.assertEquals("Names are not equal", newName, list.get(0).getName());
 
-    long count = getTestee().countEntities(null);
+    long count = getTestee().countEntitiesByQuery(null);
     Assert.assertEquals("List size is not correct", 1l, count);
 
     //Test with query
@@ -111,7 +111,7 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     Assert.assertEquals("Entities.id are not equal", resUpdate.getId(), list2.get(0).getId());
     Assert.assertEquals("Names are not equal", newName, list2.get(0).getName());
 
-    long count2 = getTestee().countEntities(querySpec);
+    long count2 = getTestee().countEntitiesByQuery(querySpec);
     Assert.assertEquals("List size is not correct", 1l, count2);
 
     querySpec.setStart(0);

@@ -50,7 +50,7 @@ public class CityCrudController extends AbstractCrudController<City, City, BaseQ
   }
 
   @Override
-  public List<City> getList(BaseQuerySpecification querySpec) {
+  public List<City> getListByQuery(BaseQuerySpecification querySpec) {
     return super.searchEntities(querySpec);
   }
 

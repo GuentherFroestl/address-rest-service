@@ -23,6 +23,13 @@ import javax.ws.rs.core.MediaType;
  */
 public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseEntity,
         Q extends BaseQuerySpecification> {
+  
+    /**
+   *
+   */
+  public static final String QUERY_PATH = "/query";
+  public static final String COUNT_PATH = "/count";
+  public static final String BY_ID_PATH ="/{id}";
 
   /**
    *
@@ -40,13 +47,13 @@ public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseE
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  @Path("/query")
-  public List<L> queryEntities(
+  @Path(QUERY_PATH)
+  public List<L> findByQuery(
           @QueryParam("start") Integer start,
           @QueryParam("limit") Integer limit,
           @QueryParam("query") String query) {
     BaseQuerySpecification querySpec = new BaseQuerySpecification(limit, start,query);
-    List<L> result = getCrudController().getList(querySpec);
+    List<L> result = getCrudController().getListByQuery(querySpec);
     return result;
   }
 
@@ -58,10 +65,10 @@ public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseE
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  @Path("/count")
-  public Long count(@QueryParam("query") String query) {
+  @Path(COUNT_PATH)
+  public Long countEntitiesByQuery(@QueryParam("query") String query) {
     BaseQuerySpecification querySpec = new BaseQuerySpecification();
-    Long result = getCrudController().countEntities(querySpec);
+    Long result = getCrudController().countEntitiesByQuery(querySpec);
     return result;
   }
 
@@ -98,7 +105,7 @@ public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseE
    * @param id
    */
   @DELETE
-  @Path("/{id}")
+  @Path(BY_ID_PATH)
   @Consumes(MediaType.APPLICATION_JSON)
   public void deleteEntity(@PathParam("id") Long id) {
     getCrudController().deleteEntity(id);
