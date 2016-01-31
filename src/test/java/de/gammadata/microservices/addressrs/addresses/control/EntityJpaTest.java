@@ -1,9 +1,9 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import javax.persistence.EntityTransaction;
 import org.junit.After;

@@ -1,9 +1,9 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudControllerArquillianTest;
-import de.gammadata.microservices.addressrs.addresses.control.StreetCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CityCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
+import de.gammadata.microservices.addressrs.addresses.control.StreetCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
 import de.gammadata.microservices.addressrs.addresses.control.ZipCodeCrudController;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
@@ -18,10 +18,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.After;
 import org.junit.Assert;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.assertNotNull;
 
 /**
  *

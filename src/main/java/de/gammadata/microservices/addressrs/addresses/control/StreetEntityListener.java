@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 

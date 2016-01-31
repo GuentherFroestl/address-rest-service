@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,7 +17,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  *

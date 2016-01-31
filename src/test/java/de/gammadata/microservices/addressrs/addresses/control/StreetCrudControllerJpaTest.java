@@ -1,26 +1,26 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.addresses.entity.Street;
-import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
-import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
+import de.gammadata.microservices.addressrs.addresses.entity.Street;
+import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityTransaction;
 import org.junit.After;
 import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  *
