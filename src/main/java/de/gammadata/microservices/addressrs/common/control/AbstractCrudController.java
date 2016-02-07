@@ -1,7 +1,7 @@
-package de.gammadata.microservices.addressrs.addresses.control;
+package de.gammadata.microservices.addressrs.common.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.application.control.EntityManagerQualifier;
 import de.gammadata.microservices.addressrs.application.control.EntityManagerType;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;

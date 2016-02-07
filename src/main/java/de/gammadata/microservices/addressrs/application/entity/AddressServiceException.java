@@ -12,14 +12,6 @@ public class AddressServiceException extends RuntimeException {
   /**
    *
    * @param error
-   */
-  public AddressServiceException(Error error) {
-    this.error = error;
-  }
-
-  /**
-   *
-   * @param error
    * @param message
    */
   public AddressServiceException(Error error, String message) {
@@ -37,30 +29,6 @@ public class AddressServiceException extends RuntimeException {
     super(message, cause);
     this.error = error;
   }
-
-  /**
-   *
-   * @param error
-   * @param cause
-   */
-  public AddressServiceException(Error error, Throwable cause) {
-    super(cause);
-    this.error = error;
-  }
-
-  /**
-   *
-   * @param error
-   * @param message
-   * @param cause
-   * @param enableSuppression
-   * @param writableStackTrace
-   */
-  public AddressServiceException(Error error, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-    super(message, cause, enableSuppression, writableStackTrace);
-    this.error = error;
-  }
-
 
   /**
    *

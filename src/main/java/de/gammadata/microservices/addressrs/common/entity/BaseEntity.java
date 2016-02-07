@@ -1,4 +1,4 @@
-package de.gammadata.microservices.addressrs.addresses.entity;
+package de.gammadata.microservices.addressrs.common.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -201,7 +201,7 @@ public class BaseEntity implements Serializable {
    * @param other Date
    * @return true if equal
    */
-  private boolean compareDates(Date obj, Date other) {
+  public boolean compareDates(Date obj, Date other) {
     if (obj == null && other == null) {
       return true;
     }

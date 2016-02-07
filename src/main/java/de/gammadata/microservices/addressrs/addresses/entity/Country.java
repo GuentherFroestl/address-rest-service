@@ -1,6 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
-import de.gammadata.microservices.addressrs.addresses.control.BaseEntityListener;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
+import de.gammadata.microservices.addressrs.common.control.BaseEntityListener;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,11 @@ import javax.persistence.Table;
 @Entity
 @EntityListeners({BaseEntityListener.class})
 @Table(indexes = {
-  @Index(name = "COUNTRY_NAME_IDX", columnList = "NAME")})
+  @Index(name = "COUNTRY_NAME_IDX", columnList = "NAME"),
+  @Index(name = "COUNTRY_ISO2_IDX", columnList = "ISO2COUNTRYCODE"),
+  @Index(name = "COUNTRY_ISO3_IDX", columnList = "ISO3COUNTRYCODE"),
+  @Index(name = "COUNTRY_NUMBER_IDX", columnList = "ISONUMBER")
+})
 
 @NamedQueries({
   @NamedQuery(name = Country.SIMPLE_SEARCH_QUERY_NAME,
@@ -50,11 +55,13 @@ public class Country extends BaseEntity {
           + " OR LOWER(e.iso2CountryCode) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
           + " OR LOWER(e.iso3CountryCode) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
-  @Column
+  @Column(name = "ISONUMBER")
   private Integer isoNumber;
-  @Column(length = 2)
+
+  @Column(name = "ISO2COUNTRYCODE", length = 2)
   private String iso2CountryCode;
-  @Column(length = 3)
+
+  @Column(name = "ISO3COUNTRYCODE", length = 3)
   private String iso3CountryCode;
 
   /**

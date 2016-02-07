@@ -1,4 +1,4 @@
-package de.gammadata.microservices.addressrs.addresses.entity;
+package de.gammadata.microservices.addressrs.common.entity;
 
 /**
  *

@@ -1,10 +1,11 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
 import java.util.Date;
 import java.util.Objects;
 
 /**
- *
+ * Basic properties for Ctreet, suited for list views.
  * @author gfr
  */
 public class StreetBasics extends BaseEntity {

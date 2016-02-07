@@ -1,9 +1,10 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
+import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;

@@ -1,7 +1,8 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
+import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import java.util.List;
 import javax.persistence.EntityTransaction;
@@ -77,6 +78,10 @@ public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Cou
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
+    
+    Long count=testee.countEntitiesByQuery(qs);
+    Long expectedCount = 10L;
+    Assert.assertEquals("List size does not match", expectedCount, count);
     
     qs = new BaseQuerySpecification(null, null, "A");
     list = testee.getListByQuery(qs);

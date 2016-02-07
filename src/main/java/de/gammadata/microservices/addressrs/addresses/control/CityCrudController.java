@@ -1,10 +1,11 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
+import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
 import java.util.Locale;
@@ -26,16 +27,17 @@ public class CityCrudController extends AbstractCrudController<City, City, BaseQ
    */
   public List<City> findCitiesInCountry(EntityRelatedQuerySpec querySpec) {
     if (querySpec == null || querySpec.getRelatedId() == 0) {
-      throw new AddressServiceException(AddressServiceException.Error.VALIDATION,"CountryID must not be null to query cities within country");
+      throw new AddressServiceException(AddressServiceException.Error.VALIDATION, "CountryID must not be null to query cities within country");
     }
     TypedQuery<City> query;
     query = getEm().createNamedQuery(City.QUERY_CITIES_BY_COUNTRY_NAME, City.class);
     query.setParameter(BaseEntity.ID_PARAMETER, querySpec.getRelatedId());
+    String queryStr = "";
     if (querySpec.getQuery() != null) {
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%");
-    } else {
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, "%");
+      queryStr = querySpec.getQuery();
     }
+    query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, queryStr.toLowerCase(Locale.GERMAN) + "%");
+
     setQueryLimits(query, querySpec);
     List<City> results = query.getResultList();
     return results;
@@ -63,7 +65,7 @@ public class CityCrudController extends AbstractCrudController<City, City, BaseQ
   @Override
   public City saveOrUpdateEntity(City pCity) {
     relateEntities(pCity);
-    return super.saveOrUpdateEntity(pCity); 
+    return super.saveOrUpdateEntity(pCity);
   }
 
   private void relateEntities(City pCity) {

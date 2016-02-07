@@ -1,7 +1,8 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import de.gammadata.microservices.addressrs.addresses.control.BaseEntityListener;
+import de.gammadata.microservices.addressrs.common.control.BaseEntityListener;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;

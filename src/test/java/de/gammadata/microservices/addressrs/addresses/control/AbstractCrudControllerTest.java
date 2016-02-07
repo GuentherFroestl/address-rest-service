@@ -1,8 +1,9 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
+import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
 import javax.persistence.EntityTransaction;

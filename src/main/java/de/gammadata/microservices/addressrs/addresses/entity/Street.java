@@ -1,5 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.gammadata.microservices.addressrs.addresses.control.StreetEntityListener;
 import java.util.Date;

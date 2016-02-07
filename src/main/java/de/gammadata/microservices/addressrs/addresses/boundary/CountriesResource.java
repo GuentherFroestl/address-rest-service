@@ -1,13 +1,14 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
-import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudController;
+import de.gammadata.microservices.addressrs.common.boundary.AbstractCrudResource;
+import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CityCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.ZipCodeCrudController;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
-import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
+import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import java.util.List;
 import javax.annotation.ManagedBean;

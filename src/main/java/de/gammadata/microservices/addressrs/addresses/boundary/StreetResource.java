@@ -1,9 +1,10 @@
 package de.gammadata.microservices.addressrs.addresses.boundary;
 
+import de.gammadata.microservices.addressrs.common.boundary.AbstractCrudResource;
 import de.gammadata.microservices.addressrs.addresses.control.StreetCrudController;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
-import de.gammadata.microservices.addressrs.addresses.entity.EntityRelatedQuerySpec;
+import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import java.util.List;

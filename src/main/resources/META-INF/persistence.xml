@@ -7,8 +7,12 @@
     <class>de.gammadata.microservices.addressrs.addresses.entity.Country</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.Building</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.Street</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>    
+    <class>de.gammadata.microservices.addressrs.contacts.entity.AssociatedAddress</class>
+    <class>de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress</class>
+    <class>de.gammadata.microservices.addressrs.contacts.entity.Contact</class>
+    <class>de.gammadata.microservices.addressrs.contacts.entity.Salutation</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
       <property name="tenant.id" value="public"/>
       <property name="eclipselink.jdbc.allow-native-sql-queries" value="true"/>
       <property name="eclipselink.logging.level" value="ALL"/>

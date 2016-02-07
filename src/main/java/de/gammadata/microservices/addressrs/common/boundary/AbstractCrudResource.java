@@ -1,8 +1,8 @@
-package de.gammadata.microservices.addressrs.addresses.boundary;
+package de.gammadata.microservices.addressrs.common.boundary;
 
-import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudController;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.addresses.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

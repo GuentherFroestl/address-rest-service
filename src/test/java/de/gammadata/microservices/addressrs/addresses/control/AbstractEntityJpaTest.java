@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.addresses.entity.BaseEntity;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

@@ -1,5 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.addresses.control.ZipCodeEntityListener;
 import java.util.Objects;
 import javax.persistence.CascadeType;
