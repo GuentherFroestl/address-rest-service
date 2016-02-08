@@ -64,11 +64,10 @@ import org.eclipse.persistence.annotations.PrivateOwned;
                     @ColumnResult(name = "VERSION", type = Integer.class),
                     @ColumnResult(name = "NAME", type = String.class),
                     @ColumnResult(name = "MODIFIED", type = Date.class),
-                    @ColumnResult(name = "TYPE", type = Contact.TYPE.class),
-                    @ColumnResult(name = "GENDER", type = Contact.GENDER.class),
+                    @ColumnResult(name = "TYPE", type = String.class),
+                    @ColumnResult(name = "GENDER", type = String.class),
                     @ColumnResult(name = "ADDITIONAL_NAME", type = String.class),
                     @ColumnResult(name = "FIRST_NAME", type = String.class),
-                    @ColumnResult(name = "TITLE", type = String.class),
                     @ColumnResult(name = "REGISTRATION_NUMBER", type = String.class),
                     @ColumnResult(name = "ADDRESS_ID", type = Long.class),
                     @ColumnResult(name = "SALUTAION_ID", type = Long.class),
@@ -92,7 +91,8 @@ public class Contact extends BaseEntity {
    */
   public enum GENDER {
     MALE,
-    FEMALE
+    FEMALE,
+    OTHER
   }
 
   public static final String RESULT_SET_MAPPING_NAME = "ContactBasicsContructor";
@@ -115,7 +115,7 @@ public class Contact extends BaseEntity {
   public static final String NATIVE_SEARCH_COULMS = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.TYPE,"
           + " e.GENDER, e.ADDITIONAL_NAME, e.FIRST_NAME, e.TITLE, e.REGISTRATION_NUMBER, e.ADDRESS_ID"
           + " SALUTAION_ID, COM_ID"
-          + " from " + TENANT_SCHEMA_NAME + ".Contact e";
+          + " from " + TENANT_SCHEMA_NAME + ".CONTACTS e";
 
   public static final String NATIVE_SEARCH_QUERY = NATIVE_SEARCH_COULMS + WHERE_CLAUSE_NATIVE;
 

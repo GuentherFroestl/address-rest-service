@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.Path;
 
 /**
+ * jax-ws-rs Resource for Salutation;
  *
  * @author gfr
  */

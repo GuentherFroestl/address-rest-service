@@ -6,7 +6,10 @@ import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
+import de.gammadata.microservices.addressrs.contacts.entity.AssociatedAddress;
+import de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress;
 import de.gammadata.microservices.addressrs.contacts.entity.Contact;
+import de.gammadata.microservices.addressrs.contacts.entity.Salutation;
 import java.util.ArrayList;
 
 /**
@@ -108,9 +111,9 @@ public class TestEntityProvider {
     country.setIsoNumber(123);
     return country;
   }
-  
-  public static Contact createContact(){
-    
+
+  public static Contact createContact() {
+
     Contact contact = new Contact();
     contact.setName("Tester");
     contact.setAdditionalName("MiddlerName");
@@ -118,6 +121,30 @@ public class TestEntityProvider {
     contact.setGender(Contact.GENDER.MALE);
     contact.setType(Contact.TYPE.PERSON);
     return contact;
+  }
+
+  public static Salutation createSalutation() {
+
+    Salutation sal = new Salutation();
+    sal.setForAddress("Mr.");
+    sal.setForLetter("Dear Mr.");
+    sal.setName("Mister");
+    return sal;
+  }
+
+  public static CommunicationAddress createCommunicationAddress() {
+    CommunicationAddress com = new CommunicationAddress();
+    com.setName("test@test.com");
+    com.setQualifier("office");
+    com.setType(CommunicationAddress.TYPE.EMAIL);
+    return com;
+  }
+
+  public static AssociatedAddress createAssociatedAddress() {
+    AssociatedAddress adr = new AssociatedAddress();
+    adr.setName("mainaddress");
+    adr.setQualifier("private");
+    return adr;
   }
 
   /**

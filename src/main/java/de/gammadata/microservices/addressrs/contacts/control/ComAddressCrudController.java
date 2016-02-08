@@ -2,35 +2,33 @@ package de.gammadata.microservices.addressrs.contacts.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
-import de.gammadata.microservices.addressrs.contacts.entity.Salutation;
+import de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress;
 import java.util.List;
-import javax.ejb.Stateless;
 
 /**
  *
  * @author gfr
  */
-@Stateless
-public class SalutationCrudController extends AbstractCrudController<Salutation, Salutation, BaseQuerySpecification> {
+public class ComAddressCrudController extends AbstractCrudController<CommunicationAddress, CommunicationAddress, BaseQuerySpecification> {
 
   @Override
-  public List<Salutation> getListByQuery(BaseQuerySpecification querySpec) {
+  public List<CommunicationAddress> getListByQuery(BaseQuerySpecification querySpec) {
     return super.searchEntities(querySpec);
   }
 
   @Override
-  public Class<Salutation> getEntityClass() {
-    return Salutation.class;
+  public Class<CommunicationAddress> getEntityClass() {
+    return CommunicationAddress.class;
   }
 
   @Override
   public String getSimpleSearchQueryName() {
-    return Salutation.SIMPLE_SEARCH_QUERY_NAME;
+    return CommunicationAddress.SIMPLE_SEARCH_QUERY_NAME;
   }
 
   @Override
   public String getSimpleSearchCountName() {
-    return Salutation.SIMPLE_COUNT_QUERY_NAME;
+    return CommunicationAddress.SIMPLE_COUNT_QUERY_NAME;
   }
 
   @Override

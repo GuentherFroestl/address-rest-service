@@ -2,6 +2,7 @@ package de.gammadata.microservices.addressrs.contacts.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.gammadata.microservices.addressrs.common.control.BaseEntityListener;
+import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.common.entity.EntityWithValidity;
 import java.util.Objects;
 import static javax.persistence.CascadeType.MERGE;
@@ -12,8 +13,11 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import static javax.persistence.FetchType.LAZY;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -22,8 +26,32 @@ import javax.persistence.Table;
  */
 @Entity
 @EntityListeners({BaseEntityListener.class})
-@Table(name = "COM_ADDRESS")
+@Table(name = "COM_ADDRESS",
+        indexes = {
+          @Index(name = "COM_ADDRESS_NAME_IDX", columnList = "NAME"),
+          @Index(name = "COM_ADDRESS_QUALIFIER_IDX", columnList = "QUALIFIER"),
+          @Index(name = "COM_ADDRESS_TYPE_IDX", columnList = "TYPE")
+        })
+
+@NamedQueries({
+  @NamedQuery(name = CommunicationAddress.SIMPLE_SEARCH_QUERY_NAME,
+          query = "select e from CommunicationAddress e"
+          + CommunicationAddress.WHERE_CLAUSE
+  ),
+  @NamedQuery(name = CommunicationAddress.SIMPLE_COUNT_QUERY_NAME,
+          query = "select count(e) from CommunicationAddress e"
+          + CommunicationAddress.WHERE_CLAUSE
+  )})
 public class CommunicationAddress extends EntityWithValidity {
+
+  private static final long serialVersionUID = 1L;
+
+  public static final String SIMPLE_SEARCH_QUERY_NAME = "ComAddress_simpleSearchQuery";
+  public static final String SIMPLE_COUNT_QUERY_NAME = "ComAddress_simpleSearchCount";
+  public static final String WHERE_CLAUSE = " where "
+          + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.qualifier) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+          + " OR LOWER(e.type) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
   public enum TYPE {
     TELEPHONE,
@@ -34,6 +62,7 @@ public class CommunicationAddress extends EntityWithValidity {
     CHAT,
     OTHER
   }
+
   @Column(name = "TYPE")
   @Enumerated(EnumType.STRING)
   private TYPE type;

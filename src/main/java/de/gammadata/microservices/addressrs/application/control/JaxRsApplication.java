@@ -1,11 +1,14 @@
 package de.gammadata.microservices.addressrs.application.control;
 
+import de.gammadata.microservices.addressrs.addresses.boundary.StreetResource;
+import de.gammadata.microservices.addressrs.contacts.boundary.ComAddressCrudResource;
+import de.gammadata.microservices.addressrs.health.boundary.HealthResource;
 import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
- * Register JacksonFeature and MyObjectMapperProvider.
+ * Register Resources, JacksonFeature and MyObjectMapperProvider.
  *
  * @author gfr
  */
@@ -19,8 +22,9 @@ public class JaxRsApplication extends ResourceConfig {
     super(
             JacksonFeature.class,
             MyObjectMapperProvider.class);
-    packages("de.gammadata.microservices.addressrs.addresses.boundary",
-            "de.gammadata.microservices.addressrs.health.boundary");
-
+    packages(
+            HealthResource.class.getPackage().getName(),
+            StreetResource.class.getPackage().getName(),
+            ComAddressCrudResource.class.getPackage().getName());
   }
 }

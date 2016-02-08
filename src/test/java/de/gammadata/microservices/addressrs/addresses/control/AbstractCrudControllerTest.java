@@ -41,6 +41,7 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
    */
   @Before
   public void setUp() {
+    AbstractEntityJpaTest.deleteEntities(createTestEntity().getClass(), em);
   }
 
   /**

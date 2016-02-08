@@ -20,11 +20,7 @@ public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Cou
 
 
   private CountryCrudController testee = spy(new CountryCrudController());
-  /**
-   *
-   */
-  public CountryCrudControllerJpaTest() {
-  }
+
 
   /**
    *

@@ -24,6 +24,9 @@ import javax.persistence.Table;
 @EntityListeners({BaseEntityListener.class})
 @Table(name = "ASSOCIATED_ADDRESS")
 public class AssociatedAddress extends EntityWithValidity {
+  
+  private static final long serialVersionUID = 1L;
+  
 
   private String qualifier;
 

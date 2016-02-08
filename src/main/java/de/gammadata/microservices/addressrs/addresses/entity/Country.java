@@ -17,12 +17,13 @@ import javax.persistence.Table;
  */
 @Entity
 @EntityListeners({BaseEntityListener.class})
-@Table(indexes = {
-  @Index(name = "COUNTRY_NAME_IDX", columnList = "NAME"),
-  @Index(name = "COUNTRY_ISO2_IDX", columnList = "ISO2COUNTRYCODE"),
-  @Index(name = "COUNTRY_ISO3_IDX", columnList = "ISO3COUNTRYCODE"),
-  @Index(name = "COUNTRY_NUMBER_IDX", columnList = "ISONUMBER")
-})
+@Table(name = "COUNTRY",
+        indexes = {
+          @Index(name = "COUNTRY_NAME_IDX", columnList = "NAME"),
+          @Index(name = "COUNTRY_ISO2_IDX", columnList = "ISO2COUNTRYCODE"),
+          @Index(name = "COUNTRY_ISO3_IDX", columnList = "ISO3COUNTRYCODE"),
+          @Index(name = "COUNTRY_NUMBER_IDX", columnList = "ISONUMBER")
+        })
 
 @NamedQueries({
   @NamedQuery(name = Country.SIMPLE_SEARCH_QUERY_NAME,

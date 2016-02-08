@@ -5,7 +5,6 @@ import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
-import de.gammadata.microservices.addressrs.contacts.entity.Contact;
 import javax.persistence.EntityTransaction;
 import org.junit.After;
 import org.junit.Assert;
@@ -16,12 +15,12 @@ import org.junit.Test;
  *
  * @author gfr
  */
-public class EntityJpaTest extends AbstractEntityJpaTest {
+public class AdressesEntityJpaTest extends AbstractEntityJpaTest {
 
   /**
    *
    */
-  public EntityJpaTest() {
+  public AdressesEntityJpaTest() {
   }
 
   /**
@@ -143,23 +142,6 @@ public class EntityJpaTest extends AbstractEntityJpaTest {
     Assert.assertEquals("Object are not equal", country, res);
     Assert.assertNotNull("unexpected null for timestap", res.getModified());
   }
-
-  @Test
-  public void testContact() {
-    System.out.println("testContact()");
-    Contact expected = TestEntityProvider.createContact();
-    EntityTransaction tx = em.getTransaction();
-    tx.begin();
-    em.persist(expected);
-    tx.commit();
-    Assert.assertTrue("No ID for Entity", expected.getId() != null);
-    System.out.println("Got ID = " + expected.getId());
-    Contact res = em.find(Contact.class, expected.getId());
-    Assert.assertNotNull("unexpected null result", res);
-    Assert.assertEquals("Object are not equal", expected, res);
-    Assert.assertNotNull("unexpected null for timestap", res.getModified());
-  }
-
   /**
    *
    */

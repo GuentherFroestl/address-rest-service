@@ -10,8 +10,8 @@ import java.util.Date;
  */
 public class ContactBasics extends BaseEntity {
 
-  private Contact.TYPE type;
-  private Contact.GENDER gender;
+  private String type;
+  private String gender;
   private String additionalName;
   private String firstName;
   private String registrationNumber;
@@ -23,7 +23,7 @@ public class ContactBasics extends BaseEntity {
   }
 
   public ContactBasics(Long id, Integer version, String name, Date modified,
-          Contact.TYPE type, Contact.GENDER gender, String additionalName,
+          String type, String gender, String additionalName,
           String firstName, String registrationNumber, Long preferedAddressId,
           Long salutationId, Long preferedCommunicationId) {
 
@@ -38,19 +38,19 @@ public class ContactBasics extends BaseEntity {
     this.preferedCommunicationId = preferedCommunicationId;
   }
 
-  public Contact.TYPE getType() {
+  public String getType() {
     return type;
   }
 
-  public void setType(Contact.TYPE type) {
+  public void setType(String type) {
     this.type = type;
   }
 
-  public Contact.GENDER getGender() {
+  public String getGender() {
     return gender;
   }
 
-  public void setGender(Contact.GENDER gender) {
+  public void setGender(String gender) {
     this.gender = gender;
   }
 
