@@ -4,7 +4,7 @@ package de.gammadata.microservices.addressrs.common.entity;
  *
  * @author gfr
  */
-public class EntityRelatedQuerySpec extends BaseQuerySpecification {
+public class EntityRelatedQuerySpec extends SimpleQuerySpecification {
   private long relatedId;
 
   /**

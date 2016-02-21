@@ -1,50 +1,36 @@
 package de.gammadata.microservices.addressrs.common.entity;
 
 /**
- * Base Class for CRUD Query Specifications.
  *
  * @author gfr
  */
 public class BaseQuerySpecification {
 
-  private Integer limit;
-  private Integer start;
-  private String query;
-
-  /**
-   *
-   */
+  protected Integer limit;
+  protected Integer start;
+/**
+ * constructor.
+ */
   public BaseQuerySpecification() {
   }
-
-  /**
-   *
-   * @param query
-   */
-  public BaseQuerySpecification(String query) {
-    this.query = query;
-  }
-
-  /**
-   *
-   * @param limit
-   * @param start
-   */
+/**
+ * constructor.
+ * @param limit Integer
+ * @param start Integer
+ */
   public BaseQuerySpecification(Integer limit, Integer start) {
     this.limit = limit;
     this.start = start;
   }
-
-  /**
-   *
-   * @param limit
-   * @param start
-   * @param query
-   */
-  public BaseQuerySpecification(Integer limit, Integer start, String query) {
-    this.limit = limit;
-    this.start = start;
-    this.query = query;
+/**
+ * constructor.
+ * @param bqs BaseQuerySpecification
+ */
+  public BaseQuerySpecification(BaseQuerySpecification bqs) {
+    if (bqs != null) {
+      this.limit = bqs.getLimit();
+      this.start = bqs.getStart();
+    }
   }
 
   /**
@@ -77,22 +63,6 @@ public class BaseQuerySpecification {
    */
   public void setStart(Integer start) {
     this.start = start;
-  }
-
-  /**
-   *
-   * @return
-   */
-  public String getQuery() {
-    return query;
-  }
-
-  /**
-   *
-   * @param query
-   */
-  public void setQuery(String query) {
-    this.query = query;
   }
 
 }

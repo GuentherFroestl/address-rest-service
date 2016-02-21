@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.boundary;
 
 import de.gammadata.microservices.addressrs.common.boundary.AbstractCrudResource;
 import de.gammadata.microservices.addressrs.addresses.control.StreetCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
@@ -23,7 +23,7 @@ import javax.ws.rs.core.MediaType;
  */
 @ManagedBean
 @Path(StreetResource.PATH)
-public class StreetResource extends AbstractCrudResource<Street, StreetBasics, BaseQuerySpecification> {
+public class StreetResource extends AbstractCrudResource<Street, StreetBasics, SimpleQuerySpecification> {
 
   /**
    * REST Pathes.

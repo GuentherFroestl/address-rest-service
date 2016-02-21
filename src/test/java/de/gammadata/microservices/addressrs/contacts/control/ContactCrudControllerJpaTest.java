@@ -4,7 +4,7 @@ import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudContro
 import de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest;
 import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.contacts.entity.Contact;
 import de.gammadata.microservices.addressrs.contacts.entity.ContactBasics;
 import java.util.List;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
  *
  * @author gfr
  */
-public class ContactCrudControllerJpaTest extends AbstractCrudControllerTest<Contact, BaseQuerySpecification> {
+public class ContactCrudControllerJpaTest extends AbstractCrudControllerTest<Contact, SimpleQuerySpecification> {
 
   private ContactCrudController testee = spy(new ContactCrudController());
 
@@ -40,7 +40,7 @@ public class ContactCrudControllerJpaTest extends AbstractCrudControllerTest<Con
     assertNotNull("unexpected null result for address", result);
     assertNotNull("unexpected null result for address.id", result.getId());
     
-    List<ContactBasics> resList = testee.getListByQuery(new BaseQuerySpecification(entityCreated.getName()));
+    List<ContactBasics> resList = testee.getListByQuery(new SimpleQuerySpecification(entityCreated.getName()));
     assertNotNull("resultlist unexpected null", resList);
     assertTrue("resultlist has no content", !resList.isEmpty());
     assertNotNull("resultlist unexpected null entity", resList.get(0));

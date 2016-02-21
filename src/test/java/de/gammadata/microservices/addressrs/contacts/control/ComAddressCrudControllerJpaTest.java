@@ -3,7 +3,7 @@ package de.gammadata.microservices.addressrs.contacts.control;
 import de.gammadata.microservices.addressrs.addresses.control.AbstractCrudControllerTest;
 import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress;
 import org.junit.Before;
 import static org.mockito.Mockito.spy;
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class ComAddressCrudControllerJpaTest extends AbstractCrudControllerTest<CommunicationAddress, BaseQuerySpecification>{
+public class ComAddressCrudControllerJpaTest extends AbstractCrudControllerTest<CommunicationAddress, SimpleQuerySpecification>{
   
   private ComAddressCrudController testee = spy(new ComAddressCrudController());
   

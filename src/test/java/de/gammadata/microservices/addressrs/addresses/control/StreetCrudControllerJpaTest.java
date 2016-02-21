@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Street, BaseQuerySpecification> {
+public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Street, SimpleQuerySpecification> {
 
   private StreetCrudController testee = spy(new StreetCrudController());
 
@@ -64,7 +64,7 @@ public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Stre
     assertNotNull("unexpected null result for address", result);
     assertNotNull("unexpected null result for address.id", result.getId());
 
-    List<StreetBasics> resList = testee.getListByQuery(new BaseQuerySpecification("name"));
+    List<StreetBasics> resList = testee.getListByQuery(new SimpleQuerySpecification("name"));
     assertNotNull("resultlist unexpected null", resList);
     assertTrue("resultlist has no content", !resList.isEmpty());
     assertNotNull("resultlist unexpected null entity", resList.get(0));

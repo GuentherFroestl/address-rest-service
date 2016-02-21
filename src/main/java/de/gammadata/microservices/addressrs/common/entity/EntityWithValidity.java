@@ -15,6 +15,15 @@ import javax.persistence.TemporalType;
 @MappedSuperclass
 public class EntityWithValidity extends BaseEntity {
 
+  public EntityWithValidity() {
+  }
+
+  public EntityWithValidity(Long id, Integer version, String name, Date modified, Date validFrom, Date validTo) {
+    super(id, version, name, modified);
+    this.validFrom = validFrom;
+    this.validTo = validTo;
+  }
+
   @Column(name = "VALID_FROM")
   @Temporal(TemporalType.DATE)
   private Date validFrom;

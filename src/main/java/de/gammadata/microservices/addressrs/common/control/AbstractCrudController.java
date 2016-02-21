@@ -1,12 +1,16 @@
 package de.gammadata.microservices.addressrs.common.control;
 
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.application.control.EntityManagerQualifier;
 import de.gammadata.microservices.addressrs.application.control.EntityManagerType;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
+import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.MultiParameterQuerySpecification;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -19,13 +23,14 @@ import javax.persistence.criteria.CriteriaQuery;
  * @author gfr
  * @param <T> extends BaseEntity
  * @param <ListDTO> extends BaseEntity for List views
- * @param <Q> extends BaseQuerySpecification
+ * @param <Q> extends SimpleQuerySpecification
  */
-public abstract class AbstractCrudController<T extends BaseEntity, ListDTO extends BaseEntity, Q extends BaseQuerySpecification> {
+public abstract class AbstractCrudController<T extends BaseEntity, ListDTO extends BaseEntity, Q extends SimpleQuerySpecification> {
+
   //  @PersistenceContext(name = "address-pu")
   @Inject
   @EntityManagerQualifier(EntityManagerType.MULTI_TENANT)
-          EntityManager em;
+  EntityManager em;
 
   /**
    *
@@ -57,7 +62,6 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    */
   public abstract String getResultSetMappingName();
 
-
   /**
    *
    * @return
@@ -71,15 +75,15 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
 
   /**
    *
-   * @param querySpec BaseQuerySpecification
+   * @param querySpec SimpleQuerySpecification
    * @return List of ListDTO
    */
-  public List<ListDTO> getListByQuery(BaseQuerySpecification querySpec) {
+  public List<ListDTO> getListByQuery(SimpleQuerySpecification querySpec) {
     Query query = getEm().createNativeQuery(adaptNativeQueryForSchema(getNativeSearchQuery()),
             getResultSetMappingName());
     String searchTxt = "%";
     if (querySpec != null && querySpec.getQuery() != null) {
-      searchTxt = querySpec.getQuery().toLowerCase(Locale.GERMAN)+ "%";
+      searchTxt = querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%";
     }
     query.setParameter(1, searchTxt);
     setQueryLimits(query, querySpec);
@@ -103,7 +107,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    * Set start and limit for a query
    *
    * @param query Query
-   * @param querySpec BaseQuerySpecification
+   * @param querySpec SimpleQuerySpecification
    */
   public void setQueryLimits(Query query, BaseQuerySpecification querySpec) {
     if (querySpec == null || query == null) {
@@ -122,7 +126,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    * @param querySpec
    * @return
    */
-  public List<T> searchEntities(BaseQuerySpecification querySpec) {
+  public List<T> searchEntities(SimpleQuerySpecification querySpec) {
     TypedQuery<T> query;
     if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
       query = getEm().createQuery("Select t from "
@@ -139,10 +143,48 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
 
   /**
    *
+   * @param querySpec MultiParameterQuerySpecification
+   * @param queryName name of the NamedQuery
+   * @return List of T extends BaseEntity
+   */
+  public List<T> searchEntitiesWithMultipleParams(MultiParameterQuerySpecification querySpec, String queryName) {
+    TypedQuery<T> query;
+    if (querySpec == null || querySpec.getParameterMap() == null || querySpec.getParameterMap().isEmpty()) {
+      query = getEm().createQuery("Select t from "
+              + this.getEntityClass().getSimpleName() + " t",
+              this.getEntityClass());
+    } else {
+      query = getEm().createNamedQuery(queryName, this.getEntityClass());
+      setParameters(query, querySpec.getParameterMap());
+    }
+    setQueryLimits(query, querySpec);
+    List<T> results = query.getResultList();
+    return results;
+  }
+/**
+ * Set parameters into query.
+ * @param query Query
+ * @param paramMap Map<String, Object>
+ */
+  private void setParameters(Query query, Map<String, Object> paramMap) {
+    if (query != null && paramMap != null && !paramMap.isEmpty()) {
+      for (Entry<String, Object> param : paramMap.entrySet()) {
+        Object op = param.getValue();
+        if (op instanceof String) {
+          op = ((String) op).toLowerCase(Locale.GERMAN) + "%";
+        }
+        query.setParameter(param.getKey(), op);
+
+      }
+    }
+  }
+
+  /**
+   *
    * @param querySpec
    * @return
    */
-  public Long countEntitiesByQuery(BaseQuerySpecification querySpec) {
+  public Long countEntitiesByQuery(SimpleQuerySpecification querySpec) {
     if (querySpec == null || querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
       return countEntities();
     } else {

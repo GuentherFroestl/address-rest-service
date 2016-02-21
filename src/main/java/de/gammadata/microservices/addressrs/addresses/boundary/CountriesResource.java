@@ -5,7 +5,7 @@ import de.gammadata.microservices.addressrs.common.control.AbstractCrudControlle
 import de.gammadata.microservices.addressrs.addresses.control.CityCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.CountryCrudController;
 import de.gammadata.microservices.addressrs.addresses.control.ZipCodeCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
@@ -26,7 +26,7 @@ import javax.ws.rs.core.MediaType;
  */
 @ManagedBean
 @Path(CountriesResource.PATH)
-public class CountriesResource extends AbstractCrudResource<Country, Country, BaseQuerySpecification> {
+public class CountriesResource extends AbstractCrudResource<Country, Country, SimpleQuerySpecification> {
 
   /**
    *
@@ -55,7 +55,7 @@ public class CountriesResource extends AbstractCrudResource<Country, Country, Ba
    * @return
    */
   @Override
-  public AbstractCrudController<Country, Country, BaseQuerySpecification> getCrudController() {
+  public AbstractCrudController<Country, Country, SimpleQuerySpecification> getCrudController() {
     return countryController;
   }
 

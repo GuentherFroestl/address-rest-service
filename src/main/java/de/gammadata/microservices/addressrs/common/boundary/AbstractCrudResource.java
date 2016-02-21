@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.common.boundary;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,10 +19,10 @@ import javax.ws.rs.core.MediaType;
  *
  * @param <T> T extends BaseEntity
  * @param <L> l extends BaseEntity, lightweight Representation
- * @param <Q> Q extends BaseQuerySpecification
+ * @param <Q> Q extends SimpleQuerySpecification
  */
 public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseEntity,
-        Q extends BaseQuerySpecification> {
+        Q extends SimpleQuerySpecification> {
   
     /**
    *
@@ -52,7 +52,7 @@ public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseE
           @QueryParam("start") Integer start,
           @QueryParam("limit") Integer limit,
           @QueryParam("query") String query) {
-    BaseQuerySpecification querySpec = new BaseQuerySpecification(limit, start,query);
+    SimpleQuerySpecification querySpec = new SimpleQuerySpecification(limit, start,query);
     List<L> result = getCrudController().getListByQuery(querySpec);
     return result;
   }
@@ -67,7 +67,7 @@ public abstract class AbstractCrudResource<T extends BaseEntity, L extends BaseE
   @Consumes(MediaType.APPLICATION_JSON)
   @Path(COUNT_PATH)
   public Long countEntitiesByQuery(@QueryParam("query") String query) {
-    BaseQuerySpecification querySpec = new BaseQuerySpecification();
+    SimpleQuerySpecification querySpec = new SimpleQuerySpecification();
     Long result = getCrudController().countEntitiesByQuery(querySpec);
     return result;
   }

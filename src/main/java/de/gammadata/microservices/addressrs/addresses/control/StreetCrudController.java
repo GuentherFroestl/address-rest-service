@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
@@ -23,7 +23,7 @@ import javax.persistence.TypedQuery;
  * @author gfr
  */
 @Stateless
-public class StreetCrudController extends AbstractCrudController<Street, StreetBasics, BaseQuerySpecification> {
+public class StreetCrudController extends AbstractCrudController<Street, StreetBasics, SimpleQuerySpecification> {
 
   /**
    * Find streets for a city given by id

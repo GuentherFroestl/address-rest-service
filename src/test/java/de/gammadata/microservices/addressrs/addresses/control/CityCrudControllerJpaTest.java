@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class CityCrudControllerJpaTest extends AbstractCrudControllerTest<City, BaseQuerySpecification> {
+public class CityCrudControllerJpaTest extends AbstractCrudControllerTest<City, SimpleQuerySpecification> {
 
   private CityCrudController testee = spy(new CityCrudController());
 
@@ -66,7 +66,7 @@ public class CityCrudControllerJpaTest extends AbstractCrudControllerTest<City, 
     assertTrue("unexpected null empty for searchByCountry city list", cList2.size() == 1);
 
     //search City in Country with qeurystring
-    BaseQuerySpecification spec3 = new BaseQuerySpecification("xxcity");
+    SimpleQuerySpecification spec3 = new SimpleQuerySpecification("xxcity");
     spec2.setQuery("xxcity");
     List<City> cList3 = testee.getListByQuery(spec3);
     assertNotNull("unexpected null result for getListByQuery city list", cList3);

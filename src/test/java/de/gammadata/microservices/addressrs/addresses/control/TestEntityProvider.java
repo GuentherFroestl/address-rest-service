@@ -6,7 +6,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
-import de.gammadata.microservices.addressrs.contacts.entity.AssociatedAddress;
+import de.gammadata.microservices.addressrs.contacts.entity.AssociatedBuildingAddress;
 import de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress;
 import de.gammadata.microservices.addressrs.contacts.entity.Contact;
 import de.gammadata.microservices.addressrs.contacts.entity.Salutation;
@@ -140,8 +140,8 @@ public class TestEntityProvider {
     return com;
   }
 
-  public static AssociatedAddress createAssociatedAddress() {
-    AssociatedAddress adr = new AssociatedAddress();
+  public static AssociatedBuildingAddress createAssociatedAddress() {
+    AssociatedBuildingAddress adr = new AssociatedBuildingAddress();
     adr.setName("mainaddress");
     adr.setQualifier("private");
     return adr;

@@ -21,27 +21,31 @@ import static org.eclipse.persistence.annotations.TenantTableDiscriminatorType.S
  * @author gfr
  */
 @MappedSuperclass
-@Multitenant(MultitenantType.TABLE_PER_TENANT)
-@TenantTableDiscriminator(type = SCHEMA, contextProperty = BaseEntity.TENANT_ID)
+//@Multitenant(MultitenantType.TABLE_PER_TENANT)
+//@TenantTableDiscriminator(type = SCHEMA, contextProperty = BaseEntity.TENANT_ID)
 //@Multitenant
 //@TenantDiscriminatorColumn(name = "TENANT_ID", contextProperty = "tenant.id",
 //        discriminatorType = DiscriminatorType.STRING)
 public class BaseEntity implements Serializable {
-  
+
   static final long serialVersionUID = 1l;
 
   public final static String TENANT_SCHEMA_NAME = "tenant_schema";
   public final static String TENANT_ID = "tenant.id";
 
   /**
-   *
+   * Parameter for simple text searches.
    */
   public static final String SIMPLE_SEARCH_QUERY_PARAMETER = "parameter";
 
   /**
-   *
+   * Parameter for ID Key searches.
    */
   public static final String ID_PARAMETER = "id";
+  /**
+   * Parameter for Foreign Key searches.
+   */
+  public static final String FK_SEARCH_QUERY_PARAMETER = "fk";
 
   /**
    *

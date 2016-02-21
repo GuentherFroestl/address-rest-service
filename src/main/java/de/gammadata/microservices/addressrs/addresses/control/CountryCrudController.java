@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -12,10 +12,10 @@ import javax.ejb.Stateless;
  * @author gfr
  */
 @Stateless
-public class CountryCrudController extends AbstractCrudController<Country, Country, BaseQuerySpecification> {
+public class CountryCrudController extends AbstractCrudController<Country, Country, SimpleQuerySpecification> {
 
   @Override
-  public List<Country> getListByQuery(BaseQuerySpecification querySpec) {
+  public List<Country> getListByQuery(SimpleQuerySpecification querySpec) {
     return super.searchEntities(querySpec);
   }
   

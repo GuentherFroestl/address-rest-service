@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.contacts.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress;
 import java.util.List;
 
@@ -9,10 +9,10 @@ import java.util.List;
  *
  * @author gfr
  */
-public class ComAddressCrudController extends AbstractCrudController<CommunicationAddress, CommunicationAddress, BaseQuerySpecification> {
+public class ComAddressCrudController extends AbstractCrudController<CommunicationAddress, CommunicationAddress, SimpleQuerySpecification> {
 
   @Override
-  public List<CommunicationAddress> getListByQuery(BaseQuerySpecification querySpec) {
+  public List<CommunicationAddress> getListByQuery(SimpleQuerySpecification querySpec) {
     return super.searchEntities(querySpec);
   }
 

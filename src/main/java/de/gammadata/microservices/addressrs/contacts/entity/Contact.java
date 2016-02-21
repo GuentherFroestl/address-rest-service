@@ -167,7 +167,7 @@ public class Contact extends BaseEntity {
   @JsonManagedReference
   @OneToMany(mappedBy = "contact", cascade = ALL, fetch = LAZY)
   @PrivateOwned
-  private List<AssociatedAddress> associatedAddresses;
+  private List<AssociatedBuildingAddress> associatedAddresses;
 
   @JsonManagedReference
   @OneToMany(mappedBy = "contact", cascade = ALL, fetch = LAZY)
@@ -278,11 +278,11 @@ public class Contact extends BaseEntity {
     this.preferedCommunicationId = preferedCommunicationId;
   }
 
-  public List<AssociatedAddress> getAssociatedAddresses() {
+  public List<AssociatedBuildingAddress> getAssociatedAddresses() {
     return associatedAddresses;
   }
 
-  public void setAssociatedAddresses(List<AssociatedAddress> associatedAddresses) {
+  public void setAssociatedAddresses(List<AssociatedBuildingAddress> associatedAddresses) {
     this.associatedAddresses = associatedAddresses;
   }
 

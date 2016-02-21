@@ -3,7 +3,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import java.util.List;
 import javax.persistence.EntityTransaction;
@@ -20,7 +20,7 @@ import org.junit.Test;
  * @param <T>
  * @param <Q>
  */
-public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends BaseQuerySpecification>
+public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends SimpleQuerySpecification>
         extends AbstractEntityJpaTest {
 
   /**
@@ -103,7 +103,7 @@ public abstract class AbstractCrudControllerTest<T extends BaseEntity, Q extends
     Assert.assertEquals("List size is not correct", 1l, count);
 
     //Test with query
-    BaseQuerySpecification querySpec = new BaseQuerySpecification();
+    SimpleQuerySpecification querySpec = new SimpleQuerySpecification();
     querySpec.setQuery("changed");
     List<T> list2 = getTestee().searchEntities(querySpec);
     Assert.assertNotNull("unexpected null result", list2);

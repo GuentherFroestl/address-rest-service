@@ -1,6 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
@@ -119,32 +119,32 @@ public class StreetCrudControllerArquillianIT {
     assertThat("new City not correctly created name is not city 2", adr2.getCity().getName(), is(equalTo("City 2")));
 
     //Search w/o argument
-    List<Street> adrList = adrController.searchEntities(new BaseQuerySpecification());
+    List<Street> adrList = adrController.searchEntities(new SimpleQuerySpecification());
     assertNotNull("unexpected null result list for simple search query", adrList);
     assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
-    Long count = adrController.countEntitiesByQuery(new BaseQuerySpecification());
+    Long count = adrController.countEntitiesByQuery(new SimpleQuerySpecification());
     assertThat("simple search count does not match", count, is(equalTo(2l)));
 
     //Search with argument
-    adrList = adrController.searchEntities(new BaseQuerySpecification(null, null, "name"));
+    adrList = adrController.searchEntities(new SimpleQuerySpecification(null, null, "name"));
     assertNotNull("unexpected null result list for simple search query", adrList);
     assertThat("simple search count does not match", adrList.size(), is(equalTo(2)));
-    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "name"));
+    count = adrController.countEntitiesByQuery(new SimpleQuerySpecification(null, null, "name"));
     assertThat("simple search count does not match", 2l, is(equalTo(count)));
 
-    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "name 2"));
+    count = adrController.countEntitiesByQuery(new SimpleQuerySpecification(null, null, "name 2"));
     assertThat("simple search count does not match", 1l, is(equalTo(count)));
 
-    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "city"));
+    count = adrController.countEntitiesByQuery(new SimpleQuerySpecification(null, null, "city"));
     assertThat("simple search count for city does not match", count, is(equalTo(2l)));
 
-    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "City"));
+    count = adrController.countEntitiesByQuery(new SimpleQuerySpecification(null, null, "City"));
     assertThat("simple search count for city does not match", count, is(equalTo(2l)));
 
-    adrList = adrController.searchEntities(new BaseQuerySpecification(null, null, "City"));
+    adrList = adrController.searchEntities(new SimpleQuerySpecification(null, null, "City"));
     System.out.println(adrList);
 
-    count = adrController.countEntitiesByQuery(new BaseQuerySpecification(null, null, "City 2"));
+    count = adrController.countEntitiesByQuery(new SimpleQuerySpecification(null, null, "City 2"));
     assertThat("simple search count for city does not match", count, is(equalTo(1l)));
 
   }

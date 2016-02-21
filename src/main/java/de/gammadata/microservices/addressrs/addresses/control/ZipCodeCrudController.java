@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  * @author gfr
  */
 @Stateless
-public class ZipCodeCrudController extends AbstractCrudController<ZipCode, ZipCode, BaseQuerySpecification> {
+public class ZipCodeCrudController extends AbstractCrudController<ZipCode, ZipCode, SimpleQuerySpecification> {
 
   /**
    *
@@ -44,7 +44,7 @@ public class ZipCodeCrudController extends AbstractCrudController<ZipCode, ZipCo
   }
 
   @Override
-  public List<ZipCode> getListByQuery(BaseQuerySpecification querySpec) {
+  public List<ZipCode> getListByQuery(SimpleQuerySpecification querySpec) {
     return super.searchEntities(querySpec);
   }
 

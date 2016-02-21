@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import java.util.List;
 import javax.persistence.EntityTransaction;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Country, BaseQuerySpecification> {
+public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Country, SimpleQuerySpecification> {
 
 
   private CountryCrudController testee = spy(new CountryCrudController());
@@ -70,7 +70,7 @@ public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Cou
     List<Country> list = testee.getListByQuery(null);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
-    BaseQuerySpecification qs = new BaseQuerySpecification(10, 0, "A");
+    SimpleQuerySpecification qs = new SimpleQuerySpecification(10, 0, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
@@ -79,35 +79,35 @@ public class CountryCrudControllerJpaTest extends AbstractCrudControllerTest<Cou
     Long expectedCount = 10L;
     Assert.assertEquals("List size does not match", expectedCount, count);
     
-    qs = new BaseQuerySpecification(null, null, "A");
+    qs = new SimpleQuerySpecification(null, null, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
     
-    qs = new BaseQuerySpecification(5, null, "A");
+    qs = new SimpleQuerySpecification(5, null, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 5, list.size());
     
-    qs = new BaseQuerySpecification(null, 0, "A");
+    qs = new SimpleQuerySpecification(null, 0, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 10, list.size());
     
     
-    qs = new BaseQuerySpecification(5, 0, "A");
+    qs = new SimpleQuerySpecification(5, 0, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 5, list.size());
-    qs = new BaseQuerySpecification(5, 5, "A");
+    qs = new SimpleQuerySpecification(5, 5, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 5, list.size());
-    qs = new BaseQuerySpecification(5, 9, "A");
+    qs = new SimpleQuerySpecification(5, 9, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 1, list.size());
-    qs = new BaseQuerySpecification(10, 10, "A");
+    qs = new SimpleQuerySpecification(10, 10, "A");
     list = testee.getListByQuery(qs);
     Assert.assertNotNull("unexpected null result", list);
     Assert.assertEquals("List size does not match", 0, list.size());

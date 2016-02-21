@@ -5,7 +5,7 @@ import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
-import de.gammadata.microservices.addressrs.contacts.entity.AssociatedAddress;
+import de.gammadata.microservices.addressrs.contacts.entity.AssociatedBuildingAddress;
 import de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress;
 import de.gammadata.microservices.addressrs.contacts.entity.Contact;
 import de.gammadata.microservices.addressrs.contacts.entity.Salutation;
@@ -42,7 +42,7 @@ public class ContactsEntityJpaTest extends AbstractEntityJpaTest {
     deleteEntities(Contact.class, em);
     deleteEntities(Salutation.class, em);
     deleteEntities(CommunicationAddress.class, em);
-    deleteEntities(AssociatedAddress.class, em);
+    deleteEntities(AssociatedBuildingAddress.class, em);
   }
 
  
@@ -98,14 +98,14 @@ public class ContactsEntityJpaTest extends AbstractEntityJpaTest {
   @Test
   public void testAssociatedAddress() {
     System.out.println("testContact()");
-    AssociatedAddress expected = TestEntityProvider.createAssociatedAddress();
+    AssociatedBuildingAddress expected = TestEntityProvider.createAssociatedAddress();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     em.persist(expected);
     tx.commit();
     Assert.assertTrue("No ID for Entity", expected.getId() != null);
     System.out.println("Got ID = " + expected.getId());
-    AssociatedAddress res = em.find(AssociatedAddress.class, expected.getId());
+    AssociatedBuildingAddress res = em.find(AssociatedBuildingAddress.class, expected.getId());
     Assert.assertNotNull("unexpected null result", res);
     Assert.assertEquals("Object are not equal", expected, res);
     Assert.assertNotNull("unexpected null for timestap", res.getModified());

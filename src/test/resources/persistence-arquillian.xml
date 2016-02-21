@@ -4,12 +4,12 @@
     <class>de.gammadata.microservices.addressrs.addresses.entity.City</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.ZipCode</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.Country</class>
-    <class>de.gammadata.microservices.addressrs.addresses.entity.Street</class>
     <class>de.gammadata.microservices.addressrs.addresses.entity.Building</class>
-    <class>de.gammadata.microservices.addressrs.contacts.entity.AssociatedAddress</class>
+    <class>de.gammadata.microservices.addressrs.addresses.entity.Street</class>
     <class>de.gammadata.microservices.addressrs.contacts.entity.CommunicationAddress</class>
     <class>de.gammadata.microservices.addressrs.contacts.entity.Contact</class>
     <class>de.gammadata.microservices.addressrs.contacts.entity.Salutation</class>
+    <class>de.gammadata.microservices.addressrs.contacts.entity.AssociatedBuildingAddress</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>

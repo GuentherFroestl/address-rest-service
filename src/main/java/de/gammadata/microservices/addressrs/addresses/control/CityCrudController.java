@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
 import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
  * @author gfr
  */
 @Stateless
-public class CityCrudController extends AbstractCrudController<City, City, BaseQuerySpecification> {
+public class CityCrudController extends AbstractCrudController<City, City, SimpleQuerySpecification> {
 
   /**
    *
@@ -53,7 +53,7 @@ public class CityCrudController extends AbstractCrudController<City, City, BaseQ
   }
 
   @Override
-  public List<City> getListByQuery(BaseQuerySpecification querySpec) {
+  public List<City> getListByQuery(SimpleQuerySpecification querySpec) {
     return super.searchEntities(querySpec);
   }
 

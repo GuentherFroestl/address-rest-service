@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.common.entity.EntityRelatedQuerySpec;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
 import java.util.List;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class ZipCodeCrudControllerJpaTest extends AbstractCrudControllerTest<ZipCode, BaseQuerySpecification> {
+public class ZipCodeCrudControllerJpaTest extends AbstractCrudControllerTest<ZipCode, SimpleQuerySpecification> {
 
   private ZipCodeCrudController testee = spy(new ZipCodeCrudController());
 

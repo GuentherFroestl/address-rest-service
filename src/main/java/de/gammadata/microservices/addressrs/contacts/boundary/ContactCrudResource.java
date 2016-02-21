@@ -2,7 +2,7 @@ package de.gammadata.microservices.addressrs.contacts.boundary;
 
 import de.gammadata.microservices.addressrs.common.boundary.AbstractCrudResource;
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.contacts.control.ContactCrudController;
 import de.gammadata.microservices.addressrs.contacts.entity.Contact;
 import de.gammadata.microservices.addressrs.contacts.entity.ContactBasics;
@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
  */
 @ManagedBean
 @Path(ContactCrudResource.PATH)
-public class ContactCrudResource extends AbstractCrudResource<Contact, ContactBasics, BaseQuerySpecification> {
+public class ContactCrudResource extends AbstractCrudResource<Contact, ContactBasics, SimpleQuerySpecification> {
 
   /**
    * jax-ws-rs path.
@@ -26,7 +26,7 @@ public class ContactCrudResource extends AbstractCrudResource<Contact, ContactBa
   ContactCrudController contactCrudController;
 
   @Override
-  public AbstractCrudController<Contact, ContactBasics, BaseQuerySpecification> getCrudController() {
+  public AbstractCrudController<Contact, ContactBasics, SimpleQuerySpecification> getCrudController() {
     return contactCrudController;
   }
 

@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.contacts.control;
 
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
-import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
+import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
 import de.gammadata.microservices.addressrs.contacts.entity.Contact;
 import de.gammadata.microservices.addressrs.contacts.entity.ContactBasics;
 import javax.ejb.Stateless;
@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
  * @author gfr
  */
 @Stateless
-public class ContactCrudController extends AbstractCrudController<Contact, ContactBasics, BaseQuerySpecification> {
+public class ContactCrudController extends AbstractCrudController<Contact, ContactBasics, SimpleQuerySpecification> {
 
   @Override
   public Class<Contact> getEntityClass() {
