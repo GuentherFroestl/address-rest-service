@@ -14,14 +14,16 @@ import javax.persistence.TemporalType;
  */
 @MappedSuperclass
 public class EntityWithValidity extends BaseEntity {
+    
+    static final long serialVersionUID = 1l;
 
   public EntityWithValidity() {
   }
 
   public EntityWithValidity(Long id, Integer version, String name, Date modified, Date validFrom, Date validTo) {
     super(id, version, name, modified);
-    this.validFrom = validFrom;
-    this.validTo = validTo;
+    this.validFrom = getNullSaveDate(validFrom);
+    this.validTo = getNullSaveDate(validTo);
   }
 
   @Column(name = "VALID_FROM")
@@ -33,19 +35,19 @@ public class EntityWithValidity extends BaseEntity {
   private Date validTo;
 
   public Date getValidFrom() {
-    return validFrom;
+    return getNullSaveDate(validFrom);
   }
 
   public void setValidFrom(Date validFrom) {
-    this.validFrom = validFrom;
+    this.validFrom = getNullSaveDate(validFrom);
   }
 
   public Date getValidTo() {
-    return getInmutableDate(validTo);
+    return getNullSaveDate(validTo);
   }
 
   public void setValidTo(Date validTo) {
-    this.validTo = getInmutableDate(validTo);
+    this.validTo = getNullSaveDate(validTo);
   }
 
   @Override

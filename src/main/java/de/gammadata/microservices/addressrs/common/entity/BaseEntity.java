@@ -28,197 +28,204 @@ import static org.eclipse.persistence.annotations.TenantTableDiscriminatorType.S
 //        discriminatorType = DiscriminatorType.STRING)
 public class BaseEntity implements Serializable {
 
-  static final long serialVersionUID = 1l;
+    static final long serialVersionUID = 1l;
 
-  public final static String TENANT_SCHEMA_NAME = "tenant_schema";
-  public final static String TENANT_ID = "tenant.id";
+    public final static String TENANT_SCHEMA_NAME = "tenant_schema";
+    public final static String TENANT_ID = "tenant.id";
 
-  /**
-   * Parameter for simple text searches.
-   */
-  public static final String SIMPLE_SEARCH_QUERY_PARAMETER = "parameter";
+    /**
+     * Parameter for simple text searches.
+     */
+    public static final String SIMPLE_SEARCH_QUERY_PARAMETER = "parameter";
 
-  /**
-   * Parameter for ID Key searches.
-   */
-  public static final String ID_PARAMETER = "id";
-  /**
-   * Parameter for Foreign Key searches.
-   */
-  public static final String FK_SEARCH_QUERY_PARAMETER = "fk";
+    /**
+     * Parameter for ID Key searches.
+     */
+    public static final String ID_PARAMETER = "id";
+    /**
+     * Parameter for Foreign Key searches.
+     */
+    public static final String FK_SEARCH_QUERY_PARAMETER = "fk";
 
-  /**
-   *
-   */
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  protected Long id;
+    /**
+     *
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
 
-  /**
-   *
-   */
-  @Version
-  protected Integer version;
+    /**
+     *
+     */
+    @Version
+    protected Integer version;
 
-  /**
-   *
-   */
-  @Column(name = "NAME")
-  protected String name;
+    /**
+     *
+     */
+    @Column(name = "NAME")
+    protected String name;
 
-  /**
-   *
-   */
-  @Column
-  @Temporal(TemporalType.TIMESTAMP)
-  protected Date modified;
+    /**
+     *
+     */
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date modified;
 
-  /**
-   *
-   */
-  public BaseEntity() {
-  }
-
-  /**
-   *
-   * @param id
-   * @param version
-   * @param name
-   * @param modified
-   */
-  public BaseEntity(Long id, Integer version, String name, Date modified) {
-    this.id = id;
-    this.version = version;
-    this.name = name;
-    this.modified = getInmutableDate(modified);
-  }
-
-  public final Date getInmutableDate(Date in) {
-    if (in == null) {
-      return null;
-    }
-    return new Date(in.getTime());
-  }
-
-  /**
-   *
-   * @return
-   */
-  public Long getId() {
-    return id;
-  }
-
-  /**
-   *
-   * @param id
-   */
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  /**
-   *
-   * @return
-   */
-  public Integer getVersion() {
-    return version;
-  }
-
-  /**
-   *
-   * @param version
-   */
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  /**
-   *
-   * @return
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   *
-   * @param name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   *
-   * @return
-   */
-  public Date getModified() {
-    return getInmutableDate(modified);
-  }
-
-  /**
-   *
-   * @param modified
-   */
-  public void setModified(Date modified) {
-    this.modified = getInmutableDate(modified);
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = 7;
-    hash = 59 * hash + Objects.hashCode(this.id);
-    hash = 59 * hash + Objects.hashCode(this.version);
-    hash = 59 * hash + Objects.hashCode(this.name);
-    hash = 59 * hash + Objects.hashCode(this.modified);
-    return hash;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final BaseEntity other = (BaseEntity) obj;
-    if (!Objects.equals(this.name, other.name)) {
-      return false;
-    }
-    if (!Objects.equals(this.id, other.id)) {
-      return false;
-    }
-    if (!Objects.equals(this.version, other.version)) {
-      return false;
-    }
-    return compareDates(this.modified, other.modified);
-  }
-
-  /**
-   * due to a bug in jpa date are just precise as of second level. ms are random. So compare it with the date strings.
-   *
-   * @param obj Date
-   * @param other Date
-   * @return true if equal
-   */
-  public boolean compareDates(Date obj, Date other) {
-    if (obj == null && other == null) {
-      return true;
-    }
-    if (obj == null || other == null) {
-      return false;
+    /**
+     *
+     */
+    public BaseEntity() {
     }
 
-    return obj.toString().compareTo(other.toString()) == 0;
-  }
+    /**
+     *
+     * @param id
+     * @param version
+     * @param name
+     * @param modified
+     */
+    public BaseEntity(Long id, Integer version, String name, Date modified) {
+        this.id = id;
+        this.version = version;
+        this.name = name;
+        this.modified = getNullSaveDate(modified);
+    }
 
-  @Override
-  public String toString() {
-    return "BaseEntity{" + "id=" + id + ", version=" + version
-            + ", name=" + name + ", modified=" + modified + '}';
-  }
+    /**
+     *
+     * @return
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Integer getVersion() {
+        return version;
+    }
+
+    /**
+     *
+     * @param version
+     */
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     *
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Date getModified() {
+        return getNullSaveDate(modified);
+    }
+
+    /**
+     *
+     * @param modified
+     */
+    public void setModified(Date modified) {
+        this.modified = getNullSaveDate(modified);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.version);
+        hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.modified);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BaseEntity other = (BaseEntity) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.version, other.version)) {
+            return false;
+        }
+        return compareDates(this.modified, other.modified);
+    }
+
+    /**
+     * due to a bug in jpa date are just precise as of second level. ms are
+     * random. So compare it with the date strings.
+     *
+     * @param obj Date
+     * @param other Date
+     * @return true if equal
+     */
+    public boolean compareDates(Date obj, Date other) {
+        if (obj == null && other == null) {
+            return true;
+        }
+        if (obj == null || other == null) {
+            return false;
+        }
+
+        return obj.toString().compareTo(other.toString()) == 0;
+    }
+
+    /**
+     * generates an new Date out of a given date for use of inmutability.
+     *
+     * @param pDate
+     * @return
+     */
+    public final Date getNullSaveDate(Date pDate) {
+        if (pDate == null) {
+            return null;
+        }
+        return new Date(pDate.getTime());
+    }
+
+    @Override
+    public String toString() {
+        return "BaseEntity{" + "id=" + id + ", version=" + version
+                + ", name=" + name + ", modified=" + modified + '}';
+    }
 }
