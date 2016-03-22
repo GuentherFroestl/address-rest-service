@@ -115,7 +115,7 @@ public class Contact extends BaseEntity {
   public static final String NATIVE_SEARCH_COULMS = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.TYPE,"
           + " e.GENDER, e.ADDITIONAL_NAME, e.FIRST_NAME, e.TITLE, e.REGISTRATION_NUMBER, e.ADDRESS_ID"
           + " SALUTAION_ID, COM_ID"
-          + " from " + TENANT_SCHEMA_NAME + ".CONTACTS e";
+          + " from " + TENANT_SCHEMA_PLACEHOLDER + ".CONTACTS e";
 
   public static final String NATIVE_SEARCH_QUERY = NATIVE_SEARCH_COULMS + WHERE_CLAUSE_NATIVE;
 

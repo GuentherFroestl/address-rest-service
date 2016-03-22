@@ -30,7 +30,7 @@ public class BaseEntity implements Serializable {
 
     static final long serialVersionUID = 1l;
 
-    public final static String TENANT_SCHEMA_NAME = "tenant_schema";
+    public final static String TENANT_SCHEMA_PLACEHOLDER = "tenant_schema_placeholder";
     public final static String TENANT_ID = "tenant.id";
 
     /**
@@ -63,7 +63,7 @@ public class BaseEntity implements Serializable {
     /**
      *
      */
-    @Column(name = "NAME")
+    @Column(name = "NAME", length = 255)
     protected String name;
 
     /**

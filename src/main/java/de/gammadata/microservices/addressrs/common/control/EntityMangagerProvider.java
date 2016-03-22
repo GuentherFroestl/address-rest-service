@@ -1,4 +1,4 @@
-package de.gammadata.microservices.addressrs.application.control;
+package de.gammadata.microservices.addressrs.common.control;
 
 import java.util.HashMap;
 import java.util.Map;

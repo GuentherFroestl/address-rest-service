@@ -128,7 +128,7 @@ public class Street extends BaseEntity {
    */
   public static final String NATIVE_SEARCH_COULMS = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.ADDITIONAL_NAME,"
           + " e.CITY_ID, e.CITY_NAME, e.COUNTRY_NAME, e.COUNTRY_ID, e.ZIPCODE_NAME, e.ZIPCODE_ID from "
-          + TENANT_SCHEMA_NAME
+          + TENANT_SCHEMA_PLACEHOLDER
           + ".Street e";
 
   /**

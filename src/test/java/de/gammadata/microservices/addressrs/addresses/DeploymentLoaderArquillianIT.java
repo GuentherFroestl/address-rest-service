@@ -5,6 +5,8 @@ import de.gammadata.microservices.addressrs.addresses.control.StreetCrudControll
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.application.control.JaxRsApplication;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
+import de.gammadata.microservices.addressrs.common.boundary.AbstractCrudResource;
+import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.health.boundary.HealthResource;
 import javax.inject.Inject;
 import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
@@ -31,6 +33,8 @@ public class DeploymentLoaderArquillianIT {
   @Deployment
   public static WebArchive createDeployment() {
     WebArchive war = ShrinkWrap.create(WebArchive.class)
+            .addPackage(AbstractCrudController.class.getPackage())
+            .addPackage(AbstractCrudResource.class.getPackage())
             .addPackage(StreetCrudController.class.getPackage())
             .addPackage(StreetResource.class.getPackage())
             .addPackage(Street.class.getPackage())

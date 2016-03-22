@@ -91,7 +91,7 @@ public class AssociatedBuildingAddress extends EntityWithValidity {
   //Native stuff
   public static final String NATIVE_SEARCH_COULMS = "select e.ID, e.VERSION, e.MODIFIED, e.NAME, e.QUALIFIER,"
           + " e.BUILDING_ADR_TXT, e.CONTACT_ID, e.BUILDING_ID from "
-          + TENANT_SCHEMA_NAME
+          + TENANT_SCHEMA_PLACEHOLDER
           + ".ASSOCIATED_BUILDING_ADR e";
 
   public static final String WHERE_CLAUSE_NATIVE = " where"

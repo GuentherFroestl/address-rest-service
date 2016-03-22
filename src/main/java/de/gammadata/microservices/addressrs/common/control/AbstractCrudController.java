@@ -2,8 +2,6 @@ package de.gammadata.microservices.addressrs.common.control;
 
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
 import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
-import de.gammadata.microservices.addressrs.application.control.EntityManagerQualifier;
-import de.gammadata.microservices.addressrs.application.control.EntityManagerType;
 import de.gammadata.microservices.addressrs.application.entity.AddressServiceException;
 import de.gammadata.microservices.addressrs.common.entity.BaseQuerySpecification;
 import de.gammadata.microservices.addressrs.common.entity.MultiParameterQuerySpecification;
@@ -27,7 +25,7 @@ import javax.persistence.criteria.CriteriaQuery;
  */
 public abstract class AbstractCrudController<T extends BaseEntity, ListDTO extends BaseEntity, Q extends SimpleQuerySpecification> {
 
-  //  @PersistenceContext(name = "address-pu")
+//    @PersistenceContext(name = "address-pu")
   @Inject
   @EntityManagerQualifier(EntityManagerType.MULTI_TENANT)
   EntityManager em;
@@ -100,7 +98,7 @@ public abstract class AbstractCrudController<T extends BaseEntity, ListDTO exten
    */
   public String adaptNativeQueryForSchema(String nativeQuery) {
     String tenantId = (String) getEm().getProperties().get(BaseEntity.TENANT_ID);
-    return nativeQuery.replaceAll(BaseEntity.TENANT_SCHEMA_NAME, tenantId);
+    return nativeQuery.replaceAll(BaseEntity.TENANT_SCHEMA_PLACEHOLDER, tenantId);
   }
 
   /**
