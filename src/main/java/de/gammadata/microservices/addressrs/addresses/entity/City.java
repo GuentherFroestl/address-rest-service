@@ -21,132 +21,147 @@ import javax.persistence.Table;
 @Entity
 @EntityListeners({CityEntityListener.class})
 @Table(indexes = {
-  @Index(name = "CITY_NAME_IDX", columnList = "NAME"),
-  @Index(name = "CITY_COUNTRY_NAME_IDX", columnList = "COUNTRY_NAME")})
+    @Index(name = "CITY_NAME_IDX", columnList = "NAME"),
+    @Index(name = "CITY_COUNTRY_NAME_IDX", columnList = "COUNTRY_NAME")})
 
 @NamedQueries({
-  @NamedQuery(name = City.SIMPLE_SEARCH_QUERY_NAME,
-          query = "select e from City e"
-          + City.WHERE_CLAUSE
-  ),
-  @NamedQuery(name = City.SIMPLE_COUNT_QUERY_NAME,
-          query = "select count(e) from City e"
-          + City.WHERE_CLAUSE
-  ),
-  @NamedQuery(name = City.QUERY_CITIES_BY_COUNTRY_NAME,
-          query = "select e from City e"
-          + City.WHERE_CLAUSE_COUNTRY_ID
-  )})
+    @NamedQuery(name = City.SIMPLE_SEARCH_QUERY_NAME,
+            query = "select e from City e"
+            + City.WHERE_CLAUSE
+    ),
+    @NamedQuery(name = City.SIMPLE_COUNT_QUERY_NAME,
+            query = "select count(e) from City e"
+            + City.WHERE_CLAUSE
+    ),
+    @NamedQuery(name = City.QUERY_CITIES_WITHIN_COUNTRY,
+            query = "select e from City e"
+            + City.WHERE_CLAUSE_CITIES_IN_COUNTRY
+    )})
 public class City extends BaseEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  /**
-   *
-   */
-  public static final String SIMPLE_SEARCH_QUERY_NAME = "City_simpleSearchQuery";
+    /**
+     *
+     */
+    public static final String SIMPLE_SEARCH_QUERY_NAME = "City_simpleSearchQuery";
 
-  /**
-   *
-   */
-  public static final String SIMPLE_COUNT_QUERY_NAME = "City_simpleSearchCount";
+    /**
+     *
+     */
+    public static final String SIMPLE_COUNT_QUERY_NAME = "City_simpleSearchCount";
 
-  /**
-   *
-   */
-  public static final String QUERY_CITIES_BY_COUNTRY_NAME = "City_queryByCountry";
+    /**
+     *
+     */
+    public static final String QUERY_CITIES_WITHIN_COUNTRY = "City_queryByCountry";
 
-  /**
-   *
-   */
-  public static final String WHERE_CLAUSE = " where "
-          + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
-          + " OR LOWER(e.countryName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
+    /**
+     *
+     */
+    public static final String WHERE_CLAUSE = " where "
+            + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+            + " OR LOWER(e.countryName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
-  /**
-   *
-   */
-  public static final String WHERE_CLAUSE_COUNTRY_ID = " where "
-          + " e.country.id= :" + BaseEntity.ID_PARAMETER
-          + " AND"
-          + " LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
-  /**
-   * Mirror field.
-   */
-  @Column(name = "COUNTRY_NAME")
-  private String countryName;
-  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "COUNTRY_ID")
-  private Country country;
+    /**
+     *
+     */
+    public static final String WHERE_CLAUSE_CITIES_IN_COUNTRY = " where "
+            + " e.country.id= :" + BaseEntity.ID_PARAMETER
+            + " AND"
+            + " LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
+    /**
+     * Mirror field.
+     */
+    @Column(name = "COUNTRY_NAME")
+    private String countryName;
+    
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "COUNTRY_ID")
+    private Country country;
 
-  /**
-   *
-   * @return
-   */
-  public String getCountryName() {
-    return countryName;
-  }
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "PROVINCE_ID")
+    private Province province;
 
-  /**
-   *
-   * @param countryName
-   */
-  public void setCountryName(String countryName) {
-    this.countryName = countryName;
-  }
-
-
-  /**
-   *
-   * @return
-   */
-  public Country getCountry() {
-    return country;
-  }
-
-  /**
-   *
-   * @param country
-   */
-  public void setCountry(Country country) {
-    this.country = country;
-    if (country != null) {
-      this.countryName = country.getName();
+    public Province getProvince() {
+        return province;
     }
-  }
 
-  @Override
-  public int hashCode() {
-    int hash = super.hashCode();
-    hash = 23 * hash + Objects.hashCode(this.countryName);
-    hash = 23 * hash + Objects.hashCode(this.country);
-    return hash;
-  }
+    public void setProvince(Province province) {
+        this.province = province;
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (!super.equals(obj)) {
-      return false;
+    /**
+     *
+     * @return
+     */
+    public String getCountryName() {
+        return countryName;
     }
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final City other = (City) obj;
-    if (!Objects.equals(this.countryName, other.countryName)) {
-      return false;
-    }
-    return Objects.equals(this.country, other.country);
-  }
 
-  @Override
-  public String toString() {
-    return "City{" + super.toString() + ", countryName=" + countryName + ", country=" + country + '}';
-  }
+    /**
+     *
+     * @param countryName
+     */
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Country getCountry() {
+        return country;
+    }
+
+    /**
+     *
+     * @param country
+     */
+    public void setCountry(Country country) {
+        this.country = country;
+        if (country != null) {
+            this.countryName = country.getName();
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = super.hashCode();
+        hash = 83 * hash + Objects.hashCode(this.country);
+        hash = 83 * hash + Objects.hashCode(this.province);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final City other = (City) obj;
+        if (!Objects.equals(this.country, other.country)) {
+            return false;
+        }
+        if (!Objects.equals(this.province, other.province)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "City{" + super.toString() + '}';
+    }
 
 }

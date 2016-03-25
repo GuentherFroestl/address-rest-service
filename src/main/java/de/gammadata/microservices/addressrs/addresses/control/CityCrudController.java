@@ -30,7 +30,7 @@ public class CityCrudController extends AbstractCrudController<City, City, Simpl
       throw new AddressServiceException(AddressServiceException.Error.VALIDATION, "CountryID must not be null to query cities within country");
     }
     TypedQuery<City> query;
-    query = getEm().createNamedQuery(City.QUERY_CITIES_BY_COUNTRY_NAME, City.class);
+    query = getEm().createNamedQuery(City.QUERY_CITIES_WITHIN_COUNTRY, City.class);
     query.setParameter(BaseEntity.ID_PARAMETER, querySpec.getRelatedId());
     String queryStr = "";
     if (querySpec.getQuery() != null) {

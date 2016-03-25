@@ -5,6 +5,7 @@ import de.gammadata.microservices.addressrs.addresses.control.StreetCrudControll
 import de.gammadata.microservices.addressrs.addresses.control.TestEntityProvider;
 import de.gammadata.microservices.addressrs.addresses.entity.City;
 import de.gammadata.microservices.addressrs.addresses.entity.Country;
+import de.gammadata.microservices.addressrs.addresses.entity.Province;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import de.gammadata.microservices.addressrs.addresses.entity.StreetBasics;
 import de.gammadata.microservices.addressrs.addresses.entity.ZipCode;
@@ -46,6 +47,7 @@ public class StreetResourceJpaTest extends AbstractEntityJpaTest {
   public void tearDown() {
     deleteEntities(Street.class, em);
     deleteEntities(City.class, em);
+    deleteEntities(Province.class, em);
     deleteEntities(ZipCode.class, em);
     deleteEntities(Country.class, em);
   }
