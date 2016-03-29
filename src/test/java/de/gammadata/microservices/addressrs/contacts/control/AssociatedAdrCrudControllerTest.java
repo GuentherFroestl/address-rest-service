@@ -25,77 +25,83 @@ import static org.mockito.Mockito.when;
  */
 public class AssociatedAdrCrudControllerTest extends AbstractCrudControllerTest<AssociatedBuildingAddress, SimpleQuerySpecification> {
 
-  private AssociatedAdrCrudController testee = spy(new AssociatedAdrCrudController());
+    private AssociatedAdrCrudController testee = spy(new AssociatedAdrCrudController());
 
-  /**
-   * Test of getBuildingAdrForContact method, of class AssociatedAdrCrudController.
-   */
-  @Before
-  @Override
-  public void setUp() {
-    super.setUp();
-    when(testee.getEm()).thenReturn(em);
-  }
-
-  @After
-  @Override
-  public void tearDown() {
-    if (em.getTransaction().isActive()) {
-      em.getTransaction().rollback();
+    /**
+     * Test of getBuildingAdrForContact method, of class
+     * AssociatedAdrCrudController.
+     */
+    @Before
+    @Override
+    public void setUp() {
+        super.setUp();
+        when(testee.getEm()).thenReturn(em);
     }
-    super.tearDown(); 
-  }
 
-  @Test
-  public void testGetBuildingAdrForContact() {
-    System.out.println("getBuildingAdrForContact");
-    em.getTransaction().begin();
-    //Create Contact
-    Contact contact = TestEntityProvider.createContact();
-    contact = em.merge(contact);
-    em.flush();
-    Assert.assertNotNull("contactId is null", contact.getId());
-    //Create address
-    Street street = TestEntityProvider.createAdressWithAllEntities();
-    street = em.merge(street);
-    em.flush();
-    Assert.assertNotNull("streetId is null", street.getId());
-    Assert.assertNotNull("no buildings in list", street.getBuildings());
-    Assert.assertFalse("no buildings in list", street.getBuildings().isEmpty());
-    Building building = street.getBuildings().get(0);
+    @After
+    @Override
+    public void tearDown() {
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+        super.tearDown();
+    }
 
-    AssociatedBuildingAddress assAdr = new AssociatedBuildingAddress();
-    assAdr.setContact(contact);
-    assAdr.setBuildingAddress(building);
-    assAdr = em.merge(assAdr);
-    em.flush();
-    Assert.assertNotNull("AssociatedBuildingAddress is null", assAdr.getId());
-    assAdr = em.find(AssociatedBuildingAddress.class, assAdr.getId());
-    assertEquals("Building Id does not match", building, assAdr.getBuildingAddress());
-    assertEquals("Contact Id does not match", contact, assAdr.getContact());
+    @Test
+    public void testGetBuildingAdrForContact() {
+        System.out.println("getBuildingAdrForContact");
+        em.getTransaction().begin();
+        //Create Contact
+        Contact contact = TestEntityProvider.createContact();
+        contact = em.merge(contact);
+        em.flush();
+        Assert.assertNotNull("contactId is null", contact.getId());
+        //Create address
+        Street street = TestEntityProvider.createAdressWithAllEntities();
+        street = em.merge(street);
+        em.flush();
+        Assert.assertNotNull("streetId is null", street.getId());
 
-    BaseQuerySpecification spec = new BaseQuerySpecification();
-    Long contactId = contact.getId();
-    List<AssociatedBasicAddress> result = testee.getBuildingAdrForContact(spec, contactId);
-    Assert.assertNotNull("AssociatedBuildingAddress list is null", result);
-    Assert.assertFalse("no AssociatedBuildingAddress in list", result.isEmpty());
-    assertEquals("AssociatedBuildingAddress ID don't match", assAdr.getId(), result.get(0).getId());
-    assertEquals("AssociatedBuildingAddress Contact-ID don't match", assAdr.getContact().getId(), result.get(0).getContactId());
-    assertEquals("AssociatedBuildingAddress Contact-ID don't match", assAdr.getBuildingAddress().getId(), result.get(0).getBuildingAdrId());
-    assertEquals("AssociatedBuildingAddress Contact-ID don't match", assAdr.getBuildingAddressText(), result.get(0).getBuildingAddressText());
-  }
+        Building bd = new Building();
+        bd.setName("Testbuilding");
+        bd.setNumber("1");
+        bd.setStreet(street);
+        bd = em.merge(bd);
+        em.flush();
+        Assert.assertNotNull("buildingId is null", bd.getId());
 
-  @Override
-  public AssociatedBuildingAddress createTestEntity() {
-    AssociatedBuildingAddress entity = new AssociatedBuildingAddress();
-    entity.setBuildingAddressText("this is a test address");
-    entity.setName("test entity");
-    return entity;
-  }
+        AssociatedBuildingAddress assAdr = new AssociatedBuildingAddress();
+        assAdr.setContact(contact);
+        assAdr.setBuildingAddress(bd);
+        assAdr = em.merge(assAdr);
+        em.flush();
+        Assert.assertNotNull("AssociatedBuildingAddress is null", assAdr.getId());
+        assAdr = em.find(AssociatedBuildingAddress.class, assAdr.getId());
+        assertEquals("Contact Id does not match", contact, assAdr.getContact());
 
-  @Override
-  public AbstractCrudController getTestee() {
-    return testee;
-  }
+        BaseQuerySpecification spec = new BaseQuerySpecification();
+        Long contactId = contact.getId();
+        List<AssociatedBasicAddress> result = testee.getBuildingAdrForContact(spec, contactId);
+        Assert.assertNotNull("AssociatedBuildingAddress list is null", result);
+        Assert.assertFalse("no AssociatedBuildingAddress in list", result.isEmpty());
+        assertEquals("AssociatedBuildingAddress ID don't match", assAdr.getId(), result.get(0).getId());
+        assertEquals("AssociatedBuildingAddress Contact-ID don't match", assAdr.getContact().getId(), result.get(0).getContactId());
+        Assert.assertNotNull("building is null", assAdr.getBuildingAddress());
+        assertEquals("AssociatedBuildingAddress Contact-ID don't match", assAdr.getBuildingAddress().getId(), result.get(0).getBuildingAdrId());
+        assertEquals("AssociatedBuildingAddress Contact-ID don't match", assAdr.getBuildingAddressText(), result.get(0).getBuildingAddressText());
+    }
+
+    @Override
+    public AssociatedBuildingAddress createTestEntity() {
+        AssociatedBuildingAddress entity = new AssociatedBuildingAddress();
+        entity.setBuildingAddressText("this is a test address");
+        entity.setName("test entity");
+        return entity;
+    }
+
+    @Override
+    public AbstractCrudController getTestee() {
+        return testee;
+    }
 
 }

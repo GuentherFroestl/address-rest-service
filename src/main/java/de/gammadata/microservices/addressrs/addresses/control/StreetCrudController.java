@@ -73,36 +73,6 @@ public class StreetCrudController extends AbstractCrudController<Street, StreetB
 
   /**
    *
-   * @param querySpec
-   * @return
-   */
-  public List<Building> findBuildings(EntityRelatedQuerySpec querySpec) {
-
-    if (querySpec == null || querySpec.getRelatedId() == 0) {
-      throw new AddressServiceException(AddressServiceException.Error.VALIDATION, "StreetID must not be null to query buildings");
-    }
-
-    TypedQuery<Building> query;
-    if (querySpec.getQuery() == null || querySpec.getQuery().isEmpty()) {
-      Street adr = getEntity(querySpec.getRelatedId());
-      if (adr != null) {
-        return adr.getBuildings();
-      } else {
-        return null;
-      }
-    } else {
-      query = getEm().createNamedQuery(Building.BUILDING_FOR_ADR_SEARCH_QUERY_NAME, Building.class);
-      query.setParameter(BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER, querySpec.getQuery().toLowerCase(Locale.GERMAN) + "%");
-      query.setParameter(Building.ADR_ID_QUERY_PARAMETER, querySpec.getRelatedId());
-    }
-    setQueryLimits(query, querySpec);
-    List<Building> results = query.getResultList();
-    return results;
-
-  }
-
-  /**
-   *
    * @return
    */
   @Override

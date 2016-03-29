@@ -70,27 +70,4 @@ public class StreetResource extends AbstractCrudResource<Street, StreetBasics, S
     EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(fkid, limit, start, query);
     return getCrudController().findStreetsInZipCode(querySpec);
   }
-
-  /**
-   * Query street within a city given by ID.
-   *
-   * @param streetid Long
-   * @param start Integer
-   * @param limit Integer
-   * @param query String
-   * @return List of StreetBasics
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Path(BUILDINGS_PATH)
-  public List<Building> queryStreets(
-          @PathParam("streetid") Long streetid,
-          @QueryParam("start") Integer start,
-          @QueryParam("limit") Integer limit,
-          @QueryParam("query") String query) {
-    EntityRelatedQuerySpec querySpec = new EntityRelatedQuerySpec(streetid, limit, start, query);
-    List<Building> result = getCrudController().findBuildings(querySpec);
-    return result;
-  }
 }

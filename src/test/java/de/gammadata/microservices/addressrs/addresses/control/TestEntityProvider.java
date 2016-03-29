@@ -50,14 +50,6 @@ public class TestEntityProvider {
      */
     public static Street createAdressWithAllEntities() {
         Street adrIn = createAddress();
-        adrIn.setBuildings(new ArrayList<Building>());
-        adrIn.getBuildings().add(createBuilding("1"));
-        adrIn.getBuildings().add(createBuilding("2"));
-        adrIn.getBuildings().add(createBuilding("3"));
-        adrIn.getBuildings().add(createBuilding("4"));
-        adrIn.getBuildings().add(createBuilding("5"));
-        adrIn.getBuildings().add(createBuilding("5a"));
-
         adrIn.setCity(createCityWithCountry());
         adrIn.setCountry(adrIn.getCity().getCountry());
         ZipCode zip = new ZipCode();

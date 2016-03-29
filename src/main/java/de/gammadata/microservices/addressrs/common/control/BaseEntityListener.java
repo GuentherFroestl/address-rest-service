@@ -13,6 +13,8 @@ import javax.persistence.PreUpdate;
  */
 public class BaseEntityListener {
 
+    public static final String FULLTEXT_SPACE_CHAR = " ";
+
     @Inject
     @EntityManagerQualifier(EntityManagerType.MULTI_TENANT)
     EntityManager em;

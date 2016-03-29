@@ -1,7 +1,6 @@
 package de.gammadata.microservices.addressrs.addresses.control;
 
 import de.gammadata.microservices.addressrs.common.control.BaseEntityListener;
-import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.addresses.entity.Street;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -20,7 +19,6 @@ public class StreetEntityListener extends BaseEntityListener {
   @PrePersist
   public void prePersist(Street entity) {
     super.prePersist(entity);
-    updateBuildings(entity);
     updateMirrorsFields(entity);
   }
 
@@ -31,17 +29,9 @@ public class StreetEntityListener extends BaseEntityListener {
   @PreUpdate
   public void preUpdate(Street entity) {
     super.preUpdate(entity);
-    updateBuildings(entity);
     updateMirrorsFields(entity);
   }
 
-  private void updateBuildings(Street entity) {
-    if (entity != null && entity.getBuildings() != null && !entity.getBuildings().isEmpty()) {
-      for (Building b : entity.getBuildings()) {
-        b.setStreet(entity);
-      }
-    }
-  }
 
   private void updateMirrorsFields(Street entity) {
     if (entity != null) {

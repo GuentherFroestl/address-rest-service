@@ -99,7 +99,6 @@ public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Stre
     System.out.println("testRelations()");
 
     Street adrCreated = TestEntityProvider.createAdressWithAllEntities();
-    int bCount = adrCreated.getBuildings().size();
 
     EntityTransaction tx = em.getTransaction();
     tx.begin();
@@ -119,31 +118,8 @@ public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Stre
 
     assertNotNull("unexpected null for getCity().getId()", res.getCity().getId());
     assertNotNull("unexpected null getZipCode().getId()", res.getZipCode().getId());
-    assertNotNull("unexpected null getBuildings()", res.getBuildings());
-    assertEquals("getBuildings().size() don't match", bCount, res.getBuildings().size());
+   
 
-    // Test buildings
-    List<Building> bList = testee.findBuildings(new EntityRelatedQuerySpec(res.getId()));
-    assertEquals("getBuildings().size() don't match", bCount, bList.size());
-
-    EntityRelatedQuerySpec query = new EntityRelatedQuerySpec(res.getId(),res.getBuildings().get(0).getNumber());
-    List<Building> bList2 = testee.findBuildings(query);
-    assertEquals("getBuildings().size() don't match", 1, bList2.size());
-
-    //Update Buildings
-    List<Building> bListNew = new ArrayList<>();
-    res.setBuildings(bListNew);
-    Building b1 = new Building();
-    b1.setName("name 1");
-    bListNew.add(b1);
-    Building b2 = new Building();
-    b2.setName("name 2");
-    bListNew.add(b2);
-    tx.begin();
-    testee.saveOrUpdateEntity(res);
-    tx.commit();
-    List<Building> bList3 = testee.findBuildings(new EntityRelatedQuerySpec(res.getId(),"name"));
-    assertEquals("getBuildings().size() don't match", 2, bList3.size());
   }
 
   @Override

@@ -81,7 +81,6 @@ public class StreetResourceRestArquillianIT extends StreetResourceRestStIT {
     System.out.println("saveOrUpdateAddress");
     //Create Street
     Street adrReq = TestEntityProvider.createAdressWithAllEntities();
-    int bCount = adrReq.getBuildings().size();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
@@ -109,8 +108,5 @@ public class StreetResourceRestArquillianIT extends StreetResourceRestStIT {
 
     assertNotNull("unexpected null for getCity().getId()", resGet.getCity().getId());
     assertNotNull("unexpected null getZipCode().getId()", resGet.getZipCode().getId());
-    Assert.assertNotNull("unexpected null getBuildings()", resGet.getBuildings());
-    Assert.assertEquals("getBuildings().size() don't match", bCount, resGet.getBuildings().size());
-    System.out.println(resGet.getBuildings());
   }
 }

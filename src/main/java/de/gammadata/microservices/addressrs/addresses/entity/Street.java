@@ -166,11 +166,6 @@ public class Street extends BaseEntity {
   @Column(name = "ZIPCODE_NAME")
   private String zipCodeName;
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "Street", cascade = CascadeType.ALL)
-  @PrivateOwned
-  private List<Building> buildings;
-
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "ZIPCODE_ID")
   private ZipCode zipCode;
@@ -197,22 +192,6 @@ public class Street extends BaseEntity {
    */
   public void setAdditionalName(String additionalName) {
     this.additionalName = additionalName;
-  }
-
-  /**
-   *
-   * @return
-   */
-  public List<Building> getBuildings() {
-    return buildings;
-  }
-
-  /**
-   *
-   * @param buildings
-   */
-  public void setBuildings(List<Building> buildings) {
-    this.buildings = buildings;
   }
 
   /**
