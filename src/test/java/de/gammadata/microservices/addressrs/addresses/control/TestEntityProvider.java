@@ -35,12 +35,14 @@ public class TestEntityProvider {
 
     /**
      *
-     * @param number
-     * @return
+     * @return Building
      */
-    public static Building createBuilding(String number) {
+    public static Building createBuilding() {
         Building b = new Building();
-        b.setNumber(number);
+        b.setNumber("buildingNumber");
+        b.setName("buildingName");
+        BuildingEntityListener listener = new BuildingEntityListener();
+        listener.prePersist(b);
         return b;
     }
 

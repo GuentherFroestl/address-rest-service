@@ -51,11 +51,13 @@ public class Building extends BaseEntity {
     public static final String ADR_ID_QUERY_PARAMETER = "Adr_id";
 
     public static final String WHERE_CLAUSE = " where "
-            + "LOWER(e.fullTextSearch) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
+            + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+            + " OR LOWER(e.number) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
-    public static final String STREET_WHERE_CLAUSE = " where "
+    public static final String STREET_WHERE_CLAUSE = " where ("
             + "LOWER(e.fullTextSearch) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
-            + "AND e.streetId = :" + ADR_ID_QUERY_PARAMETER;
+            + " OR LOWER(e.number) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+            + ") AND e.streetId = :" + ADR_ID_QUERY_PARAMETER;
 
     @Column(name = "NUMBER")
     private String number;

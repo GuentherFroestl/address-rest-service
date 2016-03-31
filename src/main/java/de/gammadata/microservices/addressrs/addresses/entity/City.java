@@ -1,7 +1,7 @@
 package de.gammadata.microservices.addressrs.addresses.entity;
 
 import de.gammadata.microservices.addressrs.common.entity.BaseEntity;
-import de.gammadata.microservices.addressrs.addresses.control.CityEntityListener;
+import de.gammadata.microservices.addressrs.common.control.BaseEntityListener;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,10 +19,10 @@ import javax.persistence.Table;
  * @author gfr
  */
 @Entity
-@EntityListeners({CityEntityListener.class})
+@EntityListeners({BaseEntityListener.class})
 @Table(indexes = {
     @Index(name = "CITY_NAME_IDX", columnList = "NAME"),
-    @Index(name = "CITY_COUNTRY_NAME_IDX", columnList = "COUNTRY_NAME")})
+    @Index(name = "CITY_COUNTRY_NAME_IDX", columnList = "INTERNATIONAL_NAME")})
 
 @NamedQueries({
     @NamedQuery(name = City.SIMPLE_SEARCH_QUERY_NAME,
@@ -61,20 +61,20 @@ public class City extends BaseEntity {
      */
     public static final String WHERE_CLAUSE = " where "
             + "LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
-            + " OR LOWER(e.countryName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
+            + " OR LOWER(e.internationalName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
 
     /**
      *
      */
     public static final String WHERE_CLAUSE_CITIES_IN_COUNTRY = " where "
             + " e.country.id= :" + BaseEntity.ID_PARAMETER
-            + " AND"
-            + " LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER;
-    /**
-     * Mirror field.
-     */
-    @Column(name = "COUNTRY_NAME")
-    private String countryName;
+            + " AND ("
+            + " LOWER(e.name) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+            + " OR LOWER(e.internationalName) like :" + BaseEntity.SIMPLE_SEARCH_QUERY_PARAMETER
+            +")";
+
+    @Column(name = "INTERNATIONAL_NAME")
+    private String internationalName;
     
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "COUNTRY_ID")
@@ -96,16 +96,16 @@ public class City extends BaseEntity {
      *
      * @return
      */
-    public String getCountryName() {
-        return countryName;
+    public String getInternationalName() {
+        return internationalName;
     }
 
     /**
      *
-     * @param countryName
+     * @param internationalName
      */
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setInternationalName(String internationalName) {
+        this.internationalName = internationalName;
     }
 
     /**
@@ -123,7 +123,7 @@ public class City extends BaseEntity {
     public void setCountry(Country country) {
         this.country = country;
         if (country != null) {
-            this.countryName = country.getName();
+            this.internationalName = country.getName();
         }
     }
 
