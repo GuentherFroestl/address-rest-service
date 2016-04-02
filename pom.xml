@@ -326,7 +326,7 @@
                         </executions>
                         <configuration>
                             <includes>
-                                <include>**/*PostgresStIT.java</include>
+                                <include>**/*PostgresIT.java</include>
                             </includes>
                         </configuration>
            

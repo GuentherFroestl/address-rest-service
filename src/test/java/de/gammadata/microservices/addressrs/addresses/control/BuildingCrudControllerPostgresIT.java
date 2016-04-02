@@ -5,7 +5,6 @@
  */
 package de.gammadata.microservices.addressrs.addresses.control;
 
-import static de.gammadata.microservices.addressrs.addresses.control.AbstractEntityJpaTest.em;
 import de.gammadata.microservices.addressrs.addresses.entity.Building;
 import de.gammadata.microservices.addressrs.common.control.AbstractCrudController;
 import de.gammadata.microservices.addressrs.common.entity.SimpleQuerySpecification;
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.when;
  *
  * @author gfr
  */
-public class BuildingCrudControllerJpaTest extends AbstractCrudControllerTest<Building, SimpleQuerySpecification> {
+public class BuildingCrudControllerPostgresIT extends AbstractCrudControllerPostrgresTest<Building, SimpleQuerySpecification> {
 
     private BuildingCrudController testee = spy(new BuildingCrudController());
 

@@ -60,8 +60,8 @@
             <property name="javax.persistence.jdbc.user" value="adrtest" />
             <property name="javax.persistence.jdbc.password" value="test" />
             <!-- EclipseLink should create the database schema automatically       -->
-            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
-            <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
             <property name="eclipselink.create-ddl-jdbc-file-name" value="postgres-create-script.sql"/>
             <property name="eclipselink.drop-ddl-jdbc-file-name" value="postgres-drop-script.sql"/>
 
