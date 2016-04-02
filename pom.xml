@@ -277,10 +277,10 @@
         </dependency>
     </dependencies>
 
-    <!-- run arquillian tests within the normal build -->
+    <!-- System tests angainst deployed artifact -->
     <profiles>
         <profile>
-            <id>system-tests</id>
+            <id>rest-tests</id>
             <build>
                 <plugins>
                     <plugin>
@@ -299,6 +299,34 @@
                         <configuration>
                             <includes>
                                 <include>**/*RestStIT.java</include>
+                            </includes>
+                        </configuration>
+           
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- tests against running postgres database, e.g. for fulltext search -->
+        <profile>
+            <id>postgres-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.19</version>
+                        <executions>
+                            <execution>
+                                <id>default-integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <includes>
+                                <include>**/*PostgresStIT.java</include>
                             </includes>
                         </configuration>
            

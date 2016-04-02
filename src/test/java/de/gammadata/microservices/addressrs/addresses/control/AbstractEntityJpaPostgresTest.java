@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
  *
  * @author gfr
  */
-public class AbstractEntityJpaTest {
+public class AbstractEntityJpaPostgresTest {
 
   protected static EntityManagerFactory emFactory;
   protected static EntityManager em;
@@ -26,7 +26,7 @@ public class AbstractEntityJpaTest {
   public static synchronized void setUpClass() {
     //Creating Entity Manager
     if (em == null) {
-      emFactory = Persistence.createEntityManagerFactory("addresstest");
+      emFactory = Persistence.createEntityManagerFactory("postgres_pu");
       em = emFactory.createEntityManager();
     }
   }
