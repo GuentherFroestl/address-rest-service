@@ -58,7 +58,7 @@ public class StreetResourceJpaTest extends AbstractEntityJpaTest {
   @Test
   public void testFindStreetsWithVariousMethods() {
     System.out.println("findStreetsInCity");
-    Street adrCreated = TestEntityProvider.createAdressWithAllEntities();
+    Street adrCreated = TestEntityProvider.createStreetWithAllRelations();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     Street result = testee.saveOrUpdateEntity(adrCreated);

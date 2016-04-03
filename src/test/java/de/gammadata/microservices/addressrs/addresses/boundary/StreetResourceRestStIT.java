@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -95,7 +96,7 @@ public class StreetResourceRestStIT extends AbstractResourceRestIT {
   public void testSaveOrUpdateAddress() {
     System.out.println("saveOrUpdateAddress");
     //Create Street
-    Street adrReq = TestEntityProvider.createAdressWithAllEntities();
+    Street adrReq = TestEntityProvider.createStreetWithAllRelations();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));
@@ -133,7 +134,7 @@ public class StreetResourceRestStIT extends AbstractResourceRestIT {
   public void testDeleteAddress() {
     System.out.println("deleteAddress");
     //Create Street
-    Street adrReq = TestEntityProvider.createAdressWithAllEntities();
+    Street adrReq = TestEntityProvider.createStreetWithAllRelations();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));

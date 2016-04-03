@@ -170,7 +170,7 @@ public class AdressesEntityJpaTest extends AbstractEntityJpaTest {
   public void testStreetRelations() {
     System.out.println("testRelations()");
 
-    Street adr = TestEntityProvider.createAdressWithAllEntities();
+    Street adr = TestEntityProvider.createStreetWithAllRelations();
 
     EntityTransaction tx = em.getTransaction();
     tx.begin();

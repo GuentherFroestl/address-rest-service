@@ -57,7 +57,7 @@ public class AssociatedAdrCrudControllerTest extends AbstractCrudControllerTest<
         em.flush();
         Assert.assertNotNull("contactId is null", contact.getId());
         //Create address
-        Street street = TestEntityProvider.createAdressWithAllEntities();
+        Street street = TestEntityProvider.createStreetWithAllRelations();
         street = em.merge(street);
         em.flush();
         Assert.assertNotNull("streetId is null", street.getId());

@@ -50,7 +50,7 @@ public class TestEntityProvider {
      *
      * @return
      */
-    public static Street createAdressWithAllEntities() {
+    public static Street createStreetWithAllRelations() {
         Street adrIn = createAddress();
         adrIn.setCity(createCityWithCountry());
         adrIn.setCountry(adrIn.getCity().getCountry());

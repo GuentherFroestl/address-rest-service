@@ -22,6 +22,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -56,7 +59,7 @@ public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Stre
   @Test
   public void testNativeQuery() {
     System.out.println("testNativeQuery()");
-    Street adrCreated = TestEntityProvider.createAdressWithAllEntities();
+    Street adrCreated = TestEntityProvider.createStreetWithAllRelations();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     Street result = testee.saveOrUpdateEntity(adrCreated);
@@ -98,7 +101,7 @@ public class StreetCrudControllerJpaTest extends AbstractCrudControllerTest<Stre
   public void testRelations() {
     System.out.println("testRelations()");
 
-    Street adrCreated = TestEntityProvider.createAdressWithAllEntities();
+    Street adrCreated = TestEntityProvider.createStreetWithAllRelations();
 
     EntityTransaction tx = em.getTransaction();
     tx.begin();

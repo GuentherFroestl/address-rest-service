@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -80,7 +81,7 @@ public class StreetResourceRestArquillianIT extends StreetResourceRestStIT {
     System.out.println("testRelations()");
     System.out.println("saveOrUpdateAddress");
     //Create Street
-    Street adrReq = TestEntityProvider.createAdressWithAllEntities();
+    Street adrReq = TestEntityProvider.createStreetWithAllRelations();
     Response response = webTarget
             .request(MediaType.APPLICATION_JSON_TYPE)
             .post(Entity.entity(adrReq, MediaType.APPLICATION_JSON_TYPE));

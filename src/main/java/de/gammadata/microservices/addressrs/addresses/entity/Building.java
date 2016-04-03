@@ -122,11 +122,16 @@ public class Building extends BaseEntity {
     }
 
     @Override
+    public String toString() {
+        return "Building{" + "fullTextSearch=" + fullTextSearch + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = super.hashCode();
-        hash = 97 * hash + Objects.hashCode(this.number);
-        hash = 97 * hash + Objects.hashCode(this.street);
-        hash = 97 * hash + Objects.hashCode(this.streetId);
+        hash = 89 * hash + Objects.hashCode(this.number);
+        hash = 89 * hash + Objects.hashCode(this.fullTextSearch);
+        hash = 89 * hash + Objects.hashCode(this.streetId);
         return hash;
     }
 
@@ -148,10 +153,13 @@ public class Building extends BaseEntity {
         if (!Objects.equals(this.number, other.number)) {
             return false;
         }
-        if (!Objects.equals(this.street, other.street)) {
+        if (!Objects.equals(this.fullTextSearch, other.fullTextSearch)) {
             return false;
         }
-        return Objects.equals(this.streetId, other.streetId);
+        if (!Objects.equals(this.streetId, other.streetId)) {
+            return false;
+        }
+        return true;
     }
 
 }
