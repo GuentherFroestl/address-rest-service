@@ -47,4 +47,14 @@
                 <netbeans.deploy.clientUrlPart>/api/healthcheck</netbeans.deploy.clientUrlPart>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-postgres-tests</actionName>
+            <displayName>postgres-tests</displayName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>postgres-tests</activatedProfile>
+            </activatedProfiles>
+        </action>
     </actions>
