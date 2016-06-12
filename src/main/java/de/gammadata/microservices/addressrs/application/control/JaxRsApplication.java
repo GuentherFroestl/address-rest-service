@@ -21,7 +21,8 @@ public class JaxRsApplication extends ResourceConfig {
   public JaxRsApplication() {
     super(
             JacksonFeature.class,
-            MyObjectMapperProvider.class);
+            MyObjectMapperProvider.class,
+            CORSFilter.class);
     packages(
             HealthResource.class.getPackage().getName(),
             StreetResource.class.getPackage().getName(),
